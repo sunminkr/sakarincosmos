@@ -112,7 +112,7 @@
       status.className = 'block p-3 text-sm bg-primary text-surface';
       status.textContent = SiteI18n.t('request.successBatch');
       form.reset();
-      closeTimer = setTimeout(dialog.close, 1800);
+      closeTimer = setTimeout(dialog.close, 5000);
     } catch (error) {
       status.className = 'block p-3 text-sm bg-red-950 text-red-100';
       status.textContent = error.message === 'Failed to fetch' ? SiteI18n.t('request.network') : error.message;

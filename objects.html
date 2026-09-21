@@ -97,15 +97,14 @@
 </div>
 <div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
 <span class="text-primary">02.</span>
-<span data-i18n="objects.step2">방문할 공연 선택</span>
+<span data-i18n="objects.step2">방문할 공연 선택 후 픽업 신청</span>
 </div>
 <div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
 <span class="text-primary">03.</span>
-<span data-i18n="objects.step3">공연 당일 현장 부스에서 예약자명 확인 후 수령</span>
+<span data-i18n="objects.step3">확인 메일 수령 후 공연 당일 결제·수령</span>
 </div>
 <div class="mt-2 pt-2 border-t border-outline-variant/30 flex justify-between items-center text-outline font-label-micro text-label-micro">
-<span data-i18n="objects.shippingFee">TRANSIT FEE: ₩0</span>
-<span data-i18n="objects.payment">PAYMENT: ON-SITE CASH / CARD</span>
+<span data-i18n="objects.payment">PAYMENT: ON-SITE CASH</span>
 </div>
 </div>
 </div>
@@ -158,7 +157,7 @@
           </span>
 <h3 class="font-headline-md text-headline-md text-on-surface" data-i18n="objects.pickupHeading">Upcoming Pickup Concerts &amp; Hand-off Booths</h3>
 </div>
-<span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">선택한 공연의 머치 부스에서 당일 보관됩니다</span>
+<span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">예약이 확정된 상품은 선택한 공연의 굿즈 부스에서 수령합니다</span>
 </div>
 <!-- Concert Selector Ledger Rows -->
 <div class="flex flex-col gap-space-xs" id="concert-selector-list">
@@ -170,14 +169,24 @@
 <div class="flex items-start gap-space-sm">
 <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
 <div class="flex flex-col">
-<p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">공연 당일 굿즈 부스에서 예약자 성함과 번호를 말씀해 주시면 바로 수령하실 수 있습니다.</p>
+<p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">확인 메일을 받은 뒤, 공연 당일 굿즈 부스에서 성함과 휴대폰 번호 뒤 4자리로 예약을 확인해 주세요.</p>
 </div>
 </div>
-<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button" data-i18n="objects.instructionButton">PICKUP INSTRUCTIONS</button>
+<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button" aria-expanded="false" aria-controls="pickup-instructions" data-i18n="objects.instructionButton">PICKUP INSTRUCTIONS</button>
+</div>
+<div id="pickup-instructions" class="pickup-instructions" hidden>
+<h4 class="font-headline-sm text-headline-sm text-on-surface" data-i18n="pickup.instructions.title">픽업 신청부터 수령까지</h4>
+<ol class="pickup-steps">
+<li><h5 data-i18n="pickup.instructions.step1.title">상품과 픽업 공연 선택</h5><p data-i18n="pickup.instructions.step1.body">원하는 상품과 수량을 고르고, 수령할 예정 공연을 선택해 주세요. 장바구니에서 여러 상품을 함께 신청할 수도 있습니다.</p></li>
+<li><h5 data-i18n="pickup.instructions.step2.title">신청 정보 입력 및 이메일 전송</h5><p data-i18n="pickup.instructions.step2.body">성함, 휴대폰 번호, 확인 메일을 받을 이메일 주소를 입력하고 개인정보 수집·이용에 동의한 뒤 신청 버튼을 눌러 주세요. 신청 내용이 담당자에게 이메일로 전송됩니다.</p></li>
+<li><h5 data-i18n="pickup.instructions.step3.title">확인 메일 수령 및 예약 내용 확인</h5><p data-i18n="pickup.instructions.step3.body">담당자가 상품과 픽업 가능 여부를 확인한 뒤 입력하신 이메일로 회신합니다. 확인 메일을 받으면 예약이 확정됩니다. 상품·수량·픽업 공연이 맞는지 확인하고, 메일이 보이지 않으면 스팸함도 확인해 주세요. 변경 사항은 확인 메일에 답장해 주세요.</p></li>
+<li><h5 data-i18n="pickup.instructions.step4.title">공연 당일 굿즈 부스 방문</h5><p data-i18n="pickup.instructions.step4.body">선택한 공연 당일, 공연장의 굿즈 부스를 방문해 주세요. 예약 내용을 확인할 수 있도록 받으신 확인 메일을 준비해 주세요.</p></li>
+<li><h5 data-i18n="pickup.instructions.step5.title">이름과 휴대폰 번호 뒤 4자리로 확인</h5><p data-i18n="pickup.instructions.step5.body">부스 담당자에게 신청할 때 입력한 성함과 휴대폰 번호 뒤 4자리를 알려 주세요. 담당자가 예약 내역과 수령하실 상품을 확인합니다.</p></li>
+<li><h5 data-i18n="pickup.instructions.step6.title">현장 결제 후 상품 수령</h5><p data-i18n="pickup.instructions.step6.body">상품과 수량, 결제 금액을 확인한 뒤 현장에서 결제해 주세요. 결제가 끝나면 상품을 수령하고, 신청하신 내용과 맞는지 확인해 주세요.</p></li>
+</ol>
 </div>
 </div>
 </section>
-<div id="pickup-instructions" class="px-margin-mobile md:px-margin-tablet lg:px-margin pb-space-lg text-body-md" hidden data-i18n="objects.instructions">공연 입장 후 굿즈 부스에서 예약자 성함과 연락처 뒷번호를 알려 주세요. 현장 결제 후 물품을 수령하실 수 있습니다.</div>
 <!-- Reservation Tray Drawer Modal (Dynamic inline trigger) -->
 <div class="fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 transform translate-y-full transition-transform duration-300 ease-in-out" id="reservation-tray">
 <div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">

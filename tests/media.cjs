@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-// Model the official Instagram SDK's iframe sizing so mobile overrides are exercised.
+// Model the official Instagram SDK's iframe sizing across phone and desktop layouts.
 const instagramSDK = `window.instgrm = { Embeds: { process() {
   document.querySelectorAll('blockquote.instagram-media').forEach(block => {
     const frame = document.createElement('iframe');
@@ -34,6 +34,13 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
       await page.locator(`${nav} [data-path="${target}"]`).click();
       await page.waitForURL(`${base}/${target === 'info' ? 'index.html#about' : `${target}.html`}`);
       await page.evaluate(() => SiteCart.ready);
+      if (target === 'info') {
+        await page.evaluate(async () => { await SiteMedia.ready; await document.fonts.ready; });
+        await page.waitForFunction(() => {
+          const top = document.getElementById('about').getBoundingClientRect().top;
+          return top >= 64 && top < innerHeight / 2;
+        });
+      }
       await noOverflow(`navigation ${target} ${width}px`);
     }
     await page.locator('.site-cart').click();
@@ -103,12 +110,10 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
     const preview = page.locator('.instagram-preview');
     const previewBox = await preview.boundingBox();
     const previewHeight = previewBox.height;
-    assert.ok(Math.abs(previewHeight - (width < 640 ? previewBox.width * 4 / 3 + 64 : 400)) < 1);
-    if (width < 640) {
-      const photo = await preview.locator('iframe').contentFrame().locator('.photo').boundingBox();
-      assert.ok(photo.y + photo.height <= previewBox.y + previewHeight, 'The full 3:4 photo must fit below the profile header');
-      assert.equal(await preview.evaluate(node => getComputedStyle(node, '::after').display), 'none', 'No gradient should obscure the photo');
-    }
+    assert.ok(Math.abs(previewHeight - (previewBox.width * 4 / 3 + 64)) < 1);
+    const photo = await preview.locator('iframe').contentFrame().locator('.photo').boundingBox();
+    assert.ok(photo.y + photo.height <= previewBox.y + previewHeight, `${width}px: the full 3:4 photo must fit below the profile header`);
+    assert.equal(await preview.evaluate(node => getComputedStyle(node, '::after').content), 'none', 'No gradient should obscure the photo');
     assert.equal(await preview.getAttribute('inert'), '');
     assert.doesNotMatch(await preview.locator('iframe').getAttribute('src'), /captioned/);
     const beforeHeight = (await page.locator('.media-card').boundingBox()).height;
@@ -125,6 +130,7 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
     assert.equal(await page.evaluate(() => document.activeElement.tagName === 'IFRAME'), false, 'Clipped iframe controls must not receive keyboard focus');
     await noOverflow(`Instagram ${width}px`);
     if (width === 390) await shot('instagram-embed-mobile');
+    if (width === 1440) await shot('instagram-embed-desktop');
 
     await go('transmissions');
     assert.equal(await page.locator('.media-card').count(), 3);
@@ -150,7 +156,7 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
   await popup.waitForURL('https://www.instagram.com/p/TestPhoto/');
   await popup.close();
   await context.unroute('https://www.instagram.com/p/TestPhoto/');
-  console.log('PASS Instagram preview: mobile portrait ratio, late resizing, keyboard focus and original-post link');
+  console.log('PASS Instagram preview: mobile and desktop portrait ratio, late resizing, keyboard focus and original-post link');
 
   delete config.entries['new-video'];
   await go('index');

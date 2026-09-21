@@ -2,7 +2,7 @@
   "shows": [
     {
       "date": "2026-09-19",
-      "venue": "빵",
+      "venue": "클럽 빵",
       "city": "서울 / 마포",
       "title": "그럼에도 계속되는 것",
       "startsAt": "18:30",
@@ -22,13 +22,13 @@
     },
     {
       "date": "2026-10-23",
-      "venue": "빵",
+      "venue": "클럽 빵",
       "city": "서울 / 마포",
       "title": "",
       "startsAt": null,
       "note": "",
       "id": "bbang-oct23",
-      "pickup": false,
+      "pickup": true,
       "translations": {
         "en": {
           "venue": "Club BBang",
@@ -48,7 +48,7 @@
       "startsAt": null,
       "note": "",
       "id": "sound-crue",
-      "pickup": false,
+      "pickup": true,
       "translations": {
         "en": {
           "city": "Japan / Sapporo"

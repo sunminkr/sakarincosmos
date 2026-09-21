@@ -7,6 +7,13 @@
 .concert-date { color: #bbc6e6; }
 .concert-closed { opacity: .5; cursor: default; }
 .concert-status { flex-shrink: 0; }
+.pickup-instructions { border-top: 1px solid #45464b; padding-top: 1.5rem; }
+.pickup-steps { list-style: decimal-leading-zero outside; margin: 1rem 0 0; padding-left: 2rem; }
+.pickup-steps li { padding: 1rem 0 1rem .5rem; border-bottom: 1px solid #45464b; }
+.pickup-steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+.pickup-steps li::marker { color: #bbc6e6; font: 13px/1.6 'JetBrains Mono', monospace; }
+.pickup-steps h5 { color: #e3e2e5; font-size: 1rem; font-weight: 600; line-height: 1.6; }
+.pickup-steps p { max-width: 70ch; margin-top: .5rem; color: #c6c6cd; font-size: .875rem; line-height: 1.85; overflow-wrap: anywhere; }
 #reservation-tray { padding-bottom: env(safe-area-inset-bottom); }
 #reservation-tray > div > div:last-child { flex-wrap: wrap; }
 #reservation-tray button { min-height: 44px; }

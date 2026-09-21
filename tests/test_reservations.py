@@ -29,9 +29,7 @@ class ReservationChecks(unittest.TestCase):
     def setUp(self):
         self.published_catalog = CATALOG_PATH.read_text(encoding='utf-8')
         catalog = json.loads(self.published_catalog)
-        # Availability and options are simulated without publishing unconfirmed details.
-        for show in catalog['shows']:
-            show['pickup'] = True
+        # Options are simulated without publishing unconfirmed product details.
         catalog['products'][0]['sizes'] = ['S', 'M', 'L', 'XL']
         catalog['products'].append({'id': 'test-no-options', 'name': 'Test item', 'price': 14000, 'sizes': []})
         catalog_patch = patch('reservation_service.CATALOG_PATH')
@@ -47,11 +45,24 @@ class ReservationChecks(unittest.TestCase):
             validate_reservation(data, datetime.fromisoformat('2026-09-19T15:00:00+00:00'))
         self.assertEqual(error.exception.status, 409)
 
-    def test_expired_unknown_and_unavailable_shows(self):
+    def test_published_pickup_availability(self):
         self.mocked_path.read_text.return_value = self.published_catalog
-        for show_id in ['bbang', 'missing-show', 'channel1969', 'ovantgarde', 'bbang-oct23', 'sound-crue']:
-            with self.subTest(show=show_id), self.assertRaises(ReservationError):
-                validate_reservation(request_data(showId=show_id), NOW)
+        items = [{'productId': 'logo-t-shirt', 'size': '', 'quantity': 1}]
+        for show_id in ['bbang-oct23', 'sound-crue']:
+            with self.subTest(show=show_id):
+                clean = validate_reservation(request_data(showId=show_id, items=items), NOW)
+                self.assertEqual(clean['show']['id'], show_id)
+                self.assertEqual(clean['total'], 25000)
+        for show_id in ['bbang', 'missing-show', 'channel1969', 'ovantgarde']:
+            with self.subTest(show=show_id), self.assertRaises(ReservationError) as error:
+                validate_reservation(request_data(showId=show_id, items=items), NOW)
+            self.assertEqual(error.exception.code, 'validation.show')
+        unavailable = json.loads(self.published_catalog)
+        unavailable['shows'][1]['pickup'] = False
+        self.mocked_path.read_text.return_value = json.dumps(unavailable)
+        with self.assertRaises(ReservationError) as error:
+            validate_reservation(request_data(items=items), NOW)
+        self.assertEqual(error.exception.code, 'validation.show')
 
     def test_canonical_prices_and_size_lines(self):
         clean = validate_reservation(request_data(price='1', total=1), NOW)
@@ -60,7 +71,7 @@ class ReservationChecks(unittest.TestCase):
         body = reservation_body(clean)
         self.assertIn('sakarin cosmos logo t-shirt / 사이즈 M × 2 · ₩50,000', body)
         self.assertIn('sakarin cosmos logo t-shirt / 사이즈 L × 1 · ₩25,000', body)
-        self.assertIn('2026-10-23 빵', body)
+        self.assertIn('2026-10-23 클럽 빵', body)
 
     def test_invalid_sizes_and_quantities(self):
         for item in [
@@ -119,6 +130,8 @@ class ReservationChecks(unittest.TestCase):
                 message = smtp.return_value.__enter__.return_value.send_message.call_args.args[0]
                 self.assertIn('사이즈 M × 2', message.get_content())
                 self.assertIn('사이즈 L × 1', message.get_content())
+                self.assertEqual(message['Reply-To'], 'test@example.com')
+                self.assertIn('신청자에게 확인 메일을 보내 주세요.', message.get_content())
         finally:
             server.shutdown()
             server.server_close()

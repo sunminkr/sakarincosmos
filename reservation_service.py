@@ -82,6 +82,9 @@ def reservation_body(reservation):
         f"픽업 공연: {show['date']} {show['venue']} ({show['city']})", '',
         f"신청자: {reservation['name']}", f"연락처: {reservation['phone']}",
         f"이메일: {reservation['email']}", '개인정보 수집·이용 동의: 확인',
-        f"요청 사항: {reservation['note'] or '없음'}"
+        f"요청 사항: {reservation['note'] or '없음'}", '',
+        '처리 안내: 상품과 픽업 가능 여부를 확인한 뒤 이 메일에 답장하여 신청자에게 확인 메일을 보내 주세요.',
+        '확인 메일에는 상품·수량·픽업 공연을 안내해 주세요. 확인 메일 수령 후 예약이 확정됩니다.',
+        '현장 수령 시 신청자 성함과 휴대폰 번호 뒤 4자리를 확인해 주세요.'
     ])
     return '\n'.join(lines)

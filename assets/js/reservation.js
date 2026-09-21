@@ -103,7 +103,7 @@
       success = true;
       SiteCart.removeSubmitted([item]);
       showStatus(SiteI18n.t('request.success'));
-      closeTimer = setTimeout(dialog.close, 1800);
+      closeTimer = setTimeout(dialog.close, 5000);
     } catch (error) {
       showStatus(error.message === 'Failed to fetch' ? SiteI18n.t('request.network') : error.message, true);
     } finally {

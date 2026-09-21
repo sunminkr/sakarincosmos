@@ -97,15 +97,14 @@
 </div>
 <div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
 <span class="text-primary">02.</span>
-<span data-i18n="objects.step2">参加する公演を選ぶ</span>
+<span data-i18n="objects.step2">受け取る公演を選んで申し込む</span>
 </div>
 <div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
 <span class="text-primary">03.</span>
-<span data-i18n="objects.step3">公演当日、物販で予約者名を伝えて受け取る</span>
+<span data-i18n="objects.step3">確認メールを受け取り、公演当日にお支払い・受け取り</span>
 </div>
 <div class="mt-2 pt-2 border-t border-outline-variant/30 flex justify-between items-center text-outline font-label-micro text-label-micro">
-<span data-i18n="objects.shippingFee">配送料：₩0</span>
-<span data-i18n="objects.payment">支払い：会場で現金・カード</span>
+<span data-i18n="objects.payment">支払い：会場で現金</span>
 </div>
 </div>
 </div>
@@ -158,7 +157,7 @@
           </span>
 <h3 class="font-headline-md text-headline-md text-on-surface" data-i18n="objects.pickupHeading">受け取り予約が可能な公演</h3>
 </div>
-<span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">選択した公演当日に物販でお取り置きします</span>
+<span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">予約が確定した商品は、選択した公演の物販でお受け取りください</span>
 </div>
 <!-- Concert Selector Ledger Rows -->
 <div class="flex flex-col gap-space-xs" id="concert-selector-list">
@@ -170,14 +169,24 @@
 <div class="flex items-start gap-space-sm">
 <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
 <div class="flex flex-col">
-<p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">公演当日、物販で予約者のお名前と電話番号をお伝えください。</p>
+<p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">確認メールを受け取った後、公演当日に物販でお名前と携帯電話番号の下4桁をお伝えください。</p>
 </div>
 </div>
-<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button" data-i18n="objects.instructionButton">受け取り方法</button>
+<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button" aria-expanded="false" aria-controls="pickup-instructions" data-i18n="objects.instructionButton">受け取り方法</button>
+</div>
+<div id="pickup-instructions" class="pickup-instructions" hidden>
+<h4 class="font-headline-sm text-headline-sm text-on-surface" data-i18n="pickup.instructions.title">申し込みから受け取りまで</h4>
+<ol class="pickup-steps">
+<li><h5 data-i18n="pickup.instructions.step1.title">商品と受け取る公演を選ぶ</h5><p data-i18n="pickup.instructions.step1.body">希望する商品・数量と、受け取る予定の公演を選んでください。カートからまとめて申し込むこともできます。</p></li>
+<li><h5 data-i18n="pickup.instructions.step2.title">申込情報を入力してメールを送信する</h5><p data-i18n="pickup.instructions.step2.body">お名前、携帯電話番号、確認メールを受け取るメールアドレスを入力し、個人情報の取り扱いに同意して申込ボタンを押してください。申込内容が担当者にメールで送信されます。</p></li>
+<li><h5 data-i18n="pickup.instructions.step3.title">確認メールを受け取り、予約内容を確認する</h5><p data-i18n="pickup.instructions.step3.body">担当者が商品と受け取りの可否を確認し、入力されたメールアドレスに返信します。この確認メールを受け取ると予約が確定します。商品・数量・受け取る公演が正しいか確認してください。メールが見当たらない場合は迷惑メールフォルダもご確認ください。変更がある場合は確認メールに返信してください。</p></li>
+<li><h5 data-i18n="pickup.instructions.step4.title">公演当日に物販へ行く</h5><p data-i18n="pickup.instructions.step4.body">選択した公演の当日、会場の物販へお越しください。予約内容を確認できるよう、受け取った確認メールをご用意ください。</p></li>
+<li><h5 data-i18n="pickup.instructions.step5.title">名前と携帯電話番号の下4桁を伝える</h5><p data-i18n="pickup.instructions.step5.body">申込時のお名前と携帯電話番号の下4桁を物販スタッフにお伝えください。スタッフが予約内容とお渡しする商品を確認します。</p></li>
+<li><h5 data-i18n="pickup.instructions.step6.title">会場で支払い、商品を受け取る</h5><p data-i18n="pickup.instructions.step6.body">商品・数量・お支払い金額を確認して、会場でお支払いください。お支払い後に商品を受け取り、申し込んだ内容と合っているかご確認ください。</p></li>
+</ol>
 </div>
 </div>
 </section>
-<div id="pickup-instructions" class="px-margin-mobile md:px-margin-tablet lg:px-margin pb-space-lg text-body-md" hidden data-i18n="objects.instructions">ご入場後、物販で予約者のお名前と電話番号の下桁をお伝えください。会場でのお支払い後、商品をお渡しします。</div>
 <!-- Reservation Tray Drawer Modal (Dynamic inline trigger) -->
 <div class="fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 transform translate-y-full transition-transform duration-300 ease-in-out" id="reservation-tray">
 <div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">

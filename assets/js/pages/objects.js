@@ -81,8 +81,10 @@
       item.style.display = button.dataset.category === 'all' || item.dataset.itemCategory === button.dataset.category ? 'flex' : 'none';
     });
   }));
-  document.getElementById('confirm-intent-btn').addEventListener('click', () => {
-    document.getElementById('pickup-instructions').hidden = !document.getElementById('pickup-instructions').hidden;
+  document.getElementById('confirm-intent-btn').addEventListener('click', event => {
+    const instructions = document.getElementById('pickup-instructions');
+    instructions.hidden = !instructions.hidden;
+    event.currentTarget.setAttribute('aria-expanded', String(!instructions.hidden));
   });
   window.addEventListener('schedulechange', renderShows);
   renderShows();

@@ -14,6 +14,14 @@ module.exports = async ({ page, context, base, go, noOverflow, shot }) => {
         return node.textContent.trim() !== SiteI18n.t(node.dataset.i18n).trim();
       }).map(node => node.dataset.i18n));
       assert.deepEqual(hooks, [], `${directory}${name}: translated copy`);
+      if (name === 'objects') {
+        assert.equal(await page.locator('#pickup-instructions').isVisible(), false);
+        await page.locator('#confirm-intent-btn').click();
+        assert.equal(await page.locator('#confirm-intent-btn').getAttribute('aria-expanded'), 'true');
+        assert.equal(await page.locator('#pickup-instructions').isVisible(), true);
+        assert.equal(await page.locator('#pickup-instructions ol > li').count(), 6);
+        assert.equal(await page.locator('.pickup-steps').evaluate(el => getComputedStyle(el).listStyleType), 'decimal-leading-zero');
+      }
       for (const width of [320, 390, 430, 768, 1280, 1440]) {
         await page.setViewportSize({ width, height: 844 });
         await noOverflow(`${directory}${name} ${width}px`);
@@ -24,6 +32,10 @@ module.exports = async ({ page, context, base, go, noOverflow, shot }) => {
           assert.ok(box.x >= 0 && box.x + box.width <= width && box.y >= 0 && box.y + box.height <= 64);
         }
         if (width === 390 && name === 'index') await shot(`${locale}-home-mobile`);
+        if (width === 390 && name === 'objects') {
+          await page.locator('#pickup-instructions').evaluate(el => el.scrollIntoView({ block: 'start' }));
+          await shot(`${locale}-pickup-instructions-mobile`);
+        }
       }
       if (name === 'index') {
         const bio = await page.evaluate(() => SiteI18n.t('band.bio'));
@@ -34,6 +46,12 @@ module.exports = async ({ page, context, base, go, noOverflow, shot }) => {
       }
       if (locale !== 'ko' && name === 'objects') {
         assert.doesNotMatch(await page.locator('#concert-selector-list').textContent(), /[가-힣]/);
+        assert.doesNotMatch(await page.locator('#pickup-instructions').textContent(), /[가-힣]/);
+      }
+      if (name === 'objects') {
+        await page.locator('#confirm-intent-btn').click();
+        assert.equal(await page.locator('#confirm-intent-btn').getAttribute('aria-expanded'), 'false');
+        assert.equal(await page.locator('#pickup-instructions').isVisible(), false);
       }
     }
   }

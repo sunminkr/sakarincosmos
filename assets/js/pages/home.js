@@ -1,3 +1,43 @@
+// Keep INFO on the introduction while content above it finishes loading.
+// Native fragment scrolling alone does not follow these changes in every browser.
+(() => {
+  const about = document.getElementById('about');
+  let following = false;
+  let frame;
+  const align = () => {
+    if (!following) return;
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      if (following && location.hash === '#about') about.scrollIntoView({ block: 'start', behavior: 'instant' });
+    });
+  };
+  const changes = new ResizeObserver(align);
+  const stop = () => {
+    following = false;
+    changes.disconnect();
+    cancelAnimationFrame(frame);
+  };
+  const follow = () => {
+    stop();
+    if (location.hash !== '#about') return;
+    following = true;
+    changes.observe(document.querySelector('main'));
+    align();
+  };
+  window.addEventListener('hashchange', follow);
+  window.addEventListener('pageshow', align);
+  // Repeated INFO clicks keep working even when the fragment is already #about.
+  document.addEventListener('click', event => {
+    if (event.button === 0 && !event.defaultPrevented && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
+      && event.target.closest('a[data-path="info"]')) follow();
+  });
+  ['wheel', 'touchstart', 'pointerdown'].forEach(type => window.addEventListener(type, stop, { passive: true }));
+  window.addEventListener('keydown', event => {
+    if (['Tab', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) stop();
+  });
+  follow();
+})();
+
 (async () => {
   await SiteCatalog.ready;
   function renderShows() {

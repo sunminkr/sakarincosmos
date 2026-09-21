@@ -85,27 +85,34 @@ const { chromium } = require('playwright');
     assert.deepEqual(await page.locator('.timeline-filter').allTextContents(), ['ALL 03', 'UPCOMING 02', 'PAST 01']);
     await page.locator('[data-date="2026-09-19"]').click();
     assert.match(await page.locator('#selected-event').textContent(), /그럼에도 계속되는 것/);
+    assert.match(await page.locator('#selected-event').textContent(), /클럽 빵/);
     assert.match(await page.locator('#selected-event').textContent(), /공연 시작18:30/);
     await page.locator('#next-month').click();
     await page.locator('[data-date="2026-10-23"]').click();
     assert.match(await page.locator('#selected-event').textContent(), /공연명 미정/);
     assert.match(await page.locator('#selected-event').textContent(), /시간 미정/);
-    assert.equal(await page.locator('#selected-event a').count(), 0);
+    assert.match(await page.locator('#selected-event a').getAttribute('href'), /show=bbang-oct23/);
     await page.locator('#next-month').click();
     await page.locator('#next-month').click();
     await page.locator('[data-date="2026-12-26"]').click();
     assert.match(await page.locator('#selected-event').textContent(), /Sound Crue/);
     assert.match(await page.locator('#selected-event').textContent(), /일본 \/ 삿포로/);
+    assert.match(await page.locator('#selected-event a').getAttribute('href'), /show=sound-crue/);
     await go('index');
     assert.deepEqual(await page.locator('#home-shows time').evaluateAll(nodes => nodes.map(node => node.dateTime)),
       ['2026-10-23', '2026-12-26']);
     assert.match(await page.locator('#home-shows').textContent(), /시간 미정/);
+    assert.match(await page.locator('#home-shows').textContent(), /클럽 빵/);
+    assert.equal(await page.locator('#home-shows a').count(), 2);
     assert.deepEqual(await page.locator('#home-products h3').allTextContents(), ['sakarin cosmos logo t-shirt']);
     assert.equal(await page.locator('#home-products img, #home-products [style*="background-image"]').count(), 0);
     assert.match(await page.locator('#home-products').textContent(), /₩25,000/);
     await go('objects');
-    assert.equal(await page.locator('.reserve-btn:not(:disabled)').count(), 0);
-    console.log('PASS published schedule: three confirmed shows, start time, unknown details, no unconfirmed pickups');
+    assert.equal(await page.locator('.reserve-btn:not(:disabled)').count(), 1);
+    assert.deepEqual(await page.locator('[name="pickup_show"]:enabled').evaluateAll(nodes => nodes.map(node => node.value)), ['bbang-oct23', 'sound-crue']);
+    assert.equal(await page.locator('[name="pickup_show"][value="bbang"]').isDisabled(), true);
+    assert.match(await page.locator('#concert-selector-list').textContent(), /클럽 빵/);
+    console.log('PASS published schedule: Korean venue name, three shows, two upcoming pickups and closed past show');
 
     assert.deepEqual(await page.locator('.catalog-item h2').allTextContents(), ['sakarin cosmos logo t-shirt']);
     assert.equal(await page.locator('#catalog-grid img, #catalog-grid [style*="background-image"]').count(), 0);
@@ -125,9 +132,8 @@ const { chromium } = require('playwright');
     await page.evaluate(() => SiteCart.clear());
     console.log('PASS merchandise: one logo T-shirt, blank images, no invented options, removed demo cart entries');
 
-    // Sizes, pickup availability and a size-free item exist only in this test fixture.
+    // Sizes and an extra size-free item exist only in this test fixture.
     const pickupCatalog = JSON.parse(await fs.readFile(path.join(root, 'data/catalog.json'), 'utf8'));
-    pickupCatalog.shows.forEach(show => { show.pickup = true; });
     pickupCatalog.products[0].sizes = ['S', 'M', 'L', 'XL'];
     pickupCatalog.products.push({ id: 'test-no-options', name: 'Test item', price: 14000, sizes: [] });
     const mockPickupCatalog = route => route.fulfill({ json: pickupCatalog });
@@ -312,6 +318,7 @@ const { chromium } = require('playwright');
     assert.deepEqual(dictionaries[0], dictionaries[2]);
     assert.equal(await page.evaluate(() => new URL(SiteI18n.href('objects', 'ja')).pathname), '/jp/objects.html');
     await require('./i18n.cjs')({ page, context, base, go, noOverflow, shot });
+    await require('./info.cjs')({ browser, base });
     await require('./media.cjs')({ page, context, base, go, noOverflow, shot });
     assert.deepEqual(errors, [], 'Browser JavaScript errors');
     console.log('All browser checks passed; reservation emails were mocked.');

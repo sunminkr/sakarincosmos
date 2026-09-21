@@ -97,15 +97,14 @@
 </div>
 <div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
 <span class="text-primary">02.</span>
-<span data-i18n="objects.step2">Select the show you will attend</span>
+<span data-i18n="objects.step2">Choose your show and send a pickup request</span>
 </div>
 <div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
 <span class="text-primary">03.</span>
-<span data-i18n="objects.step3">Collect it at the merchandise booth under your reservation name</span>
+<span data-i18n="objects.step3">Receive confirmation, then pay and collect at the show</span>
 </div>
 <div class="mt-2 pt-2 border-t border-outline-variant/30 flex justify-between items-center text-outline font-label-micro text-label-micro">
-<span data-i18n="objects.shippingFee">SHIPPING FEE: ₩0</span>
-<span data-i18n="objects.payment">PAYMENT: CASH / CARD AT THE VENUE</span>
+<span data-i18n="objects.payment">PAYMENT: CASH AT THE VENUE</span>
 </div>
 </div>
 </div>
@@ -158,7 +157,7 @@
           </span>
 <h3 class="font-headline-md text-headline-md text-on-surface" data-i18n="objects.pickupHeading">Upcoming Pickup Shows</h3>
 </div>
-<span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">Held at the merchandise booth on the day of your selected show</span>
+<span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">Collect confirmed reservations at the merchandise booth of your chosen show</span>
 </div>
 <!-- Concert Selector Ledger Rows -->
 <div class="flex flex-col gap-space-xs" id="concert-selector-list">
@@ -170,14 +169,24 @@
 <div class="flex items-start gap-space-sm">
 <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
 <div class="flex flex-col">
-<p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">At the show, give your reservation name and phone number at the merchandise booth to collect your items.</p>
+<p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">After receiving your confirmation email, give your name and the last four digits of your mobile number at the merchandise booth on the day of the show.</p>
 </div>
 </div>
-<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button" data-i18n="objects.instructionButton">PICKUP INSTRUCTIONS</button>
+<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button" aria-expanded="false" aria-controls="pickup-instructions" data-i18n="objects.instructionButton">PICKUP INSTRUCTIONS</button>
+</div>
+<div id="pickup-instructions" class="pickup-instructions" hidden>
+<h4 class="font-headline-sm text-headline-sm text-on-surface" data-i18n="pickup.instructions.title">From pickup request to collection</h4>
+<ol class="pickup-steps">
+<li><h5 data-i18n="pickup.instructions.step1.title">Choose your items and pickup show</h5><p data-i18n="pickup.instructions.step1.body">Choose your items, quantities, and the upcoming show where you want to collect them. You can also submit items together from your cart.</p></li>
+<li><h5 data-i18n="pickup.instructions.step2.title">Enter your details and send the request</h5><p data-i18n="pickup.instructions.step2.body">Enter your name, mobile number, and the email address where you want to receive confirmation. Agree to the privacy terms and press the submit button. Your request will be emailed to the organizer.</p></li>
+<li><h5 data-i18n="pickup.instructions.step3.title">Receive and check your confirmation email</h5><p data-i18n="pickup.instructions.step3.body">The organizer will check item and pickup availability, then reply to the email address you entered. Your reservation is confirmed when you receive this email. Check the items, quantities, and pickup show. If you cannot find the email, check your spam folder too. Reply to the confirmation email if you need to make changes.</p></li>
+<li><h5 data-i18n="pickup.instructions.step4.title">Visit the merchandise booth on the day</h5><p data-i18n="pickup.instructions.step4.body">Visit the merchandise booth at your chosen show. Have your confirmation email ready so you can check your reservation details.</p></li>
+<li><h5 data-i18n="pickup.instructions.step5.title">Confirm your name and mobile number</h5><p data-i18n="pickup.instructions.step5.body">Tell the booth staff the name you used for the request and the last four digits of your mobile number. They will check your reservation and the items to be collected.</p></li>
+<li><h5 data-i18n="pickup.instructions.step6.title">Pay at the venue and collect your items</h5><p data-i18n="pickup.instructions.step6.body">Check the items, quantities, and amount due, then pay at the booth. Collect your items after payment and make sure they match your request.</p></li>
+</ol>
 </div>
 </div>
 </section>
-<div id="pickup-instructions" class="px-margin-mobile md:px-margin-tablet lg:px-margin pb-space-lg text-body-md" hidden data-i18n="objects.instructions">After entering the venue, give your reservation name and the last digits of your phone number at the merchandise booth. Pay there to collect your items.</div>
 <!-- Reservation Tray Drawer Modal (Dynamic inline trigger) -->
 <div class="fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 transform translate-y-full transition-transform duration-300 ease-in-out" id="reservation-tray">
 <div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
