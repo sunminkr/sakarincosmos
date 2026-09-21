@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<script src="../site.js" defer></script>
+<script src="../cart-store.js" defer></script>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary": "#27313e", "on-error-container": "#ffdad6", "on-primary": "#253049", "on-surface-variant": "#c6c6ce", "secondary-fixed": "#d9e3f4", "secondary": "#bdc7d7", "surface-dim": "#121315", "surface-container-low": "#1b1c1e", "tertiary": "#b8c6f0", "surface-container-high": "#292a2c", "on-tertiary": "#212f51", "on-primary-container": "#323d57", "on-secondary-container": "#acb6c6", "secondary-container": "#3e4755", "surface-container-highest": "#343537", "surface-container-lowest": "#0d0e10", "on-tertiary-fixed": "#0a1a3b", "surface-variant": "#343537", "error-container": "#93000a", "background": "#121315", "on-surface": "#e3e2e4", "on-background": "#e3e2e4", "surface-container": "#1f2022", "on-primary-fixed": "#0f1b33", "outline": "#8f9098", "surface": "#121315", "primary-container": "#9da8c7", "primary-fixed-dim": "#bbc6e6", "tertiary-container": "#9aa8d0", "inverse-surface": "#e3e2e4", "outline-variant": "#45464d", "on-tertiary-fixed-variant": "#384669", "inverse-primary": "#535e7a", "surface-bright": "#38393b", "error": "#ffb4ab", "on-error": "#690005", "on-primary-fixed-variant": "#3b4661", "primary": "#bbc6e6", "on-secondary-fixed-variant": "#3e4755", "on-secondary-fixed": "#121c28", "tertiary-fixed-dim": "#b8c6f0", "tertiary-fixed": "#d9e2ff", "surface-tint": "#bbc6e6", "primary-fixed": "#d9e2ff", "inverse-on-surface": "#303032", "secondary-fixed-dim": "#bdc7d7", "on-tertiary-container": "#2f3d5f" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "3rem", "space-xl": "3rem", "space-md": "1rem", "gutter-mobile": "0.75rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "gutter": "1.25rem", "space-lg": "1.75rem", "space-sm": "0.5rem" }, "fontFamily": { "label-code": [ "JetBrains Mono" ], "label-catalog": [ "JetBrains Mono" ], "body-lg": [ "Noto Sans" ], "label-micro": [ "JetBrains Mono" ], "display-hero-mobile": [ "EB Garamond" ], "headline-lg-mobile": [ "EB Garamond" ], "body-sm": [ "Noto Sans" ], "headline-md": [ "EB Garamond" ], "headline-lg": [ "EB Garamond" ], "body-md": [ "Noto Sans" ], "display-hero": [ "EB Garamond" ], "headline-sm": [ "EB Garamond" ] }, "fontSize": { "label-code": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "400" } ], "label-catalog": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "500" } ], "body-lg": [ "16px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "300" } ], "label-micro": [ "9px", { "lineHeight": "12px", "letterSpacing": "0.18em", "fontWeight": "400" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-md": [ "14px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "300" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-sm": [ "19px", { "lineHeight": "26px", "letterSpacing": "0.02em", "fontWeight": "500" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-surface"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md"><div class="h-16 w-full px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-fit"><a class="group flex flex-col items-start leading-none" data-path="transmissions" href="#"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">SAKARIN COSMOS</span><span class="font-label-micro text-label-micro text-outline flex items-center gap-space-xs mt-0.5"><span>✦ RA 05h 35m</span><span>·</span><span>DEC -05°23′</span><span class="hidden sm:inline text-outline-variant">[SEOUL ARCHIVE]</span></span></a></div><nav class="hidden lg:flex items-center gap-space-lg font-label-catalog text-label-catalog uppercase tracking-widest" data-active-classes="text-on-surface border-b border-primary font-medium"><a aria-current="page" class="py-1 transition-colors text-on-surface border-b border-primary font-medium" data-path="transmissions" href="#">TRANSMISSIONS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="observations" href="#">OBSERVATIONS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="archive" href="#">ARCHIVE</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="objects" href="#">OBJECTS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="info" href="#">INFO</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-sm text-outline"><a aria-label="Instagram" class="p-1.5 hover:text-on-surface transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><rect height="20" rx="0" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a aria-label="YouTube" class="p-1.5 hover:text-on-surface transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a><a aria-label="SoundCloud" class="p-1.5 hover:text-on-surface transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3"></path></svg></a></div><div class="h-4 w-px bg-surface-container-highest hidden sm:block"></div><a aria-label="Manifest Register" class="flex items-center gap-1.5 px-2 py-1 font-label-code text-label-code text-on-surface-variant hover:text-on-surface transition-colors" data-path="reserve-ledger" href="#"><span class="material-symbols-outlined text-[17px]">shopping_bag</span><span class="font-label-code text-label-code text-primary">[0]</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Archival Register & Meta Index Bar -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin pt-space-lg pb-space-md bg-surface-dim border-b border-outline-variant/30">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-sm font-label-micro text-label-micro text-outline tracking-widest uppercase">
+<span class="text-primary font-bold">✦ LOG.TRANS.088</span>
+<span>·</span>
+<span>SEOUL ARCHIVE VOL. IV</span>
+<span>·</span>
+<span class="text-secondary">INDEX STATUS: UNRESTRICTED</span>
+</div>
+<div class="flex items-baseline gap-space-md">
+<h1 class="font-display-hero text-headline-lg md:text-display-hero text-on-surface tracking-tight lowercase">transmissions</h1>
+<span class="font-headline-sm text-headline-sm text-outline-variant font-light">(발신 기록)</span>
+</div>
+<p class="font-headline-sm text-headline-sm italic text-secondary-fixed-dim">
+          sound that left this place. <span class="text-outline text-body-sm not-italic font-body-sm ml-2">(이곳을 떠난 소리들)</span>
+</p>
+</div>
+<div class="max-w-md bg-surface-container-lowest p-space-sm border-l-2 border-primary/40 space-y-space-xs">
+<div class="flex items-center justify-between font-label-catalog text-label-catalog text-outline">
+<span>SIGNAL MEDIUM</span>
+<span>ANALOG / NO ALGO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Recorded on cassette, 4-track magnetic tape, basement room microphones, and live club soundboards. Unmastered room spill, physical tape flutter, and raw voltage.
+        </p>
+</div>
+</div>
+</section>
+<!-- Filter Ribbon & Frequency Calibration Header -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md bg-surface-container-lowest sticky top-16 z-40 backdrop-blur-md bg-opacity-90 flex flex-wrap items-center justify-between gap-space-md border-b border-outline-variant/20">
+<div class="flex items-center gap-space-xs font-label-code text-label-code overflow-x-auto py-1" id="filter-container">
+<button class="filter-btn px-3 py-1.5 bg-primary text-on-primary font-medium transition-colors" data-filter="all">
+        [ALL / 전체 06]
+      </button>
+<button class="filter-btn px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-filter="music">
+        [MUSIC / 음악]
+      </button>
+<button class="filter-btn px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-filter="video">
+        [VIDEO / 영상]
+      </button>
+<button class="filter-btn px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-filter="live">
+        [LIVE / 실황]
+      </button>
+<button class="filter-btn px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-filter="demo">
+        [DEMO / 미완]
+      </button>
+</div>
+<!-- Analog Frequency Counter Micro UI -->
+<div class="hidden sm:flex items-center gap-space-md font-label-micro text-label-micro text-outline">
+<div class="flex items-center gap-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span>REC DECK MONITORING</span>
+</div>
+<div class="text-outline-variant">BIAS: TYPE II CrO2</div>
+<div class="text-primary font-label-code text-label-code tracking-wider">3¾ IPS / STEREO</div>
+</div>
+</section>
+<!-- Catalog Main Ledger Grid -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg" id="transmissions-grid">
+<!-- CARD 1: LIVE BBang -->
+<article class="transmission-card group flex flex-col bg-surface-container-low hover:bg-surface-container transition-all duration-200" data-category="live">
+<!-- Physical Cassette J-Card Header Plate -->
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs font-label-catalog text-label-catalog text-primary tracking-widest">
+<span>⚬ ARCHIVE #091</span>
+<span>·</span>
+<span class="text-secondary font-medium">LIVE TAPE</span>
+</div>
+<span class="font-label-code text-label-code text-outline">05:24</span>
+</div>
+<!-- Visual Media Reel Frame -->
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="High contrast low light monochrome photography of an underground rock club stage in Seoul, smoky basement venue with microphone silhouette, vintage tape reel spools glowing faintly in dark red ambient backlight, film grain and dust texture, analog concert atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjE53XvVEZiKN-6aPa7DKnqXKW0d0i7skwIkcTzJKs7wja8THRCFo44WfCvJ2w2aNyk3XU3t63YM1xZOWJY-OeCtlr6qCZ7XCi6LFP5ygHABHC8kGgcoTvR5Y2PgOEe0LWRSZb4vPOmjWYcbMTZ0n6TBmDg3iBjC083gGTYcCQzZxjlJGvf8T0S2g9vEVyXHmAWsUhkIYV27WzTZeOnpNXQfBvIKhfX8R-b0WfQE5D3gAXwTVqKRIUJA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<!-- Cassette Spool Watermark Overlay -->
+<div class="absolute top-space-sm right-space-sm flex items-center gap-2 px-2 py-1 bg-surface-container-lowest/80 backdrop-blur-sm border border-outline-variant/30">
+<svg class="w-3.5 h-3.5 text-primary animate-spin" fill="none" stroke="currentColor" stroke-width="2" style="animation-duration: 6s;" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M12 2a10 10 0 0 1 10 10"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+<span class="font-label-micro text-label-micro text-on-surface tracking-widest">TAPE PLAY</span>
+</div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<span class="font-label-code text-label-code text-on-surface bg-surface-container-lowest/90 px-2 py-0.5 border border-outline-variant/40">CLUB BBANG (클럽 빵)</span>
+<button class="w-8 h-8 rounded-none bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" onclick="playTrack('Orbit (궤도) — Live at Club BBang', '05:24', 'Club BBang Desk + Room Pair', 'LIVE')" title="Load Reel">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Metadata & Body -->
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline">
+<span>DATE: 2026.09.19</span>
+<span>/</span>
+<span>FORMAT: SOUNDBOARD + ROOM MIC</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Orbit (궤도) <span class="italic font-display-hero text-secondary text-headline-md block mt-0.5">— Live at Club BBang</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Captured direct off the Mackie 1604 console mixed with an AKG C414 hung from the basement ceiling pipe. Dense feedback swell at the four-minute mark.
+            </p>
+</div>
+<!-- Bottom Action Strip -->
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-micro text-label-micro text-outline-variant">TASCAM DR-40X RECORD</span>
+<button class="font-label-code text-label-code text-on-surface hover:text-primary flex items-center gap-1 group/btn transition-colors" onclick="playTrack('Orbit (궤도) — Live at Club BBang', '05:24', 'Club BBang Desk + Room Pair', 'LIVE')">
+<span>LISTEN / WATCH</span>
+<span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 2: DEMO Midnight Signal -->
+<article class="transmission-card group flex flex-col bg-surface-container-low hover:bg-surface-container transition-all duration-200" data-category="demo">
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs font-label-catalog text-label-catalog text-secondary tracking-widest">
+<span>✦ ARCHIVE #089</span>
+<span>·</span>
+<span class="text-tertiary font-medium">4-TRACK CASSETTE</span>
+</div>
+<span class="font-label-code text-label-code text-outline">03:45</span>
+</div>
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-115 brightness-85 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Close up photograph of a vintage worn TDK cassette tape with Japanese and Korean handwritten ballpoint markings on masking tape label, sitting on an analog mixer console with warm VU meter lights reflecting off plastic casing, high grain archival documentary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdCl759pdzrz7QwEKoW9zwr5t8unyAyFVdQSMI0rSnlQ5jACzNszUx9uKv-b6-mc57J17Ax5bZY3odz9GCtFMZ0sGhmDluL7t05ZyckRoJgDngiNm000FUHM0-qWVz1MVkjItioFdSErlLGjsHbD9BIIp-PgPleSGYizfCovXr0QPtiCp9EuzaUv7m1-lWWsUcGQnaBmZw4UWZHxmOVjbg69dlPnQe11eLn9RM1dU_h6-X_yjE6S7f6w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<div class="absolute top-space-sm left-space-sm bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-secondary border border-outline-variant/30">
+            DEMO MEMO / TAPE A-SIDE
+          </div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<span class="font-label-code text-label-code text-on-surface bg-surface-container-lowest/90 px-2 py-0.5 border border-outline-variant/40">PORTASTUDIO 424 MKII</span>
+<button class="w-8 h-8 rounded-none bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" onclick="playTrack('Midnight Signal (자정의 신호) — Cassette Demo', '03:45', 'Tascam Portastudio 424', 'DEMO')" title="Load Reel">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline">
+<span>DATE: 2026.08.21</span>
+<span>/</span>
+<span>FORMAT: TASCAM PORTASTUDIO 424</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Midnight Signal (자정의 신호) <span class="italic font-display-hero text-secondary text-headline-md block mt-0.5">— 4-Track Cassette Demo</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Track 1: Yamaha CS-01 bass drone. Track 2: Squier Jazzmaster through tape delay. Tracks 3 &amp; 4: one-take guide vocals whispered at 3 AM to avoid waking neighbors.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-micro text-label-micro text-outline-variant">TAPE RUN: 1 COPY IN BOX</span>
+<button class="font-label-code text-label-code text-on-surface hover:text-primary flex items-center gap-1 group/btn transition-colors" onclick="playTrack('Midnight Signal (자정의 신호) — Cassette Demo', '03:45', 'Tascam Portastudio 424', 'DEMO')">
+<span>LISTEN</span>
+<span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 3: VIDEO Different Sky -->
+<article class="transmission-card group flex flex-col bg-surface-container-low hover:bg-surface-container transition-all duration-200" data-category="video">
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs font-label-catalog text-label-catalog text-primary-fixed-dim tracking-widest">
+<span>✦ ARCHIVE #087</span>
+<span>·</span>
+<span class="text-tertiary-fixed-dim font-medium">16MM &amp; VHS SCAN</span>
+</div>
+<span class="font-label-code text-label-code text-outline">04:12</span>
+</div>
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover contrast-110 brightness-90 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Cinematic still frame transfer from 16mm celluloid film and degraded magnetic tape, silhouettes of two figures standing on a foggy concrete overpass bridge in Seoul at dusk, blurred city street lamps, scanlines, light bleed, subtle blue and amber chromatic aberration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrJ8lG83AXgYWooAavCoXCeDB8PhDXHPXjejMshR_F6G9gwX77PqRjGtLy50aoNgFMgKOQ70Qm7A-zOnLFJWyt-ao1g4aNdm7As5LdikyGazY8RIEr-8y8mGsMHhlanbzyS-rUED9Z89M8wCgChx26IXI3R29xQNbbOMwX5DI2fTDe2-hpdHfQZnSx2whEE2kfnltoT_bcbd7lq9R7EB27NUeVIgi0xfJMu4MlY7B8b7C0IuC68ARSxQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="px-3 py-1.5 bg-surface-container-lowest/90 border border-primary text-primary font-label-code text-label-code flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+<span>YOUTUBE TRANSFER [EXTERNAL]</span>
+</div>
+</div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<span class="font-label-code text-label-code text-on-surface bg-surface-container-lowest/90 px-2 py-0.5 border border-outline-variant/40">COLOR REC: MAPO-GU OVERPASS</span>
+<a class="w-8 h-8 rounded-none bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank" title="Watch on YouTube">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+</a>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline">
+<span>DATE: 2026.07.15</span>
+<span>/</span>
+<span>FORMAT: 16MM SCAN &amp; VHS TRANSFER</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Different Sky (다른 하늘, 같은 우리) <span class="italic font-display-hero text-secondary text-headline-md block mt-0.5">— Official Tape Video</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Shot on expired Kodak Ektachrome film through a Krasnogorsk-3, dumped to a Panasonic industrial deck and degraded across two generation copies.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-micro text-label-micro text-outline-variant">ASPECT: 4:3 ACADEMY</span>
+<a class="font-label-code text-label-code text-on-surface hover:text-primary flex items-center gap-1 group/btn transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank">
+<span>WATCH ON YOUTUBE</span>
+<span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">arrow_outward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- CARD 4: MUSIC Rehearsal Room Tape #03 -->
+<article class="transmission-card group flex flex-col bg-surface-container-low hover:bg-surface-container transition-all duration-200" data-category="music">
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs font-label-catalog text-label-catalog text-primary tracking-widest">
+<span>⚬ ARCHIVE #084</span>
+<span>·</span>
+<span class="text-secondary font-medium">REHEARSAL MASTER</span>
+</div>
+<span class="font-label-code text-label-code text-outline">08:30</span>
+</div>
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 brightness-85 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Overhead bird's eye view of a messy band rehearsal room floor, patch cables, guitar effect stompboxes, scattered paper setlists, glowing vacuum tubes in guitar amplifier cabinet, moody low-key studio lighting with dusty shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAShonwZZ0US_tFoG-gG25YHPozxVoVQxv-iW_yW23wG_YHDY1Z0HILaY7fkjd6l3iBGz7GVqmeOqyYHicSnp54Q8XxpIFXtb4IVmG5DIW_rflGmaxNDA6a_3sVKUUJ4wnHOJR2xrtS_qCo0sgwZA0e2Ce6ZVdmti3d3zmjkfAMzZF1gRsdRTbe6IFliEMeXaDlVVQBMuQCkLvM_ttsVMNEgYOLPbmKMFXaloOrPU-M7SfJmHHYHrUkIw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<span class="font-label-code text-label-code text-on-surface bg-surface-container-lowest/90 px-2 py-0.5 border border-outline-variant/40">BASEMENT STUDIO 02 (합정)</span>
+<button class="w-8 h-8 rounded-none bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" onclick="playTrack('Rehearsal Room Tape #03 — Jam Session', '08:30', 'Basement Room Stereo Pair', 'MUSIC')" title="Load Reel">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline">
+<span>DATE: 2026.06.02</span>
+<span>/</span>
+<span>FORMAT: ROOM STEREO PAIR (ORTF)</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Rehearsal Room Tape #03 <span class="italic font-display-hero text-secondary text-headline-md block mt-0.5">— Unedited Jam Session</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Extended psychedelic repetition exploring the minor chord cycle that later became the core theme for the second EP. Room resonance fully untamed.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-micro text-label-micro text-outline-variant">TAPE SPEED: NORMAL</span>
+<a class="font-label-code text-label-code text-on-surface hover:text-primary flex items-center gap-1 group/btn transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank">
+<span>LISTEN ON SOUNDCLOUD</span>
+<span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">arrow_outward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- CARD 5: LIVE Echoes in Sangsu -->
+<article class="transmission-card group flex flex-col bg-surface-container-low hover:bg-surface-container transition-all duration-200" data-category="live">
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs font-label-catalog text-label-catalog text-primary tracking-widest">
+<span>⚬ ARCHIVE #081</span>
+<span>·</span>
+<span class="text-secondary font-medium">LIVE SESSION</span>
+</div>
+<span class="font-label-code text-label-code text-outline">06:10</span>
+</div>
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 brightness-80 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Monochrome photograph of live band performing in a small concrete underground space in Sangsu-dong Seoul, silhouette of drummer behind cymbal stands, warm single spotlight beam hitting condenser microphone stand, quiet intense performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsj18PjwecTim5XCn8GKN9fS-ALIWM42__uuUwVSlKqPxK9HkKYP1MiR1jWj1uFhyH0qkHeOl2OY1UX1psH4xq5QyyoAhcO6RQfdTqe1nbO9petcMzx43hJ0vn9rzVapmIbrqrn7Dm-iYVcp8MRa1vL_O6MWWxsXahVlwXIYwfrDoKwqdKX9qihkc1Ihl1n4Zu18BlPQDMgXUbPClxJMB0BD0X9fw8qOglC7IBqF0wMqnEro0qK8_tLw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<span class="font-label-code text-label-code text-on-surface bg-surface-container-lowest/90 px-2 py-0.5 border border-outline-variant/40">SANGSU CORRIDOR (상수동)</span>
+<button class="w-8 h-8 rounded-none bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" onclick="playTrack('Echoes in Sangsu (상수의 메아리) — Live Session', '06:10', 'Stereo Soundboard Feed', 'LIVE')" title="Load Reel">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline">
+<span>DATE: 2026.05.18</span>
+<span>/</span>
+<span>FORMAT: STEREO SOUNDBOARD</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Echoes in Sangsu (상수의 메아리) <span class="italic font-display-hero text-secondary text-headline-md block mt-0.5">— Live Session</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Spontaneous live set played during heavy rain. Includes the extended ambient coda with organ drones reverberating down the concrete emergency exit stairway.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-micro text-label-micro text-outline-variant">SIGNAL: STEREO BALANCED</span>
+<button class="font-label-code text-label-code text-on-surface hover:text-primary flex items-center gap-1 group/btn transition-colors" onclick="playTrack('Echoes in Sangsu (상수의 메아리) — Live Session', '06:10', 'Stereo Soundboard Feed', 'LIVE')">
+<span>LISTEN / WATCH</span>
+<span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 6: DEMO Sketch for Winter -->
+<article class="transmission-card group flex flex-col bg-surface-container-low hover:bg-surface-container transition-all duration-200" data-category="demo">
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs font-label-catalog text-label-catalog text-secondary tracking-widest">
+<span>✦ ARCHIVE #079</span>
+<span>·</span>
+<span class="text-tertiary font-medium">VOICE MEMO / TAPE</span>
+</div>
+<span class="font-label-code text-label-code text-outline">02:50</span>
+</div>
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-110 brightness-85 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Still life of an old acoustic guitar resting against a radiator next to a frosted window pane in Seoul winter night, worn wooden body, tape recorder beside it on wooden floorboards, soft quiet grain, melancholic intimate mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2Ntk5fRda0H4XQ-8LXl3riqLMke0998lAeOKkqs1kl_pXJlUEwLbHSRD-JpId4SHjXWwsJ_YAA0JuXNF2LVKlR9ZNVw7ziHOFmbuFm7xMm-MLRd32QvlvQeqpH2ZH11FVi3nkBvzhyeC1utVhJE6OdyQs3rRjLxsIo2nMUdUcFWCpLsTGsiG4LeM8vSuMoyN8_ZUQ97cD0RIxK6IoHVjCAKilAom0bKbdbe5ix3C2ibOzZ2E72ZRv4w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-end justify-between">
+<span class="font-label-code text-label-code text-on-surface bg-surface-container-lowest/90 px-2 py-0.5 border border-outline-variant/40">APARTMENT BALCONY (수유)</span>
+<button class="w-8 h-8 rounded-none bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" onclick="playTrack('Sketch for Winter (겨울을 위한 스케치)', '02:50', 'Acoustic Guitar + Voice Memo', 'DEMO')" title="Load Reel">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-space-md flex-1 flex flex-col justify-between space-y-space-md">
+<div class="space-y-space-xs">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline">
+<span>DATE: 2026.03.11</span>
+<span>/</span>
+<span>FORMAT: ACOUSTIC GUITAR + VOICE MEMO</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Sketch for Winter (겨울을 위한 스케치) <span class="italic font-display-hero text-secondary text-headline-md block mt-0.5">— Acoustic Fragment</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Nylon string guitar recorded on a microcassette dictaphone placed on the windowsill. Faint sound of radiator ticking and distant morning traffic outside.
+            </p>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-micro text-label-micro text-outline-variant">DICTAPHONE 1.2 CM/S</span>
+<button class="font-label-code text-label-code text-on-surface hover:text-primary flex items-center gap-1 group/btn transition-colors" onclick="playTrack('Sketch for Winter (겨울을 위한 스케치)', '02:50', 'Acoustic Guitar + Voice Memo', 'DEMO')">
+<span>LISTEN</span>
+<span class="material-symbols-outlined text-[14px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Physical Ledger Footnote & Tape Log Specs -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl bg-surface-container-lowest border-t border-outline-variant/20 mb-20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg text-outline">
+<div class="space-y-space-xs">
+<span class="font-label-catalog text-label-catalog text-primary uppercase tracking-widest block">01 / CAPTURE MANIFESTO</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          No studio over-dubbing beyond what a four-track tape head can absorb. We value tape saturation, accidental amplifier bleed, and the natural reverberation of Korean brick basements.
+        </p>
+</div>
+<div class="space-y-space-xs">
+<span class="font-label-catalog text-label-catalog text-primary uppercase tracking-widest block">02 / CASSETTE DUBBING</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          All physical media editions are dubbed in real-time (1:1 speed) directly from the master reels using Sony TC-K555ES decks onto recycled Type I and Type II tape stock.
+        </p>
+</div>
+<div class="space-y-space-xs">
+<span class="font-label-catalog text-label-catalog text-primary uppercase tracking-widest block">03 / EXTERNAL LEDGERS</span>
+<div class="flex flex-col gap-1 pt-1 font-label-code text-label-code">
+<a class="text-on-surface hover:text-primary flex items-center justify-between transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank">
+<span>SOUNDCLOUD (RAW ARCHIVES)</span>
+<span class="text-outline">↗</span>
+</a>
+<a class="text-on-surface hover:text-primary flex items-center justify-between transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank">
+<span>YOUTUBE (16MM &amp; VHS SCANS)</span>
+<span class="text-outline">↗</span>
+</a>
+<a class="text-on-surface hover:text-primary flex items-center justify-between transition-colors" href="https://bandcamp.com" rel="noopener noreferrer" target="_blank">
+<span>BANDCAMP (LOSSLESS ARCHIVE)</span>
+<span class="text-outline">↗</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Non-Intrusive Minimalist Tape Player Strip (Docked to Bottom) -->
+<aside class="fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 py-2.5 px-margin-mobile md:px-margin-tablet lg:px-margin">
+<div class="w-full flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<!-- Current Signal / Track Metadata -->
+<div class="flex items-center gap-space-md min-w-0">
+<!-- Reel Spool Mini Indicator -->
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center shrink-0 border border-outline-variant/40" id="player-status-icon">
+<span class="material-symbols-outlined text-primary text-[18px]">graphic_eq</span>
+</div>
+<div class="min-w-0 space-y-0.5">
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro text-outline tracking-wider">
+<span class="text-primary" id="player-badge">LIVE TAPE</span>
+<span>·</span>
+<span class="truncate" id="player-format">Club BBang Desk + Room Pair</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight text-[15px]" id="player-title">
+            Orbit (궤도) — Live at Club BBang
+          </div>
+</div>
+</div>
+<!-- Scrubber & Waveform Signal Stream -->
+<div class="flex-1 max-w-xl mx-auto w-full flex items-center gap-space-md px-0 md:px-space-md">
+<span class="font-label-code text-label-code text-outline shrink-0 text-[10px]" id="player-cur-time">01:42</span>
+<!-- Synthetic Visualizer Line & Scrubber -->
+<div class="relative w-full h-5 flex items-center cursor-pointer group" id="scrubber-bar">
+<div class="w-full h-1 bg-surface-container-highest overflow-hidden relative">
+<div class="h-full bg-primary" id="player-progress-bar" style="width: 32%;"></div>
+</div>
+<!-- Tactile Thumb Marker -->
+<div class="absolute top-1/2 -translate-y-1/2 w-1.5 h-3.5 bg-on-surface pointer-events-none group-hover:scale-125 transition-transform" id="player-progress-thumb" style="left: 32%;"></div>
+</div>
+<span class="font-label-code text-label-code text-outline shrink-0 text-[10px]" id="player-total-time">05:24</span>
+</div>
+<!-- Transport Controls & Outbound Relays -->
+<div class="flex items-center justify-between md:justify-end gap-space-md shrink-0">
+<div class="flex items-center gap-2">
+<button class="w-7 h-7 flex items-center justify-center text-outline hover:text-on-surface transition-colors" onclick="adjustTime(-15)" title="Rewind 15s">
+<span class="material-symbols-outlined text-[17px]">replay_10</span>
+</button>
+<button class="w-8 h-8 bg-primary text-on-primary flex items-center justify-center hover:bg-secondary transition-colors" id="master-play-toggle" onclick="togglePlayState()">
+<span class="material-symbols-outlined text-[20px]" id="master-play-icon">pause</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center text-outline hover:text-on-surface transition-colors" onclick="adjustTime(15)" title="Forward 15s">
+<span class="material-symbols-outlined text-[17px]">forward_10</span>
+</button>
+</div>
+<div class="h-4 w-px bg-surface-container-highest hidden sm:block"></div>
+<!-- External Archival Relays -->
+<div class="flex items-center gap-space-xs font-label-micro text-label-micro">
+<a class="px-2 py-1 text-outline hover:text-on-surface bg-surface-container hover:bg-surface-container-high transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank" title="Stream on SoundCloud">SC ↗</a>
+<a class="px-2 py-1 text-outline hover:text-on-surface bg-surface-container hover:bg-surface-container-high transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank" title="Watch on YouTube">YT ↗</a>
+<a class="px-2 py-1 text-outline hover:text-on-surface bg-surface-container hover:bg-surface-container-high transition-colors" href="https://bandcamp.com" rel="noopener noreferrer" target="_blank" title="Acquire on Bandcamp">BC ↗</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Interactive Filter and Playback Controller Script -->
+<script>
+    // Category Filtering Logic
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.transmission-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        filterButtons.forEach(b => {
+          b.className = 'filter-btn px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors';
+        });
+        btn.className = 'filter-btn px-3 py-1.5 bg-primary text-on-primary font-medium transition-colors';
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Simulated Analog Playback Engine
+    let isPlaying = true;
+    let currentSeconds = 102;
+    let totalSeconds = 324;
+
+    function playTrack(title, durationStr, formatStr, badgeStr) {
+      document.getElementById('player-title').textContent = title;
+      document.getElementById('player-total-time').textContent = durationStr;
+      document.getElementById('player-format').textContent = formatStr;
+      document.getElementById('player-badge').textContent = badgeStr;
+
+      const parts = durationStr.split(':');
+      totalSeconds = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+      currentSeconds = 0;
+      
+      isPlaying = true;
+      updatePlayButtonUI();
+      updateProgress();
+    }
+
+    function togglePlayState() {
+      isPlaying = !isPlaying;
+      updatePlayButtonUI();
+    }
+
+    function updatePlayButtonUI() {
+      const icon = document.getElementById('master-play-icon');
+      const statusBox = document.getElementById('player-status-icon');
+      if (isPlaying) {
+        icon.textContent = 'pause';
+        statusBox.innerHTML = '<span class="material-symbols-outlined text-primary text-[18px] animate-pulse">graphic_eq</span>';
+      } else {
+        icon.textContent = 'play_arrow';
+        statusBox.innerHTML = '<span class="material-symbols-outlined text-outline text-[18px]">pause</span>';
+      }
+    }
+
+    function adjustTime(delta) {
+      currentSeconds = Math.max(0, Math.min(totalSeconds, currentSeconds + delta));
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const m = Math.floor(currentSeconds / 60);
+      const s = currentSeconds % 60;
+      document.getElementById('player-cur-time').textContent = 
+        String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+
+      const pct = (currentSeconds / totalSeconds) * 100;
+      document.getElementById('player-progress-bar').style.width = pct + '%';
+      document.getElementById('player-progress-thumb').style.left = pct + '%';
+    }
+
+    // Scrubber click interaction
+    document.getElementById('scrubber-bar').addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, clickX / rect.width));
+      currentSeconds = Math.floor(pct * totalSeconds);
+      updateProgress();
+    });
+
+    // Time ticker
+    setInterval(() => {
+      if (isPlaying && currentSeconds < totalSeconds) {
+        currentSeconds++;
+        updateProgress();
+      }
+    }, 1000);
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest"><div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl flex flex-col gap-space-lg"><div class="flex flex-col md:flex-row md:items-baseline justify-between gap-space-md"><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface uppercase tracking-wider">SAKARIN COSMOS</span><span class="font-headline-sm text-headline-sm italic text-outline mt-1 font-display-hero">music keeps a place open.</span></div><div class="flex items-center gap-space-md text-outline"><a aria-label="Instagram" class="hover:text-on-surface transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><rect height="20" rx="0" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a aria-label="YouTube" class="hover:text-on-surface transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a><a aria-label="SoundCloud" class="hover:text-on-surface transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3"></path></svg></a></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pt-space-md font-label-code text-label-code text-outline"><div class="flex flex-wrap items-center gap-space-md"><a class="hover:text-on-surface transition-colors" data-path="contact" href="#">CONTACT</a><span class="text-surface-container-highest">/</span><a class="hover:text-on-surface transition-colors" data-path="press-kit" href="#">PRESS KIT</a><span class="text-surface-container-highest">/</span><span class="text-outline-variant">SEOUL, KR</span></div><div class="text-outline font-label-micro text-label-micro">COPYRIGHT © SAKARIN COSMOS. ALL RELEASES INDEPENDENT.</div></div></div></footer></body></html>
