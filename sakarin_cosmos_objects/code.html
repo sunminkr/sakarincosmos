@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<script src="../site.js" defer></script>
+<script src="../cart-store.js" defer></script>
+<script src="../reservation.js" defer></script>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary": "#27313e", "on-error-container": "#ffdad6", "on-primary": "#253049", "on-surface-variant": "#c6c6ce", "secondary-fixed": "#d9e3f4", "secondary": "#bdc7d7", "surface-dim": "#121315", "surface-container-low": "#1b1c1e", "tertiary": "#b8c6f0", "surface-container-high": "#292a2c", "on-tertiary": "#212f51", "on-primary-container": "#323d57", "on-secondary-container": "#acb6c6", "secondary-container": "#3e4755", "surface-container-highest": "#343537", "surface-container-lowest": "#0d0e10", "on-tertiary-fixed": "#0a1a3b", "surface-variant": "#343537", "error-container": "#93000a", "background": "#121315", "on-surface": "#e3e2e4", "on-background": "#e3e2e4", "surface-container": "#1f2022", "on-primary-fixed": "#0f1b33", "outline": "#8f9098", "surface": "#121315", "primary-container": "#9da8c7", "primary-fixed-dim": "#bbc6e6", "tertiary-container": "#9aa8d0", "inverse-surface": "#e3e2e4", "outline-variant": "#45464d", "on-tertiary-fixed-variant": "#384669", "inverse-primary": "#535e7a", "surface-bright": "#38393b", "error": "#ffb4ab", "on-error": "#690005", "on-primary-fixed-variant": "#3b4661", "primary": "#bbc6e6", "on-secondary-fixed-variant": "#3e4755", "on-secondary-fixed": "#121c28", "tertiary-fixed-dim": "#b8c6f0", "tertiary-fixed": "#d9e2ff", "surface-tint": "#bbc6e6", "primary-fixed": "#d9e2ff", "inverse-on-surface": "#303032", "secondary-fixed-dim": "#bdc7d7", "on-tertiary-container": "#2f3d5f" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "3rem", "space-xl": "3rem", "space-md": "1rem", "gutter-mobile": "0.75rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "gutter": "1.25rem", "space-lg": "1.75rem", "space-sm": "0.5rem" }, "fontFamily": { "label-code": [ "JetBrains Mono" ], "label-catalog": [ "JetBrains Mono" ], "body-lg": [ "Noto Sans" ], "label-micro": [ "JetBrains Mono" ], "display-hero-mobile": [ "EB Garamond" ], "headline-lg-mobile": [ "EB Garamond" ], "body-sm": [ "Noto Sans" ], "headline-md": [ "EB Garamond" ], "headline-lg": [ "EB Garamond" ], "body-md": [ "Noto Sans" ], "display-hero": [ "EB Garamond" ], "headline-sm": [ "EB Garamond" ] }, "fontSize": { "label-code": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "400" } ], "label-catalog": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "500" } ], "body-lg": [ "16px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "300" } ], "label-micro": [ "9px", { "lineHeight": "12px", "letterSpacing": "0.18em", "fontWeight": "400" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-md": [ "14px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "300" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-sm": [ "19px", { "lineHeight": "26px", "letterSpacing": "0.02em", "fontWeight": "500" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-surface"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md"><div class="h-16 w-full px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-fit"><a class="group flex flex-col items-start leading-none" data-path="transmissions" href="#"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">SAKARIN COSMOS</span><span class="font-label-micro text-label-micro text-outline flex items-center gap-space-xs mt-0.5"><span>✦ RA 05h 35m</span><span>·</span><span>DEC -05°23′</span><span class="hidden sm:inline text-outline-variant">[SEOUL ARCHIVE]</span></span></a></div><nav class="hidden lg:flex items-center gap-space-lg font-label-catalog text-label-catalog uppercase tracking-widest" data-active-classes="text-on-surface border-b border-primary font-medium"><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="transmissions" href="#">TRANSMISSIONS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="observations" href="#">OBSERVATIONS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="archive" href="#">ARCHIVE</a><a aria-current="page" class="py-1 transition-colors text-on-surface border-b border-primary font-medium" data-path="objects" href="#">OBJECTS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="info" href="#">INFO</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-sm text-outline"><a aria-label="Instagram" class="p-1.5 hover:text-on-surface transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><rect height="20" rx="0" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a aria-label="YouTube" class="p-1.5 hover:text-on-surface transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a><a aria-label="SoundCloud" class="p-1.5 hover:text-on-surface transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3"></path></svg></a></div><div class="h-4 w-px bg-surface-container-highest hidden sm:block"></div><a aria-label="Manifest Register" class="flex items-center gap-1.5 px-2 py-1 font-label-code text-label-code text-on-surface-variant hover:text-on-surface transition-colors" data-path="reserve-ledger" href="#"><span class="material-symbols-outlined text-[17px]">shopping_bag</span><span class="font-label-code text-label-code text-primary">[0]</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Archival Index Subheader -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin pt-space-lg pb-space-md bg-surface">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md border-b border-outline-variant/30 pb-space-md">
+<div>
+<div class="flex items-center gap-space-sm font-label-micro text-label-micro text-outline tracking-widest uppercase mb-space-xs">
+<span>CATALOG NO. SC-OBJ-2026</span>
+<span>✦</span>
+<span>SEOUL METROPOLITAN REGION</span>
+<span>✦</span>
+<span>PHYSICAL LEDGER ONLY</span>
+</div>
+<div class="flex items-baseline gap-space-md">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">OBJECTS</h1>
+<span class="font-headline-sm text-headline-sm text-outline font-normal">사물들</span>
+</div>
+</div>
+<div class="flex flex-col md:items-end">
+<span class="font-label-code text-label-code text-primary">STATUS: PICKUP RESERVATION OPEN</span>
+<span class="font-label-micro text-label-micro text-outline-variant tracking-wider">NO POSTAL TRANSIT · DIRECT HAND-OFF ONLY</span>
+</div>
+</div>
+</section>
+<!-- Editorial Philosophy Callout Box -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md bg-surface">
+<div class="bg-surface-container-low p-space-md md:p-space-lg relative overflow-hidden">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<div class="lg:col-span-7 flex flex-col gap-space-sm">
+<div class="inline-flex items-center gap-2 font-label-micro text-label-micro uppercase tracking-widest text-primary">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span>HAND-TO-HAND MANIFEST NOTICE</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface leading-relaxed font-normal">
+            온라인 배송 없이, 공연 현장 픽업으로만 진행되는 굿즈입니다.<br class="hidden sm:inline"/>
+            공연이 있는 곳에서 직접 만나요.
+          </p>
+<p class="font-body-md text-body-md text-outline italic">
+            (Objects for real places. Reserve here, pick them up at a live show.)
+          </p>
+</div>
+<div class="lg:col-span-5 bg-surface-container p-space-md flex flex-col gap-space-xs">
+<div class="font-label-catalog text-label-catalog text-outline uppercase tracking-wider mb-1">
+            VERIFICATION PIPELINE / 수령 절차
+          </div>
+<div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
+<span class="text-primary">01.</span>
+<span>원하는 사물을 선택하여 장바구니에 담기</span>
+</div>
+<div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
+<span class="text-primary">02.</span>
+<span>방문할 공연(Club BBang, Channel 1969, etc.) 선택</span>
+</div>
+<div class="font-label-code text-label-code text-on-surface-variant flex items-start gap-2">
+<span class="text-primary">03.</span>
+<span>공연 당일 현장 부스에서 예약자명 확인 후 수령</span>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>TRANSIT FEE: ₩0 (HANDOFF)</span>
+<span>PAYMENT: ON-SITE CASH / CARD</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Filter Bar -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-sm bg-surface">
+<div class="flex items-center justify-between gap-space-md overflow-x-auto pb-space-xs border-b border-outline-variant/20 no-scrollbar">
+<div class="flex items-center gap-space-xs min-w-max font-label-catalog text-label-catalog">
+<button class="filter-btn px-3 py-1.5 bg-on-surface text-surface uppercase tracking-wider transition-colors" data-category="all" type="button">
+          ALL [7]
+        </button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="tshirt" type="button">
+          T-SHIRT [2]
+        </button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="zine" type="button">
+          ZINE [2]
+        </button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="keyring" type="button">
+          KEYRING &amp; BADGE [2]
+        </button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="tape" type="button">
+          PRINT / TAPE [1]
+        </button>
+</div>
+<div class="hidden md:flex items-center gap-space-sm font-label-micro text-label-micro text-outline">
+<span>INVENTORY PROTOCOL: KOREA INDEPENDENT LEDGER</span>
+</div>
+</div>
+</section>
+<!-- Main Catalog Grid (Tactile, Archival Artifact Cards) -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md bg-surface">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md" id="catalog-grid">
+<!-- Item 1: Orbit Tee -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="tshirt">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #01 // APPAREL</span>
+<span>EDITION: UNRESTRICTED</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Editorial flatlay of a heavyweight black t-shirt screenprinted with fine white astronomical celestial orbit diagrams laid out on a weathered analog Fender amplifier cabinet in a dim basement rehearsal room, monochrome film grain texture, tactile cotton weave visible." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY2RET6tC_MBsHSm5dcgXnlxDMEr_0L1Fl5vj_F93tBq82WmF0AL30S7_S2kkYxMedQmXcS6-cZeJ4wOgJeVSd7wbxhurKPg11vG_IVPhxgPkmxX3i7GWvAymuOV5ZTmOY7AWc29JQsXRKRvUaKULdHGkIs3hqwLORUfFMkqGQRSsTFQAdrQcuy6GZbFCRGFk-0VMrhfX4xIxXV4dYUqd3gt-3XrZhkfjRfkREWYWXA5b346wcwpjIBw"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-outline">
+            KODAK TX 400
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Orbit Tee</h2>
+<span class="font-label-code text-label-code text-primary">₩25,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              오르빗 티셔츠 · BLACK / OFF-WHITE
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Heavyweight 20s cotton with silk-screened celestial orbit diagram on chest. Preshrunk boxy cut.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: ALL LIVE SHOWS</span>
+<span class="text-primary font-medium">READY TO RESERVE</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Orbit Tee" data-item-price="₩25,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Item 2: Wordmark Tee -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="tshirt">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #02 // APPAREL</span>
+<span>EDITION: UNRESTRICTED</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Monochrome photograph of a washed dark charcoal grey band t-shirt with subtle typography and reflective astronomical coordinates printed on the cuff sleeve, laid on a rough concrete studio floor with studio cables in background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVBS6-4TipeodAuy1TW6oXoTkJCPqSzZw8n9EswsAYFaObprjPem3sfMqCQfgtoU8Zl6egeViyn-eoQK-m6_R2bKDzyN7Dk6bk9iK_8XQs-wsfMolr1sc0ndSV8L29qAuO3wjasrdmve25gV4oF-oEYFJNLe3dLeVYGlM-P0fkm8KE1RPETRniKygZ2EvzM5hkxQD3sVSQbxzc_drwA4nXDhRO0n2jM430YSmpUlyB7ehV8jZEu0hsRA"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-outline">
+            ILFORD HP5
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Wordmark Tee</h2>
+<span class="font-label-code text-label-code text-primary">₩25,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              사카린 코스모스 워드마크 티셔츠 · WASHED CHARCOAL
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Discharge print with subtle reflective coordinates on sleeve. Softened handfeel with raw neck detail.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: ALL LIVE SHOWS</span>
+<span class="text-primary font-medium">READY TO RESERVE</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Wordmark Tee" data-item-price="₩25,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Item 3: Zine #1 -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="zine">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #03 // PRINTED RECORD</span>
+<span>48 PAGES · FIRST PRINT</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Editorial still life of a stapled risograph zine printed in deep black and cool grey inks on coarse recycled paper, showing photocopied rehearsal notes, tape machine diagrams, and Korean lyric fragments, resting on wooden mixing board." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaNx5g1ZZ60_FpbaEomQeNC-lV32ngNuv3KKxy30nPKFISeeRtHJbuOA_5bm6NGCHAeBN7f9vlM6IlpIs6gAzfBL_BvjwVYHNzBr03JZts9VXkwt-c0-WiFp3YalR4KY0fI7cijvHutR1NP7pUIIYh4ZjlCuAvBlmMbkAyvjG4BrKcbI3ty2in-OdMDeEd7hAEbVDZ7sv4bFL9oeLj9TIJegpWXN3OOtRepGUooceHyeqztRoUn26CZA"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-outline">
+            RISO GR-7700
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Zine #1: Sound &amp; Signal</h2>
+<span class="font-label-code text-label-code text-primary">₩12,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              진 1호: 사운드 앤 시그널 레코드 · 48P RISOGRAPH
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Hand-stapled rehearsal photos, handwritten lyrics, tape scans, and late night conversation excerpts.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: ALL LIVE SHOWS</span>
+<span class="text-primary font-medium">READY TO RESERVE</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Zine #1: Sound &amp; Signal" data-item-price="₩12,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Item 4: Keyring -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="keyring">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #04 // HARDWARE</span>
+<span>RAW STAINLESS 316</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Close up macro photo of a brushed stainless steel military style tag keyring with stamped coordinates 37°33'N 126°55'E and black heavy duty nylon webbing strap resting on a steel cassette deck casing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvwgZULXts9aE8rLAsONpqNrzOICQQtPlg5NiRAJoqrXbuex3KeRFpjzvL7yyd0mVOaOuUQT8lMLbD81em8s7SWQkNnM_bmZK8Cr2tZjk_DRNthPYkG6T0HzrIFMSZW-e_nvnSapusZnrre-xeMicrt4R28Wm7_6L0yhGkQNxuq3r-nj8uUDx6LhHNdBLdfmg4NthhHKOugd-p2VVryqjUKehAnQcIzXs2qTd7C0GaLGAd63mNjFfuGg"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-outline">
+            LATHE CNC ENGRAVED
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Stainless Signal Keyring</h2>
+<span class="font-label-code text-label-code text-primary">₩14,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              스테인리스 시그널 키링 · RAW METAL &amp; WEBBING
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Engraved band coordinates: 37°33'N 126°55'E. Industrial clasp with heavyweight woven nylon loop.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: ALL LIVE SHOWS</span>
+<span class="text-primary font-medium">READY TO RESERVE</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Stainless Signal Keyring" data-item-price="₩14,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Item 5: Sticker Pack -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="keyring">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #05 // EPHEMERA</span>
+<span>SET OF 5 DIECUTS</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Top down overhead arrangement of five matte monochrome vinyl stickers featuring celestial orbit diagrams, Sakarin Cosmos logo, and barcode serial marks on a dark distressed plywood rehearsal tabletop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCNqbvXY3o8KParWnA1z7PA9axiR6_VCK8W3YjFUxcwmmxDOCv2ETEX0EWn_Qcs4MV1dDEDqMNvsqTcvikAhiGitrkhQiecq0ZdWmEx5GuxnGw1U8YfCursKeCHiD8vlbZIBUH9-4AxoQU5DMxklBk9GctnUuXbh6LRXDV7HwvbmZNNw2Sp05LTaz4EHijOuAOC1LxmJ-88nBQXvEdHm9lEQ59yFhitBItApWMvDtz5h7QXH8LRwZ8cQ"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-outline">
+            MATTE VINYL
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Cosmos Sticker Pack</h2>
+<span class="font-label-code text-label-code text-primary">₩5,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              코스모스 스티커 팩 (5종) · MATTE WATERPROOF
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Weather-resistant silkscreen stickers. Suitable for guitar cases, pedalboards, and notebooks.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: ALL LIVE SHOWS</span>
+<span class="text-primary font-medium">READY TO RESERVE</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Cosmos Sticker Pack (5pcs)" data-item-price="₩5,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Item 6: Demo Cassette Tape (Limited) -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="tape">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #06 // AUDIO ARTIFACT</span>
+<span class="text-error font-medium">LIMITED EDITION [C-40]</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Intimate shot of a smoky grey translucent cassette tape with hand-stamped label and photocopied J-card inlay card resting beside an old Tascam 424 4-track recorder, soft natural window light, subtle dust particles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCmdUQw2LExgZv9mcgJXuXJriEo4L-GboKBf1YGDMkBcUIaXaxTPC56j9G2YVgjIitKhhpD9MrpeC7xvgy0jRH6IxenliXywXp9eEWd4kdPls9a28gVtC4FPenNh8ZRs4urUtnuaAmXpwKpQjRAE4caLga5bCTOBm7ttqebS1DZ2-bbvreQ5niTRKjmC8TyDivtY6QW4SjUjky8hSF5mhFxBJxIt6qmDtrUg4T13jDZNgm3_6J9X8tEA"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-error">
+            FEW REMAINING
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Rehearsal Room Demo Tape</h2>
+<span class="font-label-code text-label-code text-primary">₩15,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              합주실 데모 카세트 테이프 · TYPE II CHROME
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Direct line recording from 4-track cassette recorder. Hand-stamped serial numbering on folding J-card.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: SEOUL &amp; BUSAN</span>
+<span class="text-error font-medium">DEPLETION IMMINENT</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Rehearsal Room Demo Tape" data-item-price="₩15,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Item 7: Additional Archive Print (Zine category) -->
+<article class="catalog-item bg-surface-container-low flex flex-col group" data-item-category="zine">
+<div class="px-space-md pt-space-md pb-space-xs flex justify-between items-center text-outline font-label-micro text-label-micro border-b border-outline-variant/10">
+<span>PLATE #07 // PHOTOPRINT FOLDER</span>
+<span>EDITION OF 50</span>
+</div>
+<div class="relative w-full aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Editorial close up of a heavy dark kraft paper folder containing black and white darkroom contact sheet test strips and handwritten recording logs from Sakarin Cosmos basement sessions in Mullae-dong, Seoul." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN9bs92X6Rf7a6-5zs7UPfqYzjL5HZzjc9YCBv81HHSvK04ZVl9VPxAjVNKn76JNoQS0-WXU9aXZMAzhP_ONvkALJZpBABU-H1qLdIfUyZYwVxB0p-IVFiw7IQb6oun9vvbhMP3q89g1-gA8q9nGxh1qQ_v1qUgQZUXSyDfHy5IRzKdhcfyMSIaUAgKk8SAuj-Ux64Y9k1OaB181JAZBqYoAqL7-UZn3_fzyYuHzA4l9OsuR0-LUQa5g"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 font-label-micro text-label-micro text-outline">
+            SILVER GELATIN REPRO
+          </div>
+</div>
+<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Basement Session Folio</h2>
+<span class="font-label-code text-label-code text-primary">₩18,000</span>
+</div>
+<p class="font-label-micro text-label-micro text-outline uppercase tracking-wider">
+              지하실 세션 사진집 · 12 LOOSE PRINTS
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Unbound collection of 35mm contact sheets and studio documentation. Envelope stamped in Seoul.
+            </p>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span>PICKUP: ALL LIVE SHOWS</span>
+<span class="text-primary font-medium">READY TO RESERVE</span>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-item-name="Basement Session Folio" data-item-price="₩18,000" type="button">
+<span>✦</span>
+<span>RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Concert Pickup Reservation Ledger Quick Bar -->
+<section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl bg-surface">
+<div class="bg-surface-container-low p-space-md md:p-space-lg flex flex-col gap-space-lg">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-baseline justify-between gap-space-xs border-b border-outline-variant/30 pb-space-sm">
+<div>
+<span class="font-label-micro text-label-micro text-primary uppercase tracking-widest block">
+            STAGE 2 / CONCERT DESTINATION REGISTRY
+          </span>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+            Upcoming Pickup Concerts &amp; Hand-off Booths
+          </h3>
+</div>
+<span class="font-label-code text-label-code text-outline">
+          선택한 공연의 머치 부스에서 당일 보관됩니다
+        </span>
+</div>
+<!-- Concert Selector Ledger Rows -->
+<div class="flex flex-col gap-space-xs" id="concert-selector-list">
+<!-- Show 1 -->
+<label class="concert-row p-space-md bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<input checked="" class="w-4 h-4 accent-primary bg-surface-container-lowest" name="pickup_show" type="radio" value="bbang"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-code text-label-code text-primary font-medium">2026.09.19 (SAT) 19:30</span>
+<span class="font-label-micro text-label-micro px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant">SEOUL / MAPO</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Club BBang (클럽 빵)</span>
+</div>
+</div>
+<div class="flex md:flex-col items-end justify-between md:justify-center text-right font-label-code text-label-code">
+<span class="text-on-surface">PICKUP AVAILABLE</span>
+<span class="font-label-micro text-label-micro text-outline">BOOTH OPEN: 18:00 – 22:30</span>
+</div>
+</label>
+<!-- Show 2 -->
+<label class="concert-row p-space-md bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<input class="w-4 h-4 accent-primary bg-surface-container-lowest" name="pickup_show" type="radio" value="channel1969"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-code text-label-code text-primary font-medium">2026.10.14 (WED) 20:00</span>
+<span class="font-label-micro text-label-micro px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant">SEOUL / YEONHUI</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Channel 1969 (채널 1969)</span>
+</div>
+</div>
+<div class="flex md:flex-col items-end justify-between md:justify-center text-right font-label-code text-label-code">
+<span class="text-on-surface">PICKUP AVAILABLE</span>
+<span class="font-label-micro text-label-micro text-outline">BOOTH OPEN: 18:30 – 23:00</span>
+</div>
+</label>
+<!-- Show 3 -->
+<label class="concert-row p-space-md bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<input class="w-4 h-4 accent-primary bg-surface-container-lowest" name="pickup_show" type="radio" value="ovantgarde"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-code text-label-code text-primary font-medium">2026.11.07 (SAT) 19:00</span>
+<span class="font-label-micro text-label-micro px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant">BUSAN / KYUNGSUNG UNIV.</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Ovantgarde (오방가르드)</span>
+</div>
+</div>
+<div class="flex md:flex-col items-end justify-between md:justify-center text-right font-label-code text-label-code">
+<span class="text-on-surface">PICKUP AVAILABLE</span>
+<span class="font-label-micro text-label-micro text-outline">BOOTH OPEN: 17:30 – 22:00</span>
+</div>
+</label>
+</div>
+<!-- Protocol Notice Box -->
+<div class="p-space-md bg-surface-container-lowest flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md text-on-surface">
+              공연 당일 굿즈 부스에서 예약자 성함과 번호를 말씀해 주시면 바로 수령하실 수 있습니다.
+            </p>
+<p class="font-label-micro text-label-micro text-outline mt-0.5">
+              NOTICE: Unclaimed items remain in reserve for 30 minutes after the concert ends before being returned to vault storage.
+            </p>
+</div>
+</div>
+<button class="shrink-0 px-space-md py-2.5 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code uppercase tracking-wider transition-colors" id="confirm-intent-btn" type="button">
+          PICKUP INSTRUCTIONS
+        </button>
+</div>
+</div>
+</section>
+<!-- Reservation Tray Drawer Modal (Dynamic inline trigger) -->
+<div class="fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 transform translate-y-full transition-transform duration-300 ease-in-out" id="reservation-tray">
+<div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="w-2.5 h-2.5 bg-primary animate-pulse"></span>
+<div class="flex flex-col">
+<span class="font-label-code text-label-code text-on-surface" id="tray-item-title">1 ITEM SELECTED FOR PICKUP</span>
+<span class="font-label-micro text-label-micro text-outline" id="tray-venue-hint">RESERVED FOR: 2026.09.19 CLUB BBANG</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<button class="px-3 py-1.5 font-label-code text-label-code text-outline hover:text-on-surface" id="tray-close" type="button">
+          CANCEL
+        </button>
+<button class="px-space-md py-2 bg-primary text-on-primary font-label-code text-label-code tracking-widest uppercase hover:bg-primary-fixed transition-colors" id="tray-submit" type="button">
+          PROCEED TO PICKUP REGISTER →
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive filtering for Categories
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const catalogItems = document.querySelectorAll('.catalog-item');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => {
+        b.classList.remove('bg-on-surface', 'text-surface');
+        b.classList.add('bg-surface-container-low', 'text-outline');
+      });
+      btn.classList.add('bg-on-surface', 'text-surface');
+      btn.classList.remove('bg-surface-container-low', 'text-outline');
+
+      const cat = btn.getAttribute('data-category');
+      catalogItems.forEach(item => {
+        if (cat === 'all' || item.getAttribute('data-item-category') === cat) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Tray Drawer Interactions for "RESERVE FOR PICKUP"
+  const reserveButtons = document.querySelectorAll('.reserve-btn');
+  const tray = document.getElementById('reservation-tray');
+  const trayTitle = document.getElementById('tray-item-title');
+  const trayClose = document.getElementById('tray-close');
+  const traySubmit = document.getElementById('tray-submit');
+  const concertRadios = document.querySelectorAll('input[name="pickup_show"]');
+  const trayVenue = document.getElementById('tray-venue-hint');
+
+  const venuesMap = {
+    bbang: '2026.09.19 CLUB BBANG, SEOUL',
+    channel1969: '2026.10.14 CHANNEL 1969, SEOUL',
+    ovantgarde: '2026.11.07 OVANTGARDE, BUSAN'
+  };
+
+  function updateVenueHint() {
+    const checked = document.querySelector('input[name="pickup_show"]:checked');
+    if (checked && venuesMap[checked.value]) {
+      trayVenue.textContent = 'RESERVED FOR: ' + venuesMap[checked.value];
+    }
+  }
+
+  concertRadios.forEach(r => {
+    r.addEventListener('change', updateVenueHint);
+  });
+
+  reserveButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.getAttribute('data-item-name');
+      const price = btn.getAttribute('data-item-price');
+      trayTitle.textContent = name + ' (' + price + ') ADDED TO PICKUP LIST';
+      updateVenueHint();
+      tray.classList.remove('translate-y-full');
+    });
+  });
+
+  trayClose.addEventListener('click', () => {
+    tray.classList.add('translate-y-full');
+  });
+
+  traySubmit.addEventListener('click', () => {
+    alert('현장 픽업 예약이 등록되었습니다. 공연 당일 굿즈 부스에서 예약자 성함을 말씀해 주세요.');
+    tray.classList.add('translate-y-full');
+  });
+
+  document.getElementById('confirm-intent-btn').addEventListener('click', () => {
+    alert('수령 안내:\n1. 공연 입장 후 내부 머천다이즈 부스로 방문해 주세요.\n2. 온라인 예약자 전용 라인에서 성함과 연락처 뒷번호를 제시합니다.\n3. 현장 결제(카드/현금) 후 실물을 바로 인도받으실 수 있습니다.');
+  });
+</script></main><footer class="w-full bg-surface-container-lowest"><div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl flex flex-col gap-space-lg"><div class="flex flex-col md:flex-row md:items-baseline justify-between gap-space-md"><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface uppercase tracking-wider">SAKARIN COSMOS</span><span class="font-headline-sm text-headline-sm italic text-outline mt-1 font-display-hero">music keeps a place open.</span></div><div class="flex items-center gap-space-md text-outline"><a aria-label="Instagram" class="hover:text-on-surface transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><rect height="20" rx="0" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a aria-label="YouTube" class="hover:text-on-surface transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a><a aria-label="SoundCloud" class="hover:text-on-surface transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3"></path></svg></a></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pt-space-md font-label-code text-label-code text-outline"><div class="flex flex-wrap items-center gap-space-md"><a class="hover:text-on-surface transition-colors" data-path="contact" href="#">CONTACT</a><span class="text-surface-container-highest">/</span><a class="hover:text-on-surface transition-colors" data-path="press-kit" href="#">PRESS KIT</a><span class="text-surface-container-highest">/</span><span class="text-outline-variant">SEOUL, KR</span></div><div class="text-outline font-label-micro text-label-micro">COPYRIGHT © SAKARIN COSMOS. ALL RELEASES INDEPENDENT.</div></div></div></footer></body></html>
