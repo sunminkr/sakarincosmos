@@ -2,13 +2,14 @@
 // Native fragment scrolling alone does not follow these changes in every browser.
 (() => {
   const about = document.getElementById('about');
+  const isInfoLink = () => ['#about', '#info'].includes(location.hash);
   let following = false;
   let frame;
   const align = () => {
     if (!following) return;
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(() => {
-      if (following && location.hash === '#about') about.scrollIntoView({ block: 'start', behavior: 'instant' });
+      if (following && isInfoLink()) about.scrollIntoView({ block: 'start', behavior: 'instant' });
     });
   };
   const changes = new ResizeObserver(align);
@@ -19,7 +20,7 @@
   };
   const follow = () => {
     stop();
-    if (location.hash !== '#about') return;
+    if (!isInfoLink()) return;
     following = true;
     changes.observe(document.querySelector('main'));
     align();

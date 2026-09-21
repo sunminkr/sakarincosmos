@@ -11,7 +11,7 @@
   header.innerHTML = `
     <div class="site-header-row">
       <a class="site-brand" data-path="home" href="${href('home')}" aria-label="${t('home')}">
-        <span class="site-brand-title">SAKARIN COSMOS</span>
+        <span class="site-brand-title"><span>SAKARIN</span> <span>COSMOS</span></span>
         <span class="site-coordinates"><span>✦ RA 05h 35m</span><span>·</span><span>DEC -05°23′</span><span class="site-location">[SEOUL ARCHIVE]</span></span>
       </a>
       <nav class="site-nav" aria-label="${t('navigation')}">${navigation}</nav>

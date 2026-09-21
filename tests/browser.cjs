@@ -318,6 +318,7 @@ const { chromium } = require('playwright');
     assert.deepEqual(dictionaries[0], dictionaries[2]);
     assert.equal(await page.evaluate(() => new URL(SiteI18n.href('objects', 'ja')).pathname), '/jp/objects.html');
     await require('./i18n.cjs')({ page, context, base, go, noOverflow, shot });
+    await require('./prerender.cjs')({ browser, base });
     await require('./info.cjs')({ browser, base });
     await require('./media.cjs')({ page, context, base, go, noOverflow, shot });
     assert.deepEqual(errors, [], 'Browser JavaScript errors');

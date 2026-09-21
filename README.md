@@ -51,6 +51,7 @@ package-lock.json          테스트 의존성 버전 고정
 .env.example               메일 서버 설정 예시
 en/, jp/                   생성된 영어·일본어 페이지
 scripts/build_locales.py    공통 원본에서 번역 HTML 생성
+scripts/prerender.py        JSON에서 공개 기록·공연 HTML 생성
 tests/                     정적 검사·브라우저 회귀 검사
 docs/
   DESIGN.md                기존 디자인 명세
@@ -76,7 +77,11 @@ docs/
 
 한국어는 루트, 영어는 `en/`, 일본어는 `jp/` 아래의 여섯 페이지로 제공합니다. 일본어 문서의 언어 코드는 `ja`입니다. 제공받은 밴드 소개와 캐치프레이즈, 메뉴·공연 안내·신청 폼을 각 언어로 표시합니다. 언어 선택은 현재 페이지·선택 공연·앵커를 유지하며 장바구니도 공유합니다. 모바일 상단바에 SNS 아이콘을 표시하고 언어 선택은 펼침 메뉴에 배치합니다.
 
-루트 HTML이나 `locales/` 사전을 수정하면 `python3 scripts/build_locales.py`로 번역 페이지를 갱신합니다. 생성된 `en/`, `jp/` 파일도 함께 배포합니다. [다국어 작업 안내](docs/I18N.md)를 참고하세요.
+콜드 메일에는 사이트 주소의 `/#info`를 사용하면 밴드 소개로 바로 연결됩니다. 영어는 `/en/#info`, 일본어는 `/jp/#info`이며 JavaScript 없이도 동작합니다. 기존 `#about` 링크도 지원합니다.
+
+루트 HTML, `locales/` 사전, `data/catalog.json`, `data/media.json`을 수정하면 `python3 scripts/build_locales.py`로 세 언어의 HTML을 갱신합니다. 생성된 루트·`en/`·`jp/` HTML과 JSON을 함께 배포합니다. [다국어 작업 안내](docs/I18N.md)를 참고하세요.
+
+메인의 대표 영상 제목·원본 링크, 가까운 공연 일정, 밴드 소개, Contact는 JavaScript 실행 전의 HTML에 포함됩니다. Transmissions·Archive의 전체 기록과 Observations의 공연 목록도 정적으로 생성합니다. 브라우저에서는 같은 JSON의 최신 데이터로 플레이어·필터·달력을 추가하며, 데이터 요청이 실패하면 HTML에 있던 내용을 유지합니다. `npm test`는 JavaScript 비활성화와 데이터 요청 실패도 검사합니다. 공연일이 지난 뒤에는 다시 생성해 배포해야 정적 HTML의 예정 공연도 갱신됩니다. [정적 콘텐츠 안내](docs/PRERENDER.md)를 참고하세요.
 
 ## 검증
 

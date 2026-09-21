@@ -65,7 +65,8 @@ body { margin: 0; }
 @media (max-width: 639px) {
   .site-header-row { padding-inline: .75rem; gap: .5rem; }
   .site-brand { flex-shrink: 1; min-width: 0; max-width: 128px; }
-  .site-brand-title { font-size: 17px; line-height: 20px; }
+  .site-brand-title { width: max-content; font-size: 17px; line-height: 20px; text-align: center; }
+  .site-brand-title > span { display: block; white-space: nowrap; }
   .site-coordinates { display: none; }
   .site-utility { gap: 0; flex-shrink: 0; }
   .site-utility .site-social { gap: 0; }
@@ -116,4 +117,4 @@ main h1 > span { display: inline-block; }
 html[lang="ja"] body { font-family: 'Noto Sans JP', sans-serif; }
 .band-tagline { font: 400 clamp(28px, 5vw, 52px)/1.4 'EB Garamond', 'Noto Sans KR', 'Noto Sans JP', serif; }
 .band-bio { line-height: 2; max-width: 70ch; }
-#about { scroll-margin-top: 4rem; }
+#about, .band-info-anchor { scroll-margin-top: 4rem; }

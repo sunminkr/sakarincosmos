@@ -196,6 +196,7 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
   unavailable = true;
   await go('archive');
   assert.match(await page.locator('[data-feed-status]').textContent(), /불러오지 못/);
+  assert.equal(await page.locator('.media-card').count(), enabled.length, 'Published HTML must survive a failed data request');
   await page.unroute('**/data/media.json');
   console.log('PASS editing: deletion, hide/show, empty feed, invalid sources and network failure');
 }

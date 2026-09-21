@@ -1,4 +1,4 @@
-"""Generate complete localized HTML from root templates and the shared dictionaries."""
+"""Generate localized HTML and public content from templates, dictionaries and JSON."""
 import argparse
 import html
 import json

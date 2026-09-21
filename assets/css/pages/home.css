@@ -4,6 +4,7 @@
 @media (max-width: 767px) {
   .home-hero-photo { top: 12%; transform: none; }
 }
+#home-show-count { margin-inline-end: .5rem; }
 .home-shows { background: #1b1c1e; }
 .home-show { display: grid; grid-template-columns: 150px 1fr auto; align-items: center; gap: 1.5rem; padding: 1.25rem; border-bottom: 1px solid #45464d80; }
 .home-show time { font: 11px/1.5 'JetBrains Mono', monospace; color: #bbc6e6; }
