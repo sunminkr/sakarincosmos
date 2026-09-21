@@ -28,7 +28,7 @@ class Handler(SimpleHTTPRequestHandler):
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if length <= 0 or length > 20_000:
-                return self.send_json(413, {"message": "잘못된 요청 크기입니다."})
+                return self.send_json(413, {"message": "잘못된 요청 크기입니다.", "code": "request.size"})
             data = json.loads(self.rfile.read(length))
             if not isinstance(data, dict):
                 raise ReservationError("요청 형식이 올바르지 않습니다.")
@@ -38,7 +38,7 @@ class Handler(SimpleHTTPRequestHandler):
             recipient = os.environ.get("RESERVATION_EMAIL")
             host, user, password = (os.environ.get(k) for k in ("SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD"))
             if not all((recipient, host, user, password)):
-                return self.send_json(503, {"message": "메일 서버가 아직 설정되지 않았습니다."})
+                return self.send_json(503, {"message": "메일 서버가 아직 설정되지 않았습니다.", "code": "request.mailUnconfigured"})
 
             msg = EmailMessage()
             msg["Subject"] = f"[Sakarin Cosmos Pickup] {len(clean['items'])} items / {clean['name']}"
@@ -50,12 +50,12 @@ class Handler(SimpleHTTPRequestHandler):
                 smtp.starttls(); smtp.login(user, password); smtp.send_message(msg)
             self.send_json(200, {"ok": True})
         except ReservationError as exc:
-            self.send_json(exc.status, {"message": str(exc)})
+            self.send_json(exc.status, {"message": str(exc), "code": exc.code})
         except (json.JSONDecodeError, ValueError):
-            self.send_json(400, {"message": "요청 형식이 올바르지 않습니다."})
+            self.send_json(400, {"message": "요청 형식이 올바르지 않습니다.", "code": "request.invalid"})
         except Exception as exc:
             print(f"Email dispatch failed: {exc}")
-            self.send_json(502, {"message": "메일 발송 중 오류가 발생했습니다."})
+            self.send_json(502, {"message": "메일 발송 중 오류가 발생했습니다.", "code": "request.mailFailed"})
 
 
 if __name__ == "__main__":

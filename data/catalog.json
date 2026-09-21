@@ -1,137 +1,69 @@
 {
   "shows": [
     {
-      "date": "2026-06-12",
-      "venue": "Strange Fruit",
-      "city": "SEOUL / HONGDAE",
-      "title": "Low Orbit Session",
-      "doors": "19:30",
-      "note": "여름 초입, 작은 앰프와 4-track tape로 기록한 공연.",
-      "id": "strange-fruit",
-      "pickup": false
-    },
-    {
-      "date": "2026-07-25",
-      "venue": "공상온도",
-      "city": "SEOUL / MAPO",
-      "title": "Night Signal Vol.2",
-      "doors": "18:30",
-      "note": "세 팀이 번갈아 만든 느린 피드백과 여름밤의 기록.",
-      "id": "gongsang",
-      "pickup": false
-    },
-    {
-      "date": "2026-08-21",
-      "venue": "Channel 1969",
-      "city": "SEOUL / YEONHUI",
-      "title": "Cassette Dubbing Night",
-      "doors": "20:00",
-      "note": "한정 카세트 더빙과 미발표 곡을 위한 조용한 밤.",
-      "id": "cassette-night",
-      "pickup": false
-    },
-    {
       "date": "2026-09-19",
-      "venue": "Club BBang",
-      "city": "SEOUL / MAPO",
-      "title": "Empty Rooms",
-      "doors": "19:30",
-      "note": "Mackie 1604 콘솔에서 직접 받은 라이브 사운드보드.",
+      "venue": "빵",
+      "city": "서울 / 마포",
+      "title": "그럼에도 계속되는 것",
+      "startsAt": "18:30",
+      "note": "",
       "id": "bbang",
-      "pickup": true
+      "pickup": true,
+      "translations": {
+        "en": {
+          "venue": "Club BBang",
+          "city": "Seoul / Mapo"
+        },
+        "ja": {
+          "venue": "Club BBang",
+          "city": "ソウル / 麻浦"
+        }
+      }
     },
     {
-      "date": "2026-10-14",
-      "venue": "Channel 1969",
-      "city": "SEOUL / YEONHUI",
-      "title": "Midnight Echo Series",
-      "doors": "20:00",
-      "note": "신곡과 4-track cassette demo를 처음 연주합니다.",
-      "id": "channel1969",
-      "pickup": true
+      "date": "2026-10-23",
+      "venue": "빵",
+      "city": "서울 / 마포",
+      "title": "",
+      "startsAt": null,
+      "note": "",
+      "id": "bbang-oct23",
+      "pickup": false,
+      "translations": {
+        "en": {
+          "venue": "Club BBang",
+          "city": "Seoul / Mapo"
+        },
+        "ja": {
+          "venue": "Club BBang",
+          "city": "ソウル / 麻浦"
+        }
+      }
     },
     {
-      "date": "2026-11-07",
-      "venue": "Ovantgarde",
-      "city": "BUSAN / KYUNGSUNG",
-      "title": "Port Signals Fest",
-      "doors": "19:00",
-      "note": "부산의 세 팀과 함께하는 항구의 신호와 잔향.",
-      "id": "ovantgarde",
-      "pickup": true
-    },
-    {
-      "date": "2026-12-18",
-      "venue": "ACS",
-      "city": "SEOUL / EULJIRO",
-      "title": "Winter Rehearsal",
-      "doors": "20:00",
-      "note": "관객과 가까이 둘러앉는 연말 리허설 세션.",
-      "id": "acs",
-      "pickup": true
-    },
-    {
-      "date": "2027-01-23",
-      "venue": "Space XX",
-      "city": "INCHEON",
-      "title": "Different Sky",
-      "doors": "18:00",
-      "note": "새해 첫 공연. 필드 레코딩과 밴드 셋의 교차.",
-      "id": "space-xx",
-      "pickup": false
+      "date": "2026-12-26",
+      "venue": "Sound Crue",
+      "city": "일본 / 삿포로",
+      "title": "",
+      "startsAt": null,
+      "note": "",
+      "id": "sound-crue",
+      "pickup": false,
+      "translations": {
+        "en": {
+          "city": "Japan / Sapporo"
+        },
+        "ja": {
+          "city": "日本 / 札幌"
+        }
+      }
     }
   ],
   "products": [
     {
-      "id": "orbit-tee",
-      "name": "Orbit Tee",
+      "id": "logo-t-shirt",
+      "name": "sakarin cosmos logo t-shirt",
       "price": 25000,
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ]
-    },
-    {
-      "id": "wordmark-tee",
-      "name": "Wordmark Tee",
-      "price": 25000,
-      "sizes": [
-        "S",
-        "M",
-        "L",
-        "XL"
-      ]
-    },
-    {
-      "id": "sound-signal-zine",
-      "name": "Zine #1: Sound & Signal",
-      "price": 12000,
-      "sizes": []
-    },
-    {
-      "id": "signal-keyring",
-      "name": "Stainless Signal Keyring",
-      "price": 14000,
-      "sizes": []
-    },
-    {
-      "id": "sticker-pack",
-      "name": "Cosmos Sticker Pack (5pcs)",
-      "price": 5000,
-      "sizes": []
-    },
-    {
-      "id": "demo-tape",
-      "name": "Rehearsal Room Demo Tape",
-      "price": 15000,
-      "sizes": []
-    },
-    {
-      "id": "session-folio",
-      "name": "Basement Session Folio",
-      "price": 18000,
       "sizes": []
     }
   ]

@@ -12,7 +12,7 @@ from urllib.error import HTTPError
 from http.server import ThreadingHTTPServer
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from reservation_service import ReservationError, validate_reservation, reservation_body
+from reservation_service import ReservationError, validate_reservation, reservation_body, CATALOG_PATH
 from server import Handler
 
 NOW = datetime.fromisoformat('2026-09-21T12:00:00+09:00')
@@ -20,12 +20,26 @@ NOW = datetime.fromisoformat('2026-09-21T12:00:00+09:00')
 
 def request_data(**changes):
     return {'name': '테스트', 'phone': '010-0000-0000', 'email': 'test@example.com',
-            'privacy': 'on', 'showId': 'channel1969', 'note': '',
-            'items': [{'productId': 'orbit-tee', 'size': 'M', 'quantity': 2},
-                      {'productId': 'orbit-tee', 'size': 'L', 'quantity': 1}], **changes}
+            'privacy': 'on', 'showId': 'bbang-oct23', 'note': '',
+            'items': [{'productId': 'logo-t-shirt', 'size': 'M', 'quantity': 2},
+                      {'productId': 'logo-t-shirt', 'size': 'L', 'quantity': 1}], **changes}
 
 
 class ReservationChecks(unittest.TestCase):
+    def setUp(self):
+        self.published_catalog = CATALOG_PATH.read_text(encoding='utf-8')
+        catalog = json.loads(self.published_catalog)
+        # Availability and options are simulated without publishing unconfirmed details.
+        for show in catalog['shows']:
+            show['pickup'] = True
+        catalog['products'][0]['sizes'] = ['S', 'M', 'L', 'XL']
+        catalog['products'].append({'id': 'test-no-options', 'name': 'Test item', 'price': 14000, 'sizes': []})
+        catalog_patch = patch('reservation_service.CATALOG_PATH')
+        mocked_path = catalog_patch.start()
+        self.addCleanup(catalog_patch.stop)
+        mocked_path.read_text.return_value = json.dumps(catalog)
+        self.mocked_path = mocked_path
+
     def test_seoul_midnight_deadline(self):
         data = request_data(showId='bbang')
         validate_reservation(data, datetime.fromisoformat('2026-09-19T14:59:59+00:00'))
@@ -34,7 +48,8 @@ class ReservationChecks(unittest.TestCase):
         self.assertEqual(error.exception.status, 409)
 
     def test_expired_unknown_and_unavailable_shows(self):
-        for show_id in ['bbang', 'missing-show', 'space-xx', 'strange-fruit']:
+        self.mocked_path.read_text.return_value = self.published_catalog
+        for show_id in ['bbang', 'missing-show', 'channel1969', 'ovantgarde', 'bbang-oct23', 'sound-crue']:
             with self.subTest(show=show_id), self.assertRaises(ReservationError):
                 validate_reservation(request_data(showId=show_id), NOW)
 
@@ -43,24 +58,26 @@ class ReservationChecks(unittest.TestCase):
         self.assertEqual(clean['total'], 75000)
         self.assertEqual(clean['quantity'], 3)
         body = reservation_body(clean)
-        self.assertIn('Orbit Tee / 사이즈 M × 2 · ₩50,000', body)
-        self.assertIn('Orbit Tee / 사이즈 L × 1 · ₩25,000', body)
-        self.assertIn('Channel 1969', body)
+        self.assertIn('sakarin cosmos logo t-shirt / 사이즈 M × 2 · ₩50,000', body)
+        self.assertIn('sakarin cosmos logo t-shirt / 사이즈 L × 1 · ₩25,000', body)
+        self.assertIn('2026-10-23 빵', body)
 
     def test_invalid_sizes_and_quantities(self):
         for item in [
-            {'productId': 'orbit-tee', 'size': '', 'quantity': 1},
-            {'productId': 'orbit-tee', 'size': 'XXL', 'quantity': 1},
-            {'productId': 'signal-keyring', 'size': 'M', 'quantity': 1},
+            {'productId': 'logo-t-shirt', 'size': '', 'quantity': 1},
+            {'productId': 'logo-t-shirt', 'size': 'XXL', 'quantity': 1},
+            {'productId': 'test-no-options', 'size': 'M', 'quantity': 1},
             {'productId': 'missing-product', 'size': '', 'quantity': 1},
-            *[{'productId': 'orbit-tee', 'size': 'M', 'quantity': quantity}
+            {'productId': 'orbit-tee', 'size': 'M', 'quantity': 1},
+            {'productId': 'signal-keyring', 'size': '', 'quantity': 1},
+            *[{'productId': 'logo-t-shirt', 'size': 'M', 'quantity': quantity}
               for quantity in [0, -1, 10, 1.5, True, '1']],
         ]:
             with self.subTest(item=item), self.assertRaises(ReservationError):
                 validate_reservation(request_data(items=[item]), NOW)
 
     def test_duplicate_variants_enforce_limit(self):
-        item = {'productId': 'orbit-tee', 'size': 'M', 'quantity': 5}
+        item = {'productId': 'logo-t-shirt', 'size': 'M', 'quantity': 5}
         with self.assertRaises(ReservationError):
             validate_reservation(request_data(items=[item, item]), NOW)
         item['quantity'] = 2
@@ -69,7 +86,7 @@ class ReservationChecks(unittest.TestCase):
         self.assertEqual(len(clean['items']), 1)
 
     def test_non_apparel_and_contact_validation(self):
-        clean = validate_reservation(request_data(items=[{'productId': 'signal-keyring', 'size': '', 'quantity': 1}]), NOW)
+        clean = validate_reservation(request_data(items=[{'productId': 'test-no-options', 'size': '', 'quantity': 1}]), NOW)
         self.assertEqual(clean['total'], 14000)
         for changes in [{'privacy': ''}, {'email': 'invalid'}, {'items': []}, {'name': 'hello\nInjected'}, {'items': [{}]}]:
             with self.subTest(changes=changes), self.assertRaises(ReservationError):
@@ -94,7 +111,7 @@ class ReservationChecks(unittest.TestCase):
                 self.assertEqual(error.exception.code, 409)
                 smtp.assert_not_called()
                 with self.assertRaises(HTTPError) as error:
-                    post(request_data(items=[{'productId': 'orbit-tee', 'size': '', 'quantity': 1}]))
+                    post(request_data(items=[{'productId': 'logo-t-shirt', 'size': '', 'quantity': 1}]))
                 self.assertEqual(error.exception.code, 400)
                 smtp.assert_not_called()
                 with post(request_data()) as response:

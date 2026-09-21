@@ -11,7 +11,7 @@
     document.querySelectorAll('.timeline-filter').forEach(button => {
       const kind = button.dataset.filter;
       const count = events.filter(show => kind === 'all' || (kind === 'past') === SiteCatalog.isPast(show)).length;
-      button.textContent = `${{ all: 'ALL', future: 'UPCOMING', past: 'PAST' }[kind]} ${String(count).padStart(2, '0')}`;
+      button.textContent = `${{ all: SiteI18n.t('shows.all'), future: SiteI18n.t('shows.future'), past: SiteI18n.t('shows.past') }[kind]} ${String(count).padStart(2, '0')}`;
       button.setAttribute('aria-pressed', String(filter === kind));
       button.classList.toggle('bg-paper', filter === kind);
       button.classList.toggle('text-surface', filter === kind);
@@ -20,9 +20,9 @@
     });
     timeline.innerHTML = events.filter(show => filter === 'all' || (filter === 'past') === SiteCatalog.isPast(show)).map(show => `
       <article class="timeline-event bg-surface p-5 md:p-6${SiteCatalog.isPast(show) ? ' opacity-65' : ''}">
-        <div class="timeline-date"><time datetime="${show.date}">${show.date.replaceAll('-', '.')}</time><span>${SiteCatalog.isPast(show) ? 'ARCHIVED' : 'UPCOMING'}</span></div>
-        <div><p class="font-mono text-[9px] text-muted">${escape(show.city)} · DOORS ${show.doors}</p><h3 class="font-serif text-2xl mt-1">${escape(show.venue)}</h3><p class="text-sm text-muted mt-1">${escape(show.title)}</p></div>
-      </article>`).join('') || `<p class="p-5 bg-surface text-muted">${SiteCatalog.error || '해당하는 공연이 없습니다.'}</p>`;
+        <div class="timeline-date"><time datetime="${show.date}">${show.date.replaceAll('-', '.')}</time><span>${SiteCatalog.isPast(show) ? SiteI18n.t('shows.archived') : SiteI18n.t('shows.future')}</span></div>
+        <div><p class="font-mono text-[9px] text-muted">${escape(show.city)} · ${SiteI18n.t('shows.start')} ${escape(show.startsAt || SiteI18n.t('shows.timeUnknown'))}</p><h3 class="font-serif text-2xl mt-1">${escape(show.venue)}</h3><p class="text-sm text-muted mt-1">${escape(show.title || SiteI18n.t('shows.titleUnknown'))}</p></div>
+      </article>`).join('') || `<p class="p-5 bg-surface text-muted">${SiteCatalog.error || SiteI18n.t('shows.noMatch')}</p>`;
   }
   function showEvent(date) {
     selectedDate = date;
@@ -33,12 +33,12 @@
       button.setAttribute('aria-pressed', String(active));
     });
     document.getElementById('selected-event').innerHTML = `<time class="font-mono text-xs text-muted" datetime="${date}">${date.replaceAll('-', '.')}</time>` + (show ? `
-      <div class="mt-6 border-t border-line/30 pt-6"><span class="font-mono text-[9px] text-primary">${SiteCatalog.isPast(show) ? 'ARCHIVED · 픽업 마감' : SiteCatalog.canPickup(show) ? 'PICKUP AVAILABLE' : '픽업 일정 미정'}</span>
-        <h3 class="font-serif text-4xl mt-2">${escape(show.venue)}</h3><p class="font-serif italic text-xl text-muted mt-1">${escape(show.title)}</p>
-        <dl class="event-details mt-6"><div><dt>LOCATION</dt><dd>${escape(show.city)}</dd></div><div><dt>DOORS</dt><dd>${show.doors}</dd></div></dl>
-        <p class="text-sm text-muted leading-6 mt-6">${escape(show.note)}</p>
-        ${SiteCatalog.canPickup(show) ? `<a href="${SiteI18n.href('objects')}?show=${show.id}#concert-selector-list" class="inline-block mt-6 bg-paper text-surface px-4 py-3 font-mono text-[10px]">픽업 신청 →</a>` : ''}
-      </div>` : '<p class="text-sm text-muted leading-6 mt-6">이 날짜에는 등록된 공연이 없습니다.<br>점이 표시된 날짜를 선택해 주세요.</p>');
+      <div class="mt-6 border-t border-line/30 pt-6"><span class="font-mono text-[9px] text-primary">${SiteCatalog.isPast(show) ? SiteI18n.t('shows.archivedPickup') : SiteCatalog.canPickup(show) ? SiteI18n.t('pickup.availableBadge') : SiteI18n.t('pickup.unknown')}</span>
+        <h3 class="font-serif text-4xl mt-2">${escape(show.venue)}</h3><p class="font-serif italic text-xl text-muted mt-1">${escape(show.title || SiteI18n.t('shows.titleUnknown'))}</p>
+        <dl class="event-details mt-6"><div><dt>${SiteI18n.t('shows.location')}</dt><dd>${escape(show.city)}</dd></div><div><dt>${SiteI18n.t('shows.start')}</dt><dd>${escape(show.startsAt || SiteI18n.t('shows.timeUnknown'))}</dd></div></dl>
+        ${show.note ? `<p class="text-sm text-muted leading-6 mt-6">${escape(show.note)}</p>` : ''}
+        ${SiteCatalog.canPickup(show) ? `<a href="${SiteI18n.href('objects')}?show=${show.id}#concert-selector-list" class="inline-block mt-6 bg-paper text-surface px-4 py-3 font-mono text-[10px]">${SiteI18n.t('pickup.link')}</a>` : ''}
+      </div>` : `<p class="text-sm text-muted leading-6 mt-6">${SiteI18n.t('shows.noDate')}<br>${SiteI18n.t('shows.selectDate')}</p>`);
   }
   function renderCalendar() {
     document.getElementById('month-title').textContent = SiteI18n.date(new Date(year, month, 1), { year: 'numeric', month: 'long' });
@@ -47,7 +47,7 @@
     for (let day = 1; day <= new Date(year, month + 1, 0).getDate(); day++) {
       const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const show = events.find(show => show.date === date);
-      cells.push(`<button type="button" class="calendar-cell${show ? ` event-day ${SiteCatalog.isPast(show) ? 'past' : 'future'}` : ''}" data-date="${date}" aria-label="${escape(date + (show ? ' ' + show.venue : ' 공연 없음'))}" aria-pressed="${selectedDate === date}"><span>${String(day).padStart(2, '0')}</span>${show ? `<span class="calendar-venue">${escape(show.venue)}</span>` : ''}</button>`);
+      cells.push(`<button type="button" class="calendar-cell${show ? ` event-day ${SiteCatalog.isPast(show) ? 'past' : 'future'}` : ''}" data-date="${date}" aria-label="${escape(date + (show ? ' ' + show.venue : ' ' + SiteI18n.t('shows.none')))}" aria-pressed="${selectedDate === date}"><span>${String(day).padStart(2, '0')}</span>${show ? `<span class="calendar-venue">${escape(show.venue)}</span>` : ''}</button>`);
     }
     calendar.innerHTML = cells.join('');
     showEvent(selectedDate);

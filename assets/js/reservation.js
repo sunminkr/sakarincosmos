@@ -9,32 +9,32 @@
   modal.innerHTML = `
     <section class="w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-surface border border-outline-variant/40" role="dialog" aria-modal="true" aria-labelledby="pickup-modal-title">
       <div class="sticky top-0 bg-surface-container-lowest px-5 md:px-7 py-4 border-b border-outline-variant/30 flex items-center justify-between z-10">
-        <div><div class="font-label-micro text-label-micro text-primary tracking-widest">PICKUP REGISTER / SECURE DISPATCH</div><h2 id="pickup-modal-title" class="font-headline-md text-headline-md mt-1">현장 픽업 신청 정보</h2></div>
-        <button type="button" data-modal-close class="dialog-close-icon p-2 text-outline hover:text-on-surface" aria-label="신청 창 닫기"><span class="material-symbols-outlined">close</span></button>
+        <div><div class="font-label-micro text-label-micro text-primary tracking-widest">${SiteI18n.t('form.register')}</div><h2 id="pickup-modal-title" class="font-headline-md text-headline-md mt-1">${SiteI18n.t('form.pickupTitle')}</h2></div>
+        <button type="button" data-modal-close class="dialog-close-icon p-2 text-outline hover:text-on-surface" aria-label="${SiteI18n.t('form.closeRequest')}"><span class="material-symbols-outlined">close</span></button>
       </div>
       <form id="pickup-application-form" class="p-5 md:p-7 space-y-5">
         <div class="bg-surface-container-low p-4 border-l-2 border-primary">
-          <div class="font-label-micro text-label-micro text-outline">SELECTED OBJECT</div>
+          <div class="font-label-micro text-label-micro text-outline">${SiteI18n.t('form.selectedObject')}</div>
           <div id="pickup-selected-item" class="font-headline-sm text-headline-sm mt-1"></div>
           <div id="pickup-selected-venue" class="font-label-code text-label-code text-primary mt-2"></div>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
-          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">성함 / NAME *</span><input class="${fieldClass}" name="name" autocomplete="name" required maxlength="60"></label>
-          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">연락처 / PHONE *</span><input class="${fieldClass}" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="010-0000-0000"></label>
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">${SiteI18n.t('form.nameBilingual')}</span><input class="${fieldClass}" name="name" autocomplete="name" required maxlength="60"></label>
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">${SiteI18n.t('form.phoneBilingual')}</span><input class="${fieldClass}" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="010-0000-0000"></label>
         </div>
-        <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">이메일 / EMAIL *</span><input class="${fieldClass}" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@example.com"></label>
+        <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">${SiteI18n.t('form.emailBilingual')}</span><input class="${fieldClass}" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@example.com"></label>
         <div class="grid md:grid-cols-2 gap-4">
-          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">수량 / QTY *</span><select class="${fieldClass}" name="quantity" required><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label>
-          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">사이즈 / OPTION</span><select class="${fieldClass}" name="option"><option value="">해당 없음</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select></label>
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">${SiteI18n.t('form.quantity')}</span><select class="${fieldClass}" name="quantity" required><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label>
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">${SiteI18n.t('form.option')}</span><select class="${fieldClass}" name="option"><option value="">${SiteI18n.t('form.na')}</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select></label>
         </div>
-        <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">요청 사항 / NOTE</span><textarea class="${fieldClass} resize-y min-h-24" name="note" maxlength="500" placeholder="픽업 또는 상품에 관해 남길 내용"></textarea></label>
-        <label class="flex items-start gap-3 text-body-sm text-on-surface-variant leading-5"><input class="mt-1 accent-primary" name="privacy" type="checkbox" required><span>픽업 진행을 위해 성함, 연락처, 이메일을 수집하고 공연 종료 후 30일 이내 파기하는 데 동의합니다. *</span></label>
+        <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">${SiteI18n.t('form.noteBilingual')}</span><textarea class="${fieldClass} resize-y min-h-24" name="note" maxlength="500" placeholder="${SiteI18n.t('form.notePlaceholder')}"></textarea></label>
+        <label class="flex items-start gap-3 text-body-sm text-on-surface-variant leading-5"><input class="mt-1 accent-primary" name="privacy" type="checkbox" required><span>${SiteI18n.t('form.privacy')}</span></label>
         <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="hidden" name="showId">
         <div id="pickup-form-status" class="hidden p-3 font-label-code text-label-code" role="status" aria-live="polite"></div>
         <div class="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-2">
-          <button type="button" data-modal-close class="px-5 py-3 bg-surface-container text-outline font-label-code text-label-code tracking-widest">CANCEL</button>
-          <button type="submit" class="px-5 py-3 bg-primary text-on-primary font-label-code text-label-code tracking-widest hover:bg-primary-fixed disabled:opacity-50">SEND PICKUP REQUEST →</button>
+          <button type="button" data-modal-close class="px-5 py-3 bg-surface-container text-outline font-label-code text-label-code tracking-widest">${SiteI18n.t('form.cancel')}</button>
+          <button type="submit" class="px-5 py-3 bg-primary text-on-primary font-label-code text-label-code tracking-widest hover:bg-primary-fixed disabled:opacity-50">${SiteI18n.t('form.send')}</button>
         </div>
       </form>
     </section>`;
@@ -52,7 +52,7 @@
   function checkShow() {
     const open = SiteCatalog.canPickup(SiteCatalog.show(form.elements.showId.value));
     if (!open && !modal.classList.contains('hidden')) {
-      showStatus('선택한 공연의 픽업이 마감되었습니다. 창을 닫고 다른 공연을 선택해 주세요.', true);
+      showStatus(SiteI18n.t('pickup.dialogExpired'), true);
       submit.disabled = true;
     }
     return open;
@@ -70,7 +70,7 @@
     form.elements.quantity.innerHTML = Array.from({ length: 9 }, (_, i) => `<option>${i + 1}</option>`).join('');
     form.elements.option.innerHTML = product.sizes.length
       ? product.sizes.map(size => `<option value="${size}">${size}</option>`).join('')
-      : '<option value="">해당 없음</option>';
+      : `<option value="">${SiteI18n.t('form.na')}</option>`;
     form.elements.option.value = selectedItem.size;
     form.elements.option.required = Boolean(product.sizes.length);
     form.elements.option.closest('label').hidden = !product.sizes.length;
@@ -91,21 +91,21 @@
     if (!SiteCatalog.optionsValid(item) || !form.reportValidity()) return;
     submitting = true;
     submit.disabled = true;
-    showStatus('픽업 신청을 전송하고 있습니다.');
+    showStatus(SiteI18n.t('request.sending'));
     let success = false;
     try {
-      const response = await fetch('/api/reservations', {
+      const response = await fetch(SiteI18n.api('reservations'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...fields, items: [item] })
       });
       const result = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.message || '전송에 실패했습니다. 다시 시도해 주세요.');
+      if (!response.ok) throw new Error(SiteI18n.responseMessage(result));
       success = true;
       SiteCart.removeSubmitted([item]);
-      showStatus('신청이 접수되어 담당자에게 발송되었습니다.');
+      showStatus(SiteI18n.t('request.success'));
       closeTimer = setTimeout(dialog.close, 1800);
     } catch (error) {
-      showStatus(error.message === 'Failed to fetch' ? '메일 서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.' : error.message, true);
+      showStatus(error.message === 'Failed to fetch' ? SiteI18n.t('request.network') : error.message, true);
     } finally {
       submitting = false;
       submit.disabled = success || !SiteCatalog.canPickup(SiteCatalog.show(fields.showId));

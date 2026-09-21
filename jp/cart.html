@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="dark" lang="ja" data-page="cart">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>受け取りカート — サカリンコスモス</title>
+<meta name="description" content="選択したグッズを確認し、ライブ会場での受け取りをお申し込みいただけます。" data-i18n-content="meta.cart.description">
+<meta name="theme-color" content="#0d0e10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/pages/cart.css">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+</script>
+<script src="../assets/js/theme.js">
+</script>
+<script src="../locales/ko.js" defer>
+</script>
+<script src="../locales/en.js" defer>
+</script>
+<script src="../locales/ja.js" defer>
+</script>
+<script src="../assets/js/i18n.js" defer>
+</script>
+<script src="../assets/js/site.js" defer>
+</script>
+<script src="../assets/js/catalog.js" defer></script>
+<script src="../assets/js/dialog.js" defer></script>
+<script src="../assets/js/cart-store.js" defer>
+</script>
+<script src="../assets/js/pages/cart.js" defer>
+</script>
+<link rel="alternate" hreflang="ko" href="../cart.html">
+<link rel="alternate" hreflang="en" href="../en/cart.html">
+<link rel="alternate" hreflang="ja" href="../jp/cart.html">
+</head>
+<body class="font-sans antialiased">
+<a class="skip-link" href="#main-content" data-i18n="skip">本文へスキップ</a>
+<header class="site-header" data-site-header>
+<noscript>
+<a class="site-brand" href="index.html">SAKARIN COSMOS</a>
+<nav aria-label="メインメニュー" data-i18n-label="navigation">
+<a href="transmissions.html" data-i18n="nav.transmissions">音源</a>
+<a href="observations.html" data-i18n="nav.observations">ライブ記録</a>
+<a href="archive.html" data-i18n="nav.archive">アーカイブ</a>
+<a href="objects.html" data-i18n="nav.objects">グッズ</a>
+</nav>
+<a href="cart.html" data-i18n="cart.nav">受け取りカート</a>
+</noscript>
+</header>
+<main id="main-content" tabindex="-1" class="pt-16 min-h-screen">
+<section class="px-5 md:px-8 lg:px-12 py-10 border-b border-line/30">
+<div class="font-mono text-[9px] text-primary tracking-widest" data-i18n="cart.ledger">受け取り予約・ブラウザ内のカート</div>
+<h1 class="font-serif text-5xl md:text-6xl mt-3">pickup cart <span class="text-2xl text-muted" data-i18n="cart.subtitle">（まとめて予約）</span>
+</h1>
+<p class="text-sm text-muted mt-4 max-w-2xl leading-6" data-i18n="cart.intro">選択した商品はこのブラウザ内にのみ保存されます。アカウントやプロフィールは作成されず、申し込みが完了した商品はカートから削除されます。</p>
+</section>
+<section class="px-5 md:px-8 lg:px-12 py-10 grid lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8">
+<div class="flex justify-between items-baseline mb-4">
+<h2 class="font-serif text-3xl" data-i18n="cart.selected">選択した商品</h2>
+<button id="clear-cart" class="font-mono text-[9px] text-muted hover:text-paper tracking-widest" data-i18n="cart.clear">すべて削除</button>
+</div>
+<div id="cart-items" class="border-t border-line/30">
+</div>
+<div id="empty-cart" class="hidden bg-surface-low p-10 text-center">
+<p class="font-serif text-2xl" data-i18n="cart.empty">カートに商品がありません。</p>
+<a data-path="objects" href="objects.html" class="inline-block mt-5 bg-paper text-surface px-5 py-3 font-mono text-[9px] tracking-widest" data-i18n="cart.viewObjects">グッズを見る →</a>
+</div>
+</div>
+<aside class="lg:col-span-4">
+<div class="sticky top-24 bg-surface-low p-5 md:p-6">
+<div class="font-mono text-[9px] text-primary tracking-widest" data-i18n="cart.summary">予約内容</div>
+<div class="flex justify-between mt-6 border-b border-line/30 pb-4">
+<span class="text-muted" data-i18n="cart.quantity">合計点数</span>
+<strong id="summary-count" class="font-mono">0</strong>
+</div>
+<div class="flex justify-between py-4">
+<span class="text-muted" data-i18n="cart.total">合計金額</span>
+<strong id="summary-total" class="font-serif text-2xl">₩0</strong>
+</div>
+<p id="cart-notice" class="text-sm text-muted my-4" role="status"></p>
+<button disabled id="open-order" class="w-full bg-primary text-surface py-3 font-mono text-[10px] tracking-widest disabled:opacity-30" data-i18n="form.proceed">受け取り予約へ →</button>
+<p class="font-mono text-[8px] text-muted leading-4 mt-4" data-i18n="cart.payment">会場でお支払い・配送なし</p>
+</div>
+</aside>
+</section>
+</main>
+<div id="order-modal" class="fixed inset-0 z-[80] hidden items-center justify-center bg-surface-lowest/90 backdrop-blur p-4">
+<section role="dialog" aria-modal="true" aria-labelledby="order-title" class="w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-surface border border-line">
+<div class="sticky top-0 bg-surface-lowest p-5 border-b border-line/30 flex justify-between">
+<div>
+<div class="font-mono text-[9px] text-primary tracking-widest" data-i18n="form.batchRegister">まとめて受け取り予約</div>
+<h2 id="order-title" class="font-serif text-3xl" data-i18n="cart.formTitle">まとめて受け取り予約</h2>
+</div>
+<button type="button" class="dialog-close-icon" data-close aria-label="閉じる" data-i18n-label="form.close">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form id="order-form" class="p-5 md:p-7 space-y-4">
+<p id="order-items" class="order-items text-sm text-muted"></p>
+<p class="text-sm text-muted leading-6" data-i18n="form.usage">入力情報は申し込みメールの送信にのみ使用し、サイトのアカウントやプロフィールとして保存しません。</p>
+<div class="grid sm:grid-cols-2 gap-4">
+<label class="text-xs text-muted"><span data-i18n="form.name">お名前 *</span><input name="name" required maxlength="60" autocomplete="name" class="mt-2 w-full bg-surface-lowest border border-line p-3 text-paper">
+</label>
+<label class="text-xs text-muted"><span data-i18n="form.phone">電話番号 *</span><input name="phone" type="tel" required maxlength="30" autocomplete="tel" class="mt-2 w-full bg-surface-lowest border border-line p-3 text-paper">
+</label>
+</div>
+<label class="block text-xs text-muted"><span data-i18n="form.email">メールアドレス *</span><input name="email" required type="email" maxlength="120" autocomplete="email" class="mt-2 w-full bg-surface-lowest border border-line p-3 text-paper">
+</label>
+<label class="block text-xs text-muted"><span data-i18n="form.show">受け取り公演 *</span><select name="showId" required class="mt-2 w-full bg-surface-lowest border border-line p-3 text-paper"><option value="" data-i18n="shows.loading">公演情報を読み込んでいます。</option></select>
+</label>
+<label class="block text-xs text-muted"><span data-i18n="form.note">ご要望</span><textarea name="note" maxlength="500" class="mt-2 w-full min-h-24 bg-surface-lowest border border-line p-3 text-paper">
+</textarea>
+</label>
+<input name="website" class="hidden" tabindex="-1">
+<label class="privacy-consent text-sm text-muted"><input name="privacy" type="checkbox" required><span data-i18n="form.privacy">受け取り手続きのために氏名・電話番号・メールアドレスを収集し、公演終了後30日以内に破棄することに同意します。 *</span></label>
+<div id="order-status" class="hidden p-3 text-sm" role="status">
+</div>
+<div class="flex justify-end gap-2">
+<button type="button" data-close class="px-5 py-3 bg-surface-container font-mono text-[9px]" data-i18n="form.cancel">キャンセル</button>
+<button type="submit" class="px-5 py-3 bg-primary text-surface font-mono text-[9px]" data-i18n="form.sendBatch">まとめて申し込む →</button>
+</div>
+</form>
+</section>
+</div>
+<footer id="info" data-site-footer>
+<noscript>SAKARIN COSMOS · <a href="mailto:hello@sakarincosmos.com" data-i18n="contact">お問い合わせ</a>
+</noscript>
+</footer>
+</body>
+</html>

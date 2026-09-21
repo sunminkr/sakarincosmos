@@ -17,7 +17,8 @@ async function mockProviders(context) {
   const widget = route => route.fulfill({ contentType: 'text/html', body: '<p>Mock provider embed</p>' });
   await context.route('https://w.soundcloud.com/**', widget);
   await context.route('https://www.youtube-nocookie.com/**', widget);
-  await context.route('https://www.instagram.com/**/embed/**', widget);
+  await context.route('https://www.instagram.com/**/embed/**', route => route.fulfill({ contentType: 'text/html', body:
+    '<style>body{margin:0}.profile{height:54px}.photo{width:100%;aspect-ratio:3/4;background:#999}.footer{height:1200px}</style><div class="profile">Profile</div><div class="photo"></div><div class="footer">Post details</div>' }));
   await context.route('https://www.instagram.com/embed.js', route => route.fulfill({ contentType: 'text/javascript', body: instagramSDK }));
 }
 
@@ -31,7 +32,7 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
       const nav = width < 1200 ? '.site-mobile-nav' : '.site-nav';
       if (width < 1200) await page.locator('.site-menu-toggle').click();
       await page.locator(`${nav} [data-path="${target}"]`).click();
-      await page.waitForURL(`${base}/${target === 'info' ? 'index.html#info' : `${target}.html`}`);
+      await page.waitForURL(`${base}/${target === 'info' ? 'index.html#about' : `${target}.html`}`);
       await page.evaluate(() => SiteCart.ready);
       await noOverflow(`navigation ${target} ${width}px`);
     }
@@ -69,7 +70,7 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
   } };
   let unavailable = false;
   await page.route('**/data/media.json', route => route.fulfill({ status: unavailable ? 503 : 200, contentType: 'application/json', body: JSON.stringify(config) }));
-  for (const width of [320, 390, 768, 1440]) {
+  for (const width of [320, 390, 430, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await go('archive');
     await page.waitForSelector('.media-card[data-provider="instagram"] iframe');
@@ -84,7 +85,11 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
     const sound = new URL(await page.locator('[data-media-id="old-track"] iframe').getAttribute('src'));
     assert.equal(sound.searchParams.get('url'), 'https://soundcloud.com/embed-test/track');
     assert.equal(sound.searchParams.get('auto_play'), 'false');
-    assert.equal((await page.locator('[data-media-id="old-track"] iframe').boundingBox()).height, 166);
+    assert.equal(sound.searchParams.get('visual'), String(width < 640));
+    const audio = await page.locator('[data-media-id="old-track"] iframe').boundingBox();
+    assert.equal(audio.height, width < 640 ? Math.max(280, Math.min(audio.width, 450)) : 166);
+    const playlist = new URL(await page.locator('[data-media-id="playlist"] iframe').getAttribute('src'));
+    assert.equal(playlist.searchParams.get('visual'), String(width < 640));
     assert.equal((await page.locator('[data-media-id="playlist"] iframe').boundingBox()).height, 450);
     const video = await page.locator('[data-media-id="new-video"] iframe').boundingBox();
     assert.ok(video.width >= 200 && video.height >= 200);
@@ -96,8 +101,14 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
     await page.waitForSelector('iframe.instagram-media');
     assert.equal(await page.locator('.media-audio, .media-playlist').count(), 0);
     const preview = page.locator('.instagram-preview');
-    const previewHeight = width < 640 ? 360 : 400;
-    assert.equal((await preview.boundingBox()).height, previewHeight);
+    const previewBox = await preview.boundingBox();
+    const previewHeight = previewBox.height;
+    assert.ok(Math.abs(previewHeight - (width < 640 ? previewBox.width * 4 / 3 + 64 : 400)) < 1);
+    if (width < 640) {
+      const photo = await preview.locator('iframe').contentFrame().locator('.photo').boundingBox();
+      assert.ok(photo.y + photo.height <= previewBox.y + previewHeight, 'The full 3:4 photo must fit below the profile header');
+      assert.equal(await preview.evaluate(node => getComputedStyle(node, '::after').display), 'none', 'No gradient should obscure the photo');
+    }
     assert.equal(await preview.getAttribute('inert'), '');
     assert.doesNotMatch(await preview.locator('iframe').getAttribute('src'), /captioned/);
     const beforeHeight = (await page.locator('.media-card').boundingBox()).height;
@@ -139,7 +150,7 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
   await popup.waitForURL('https://www.instagram.com/p/TestPhoto/');
   await popup.close();
   await context.unroute('https://www.instagram.com/p/TestPhoto/');
-  console.log('PASS Instagram preview: fixed height, late resizing, keyboard focus and original-post link');
+  console.log('PASS Instagram preview: mobile portrait ratio, late resizing, keyboard focus and original-post link');
 
   delete config.entries['new-video'];
   await go('index');

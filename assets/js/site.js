@@ -5,7 +5,7 @@
   const navigation = pages.map(page => `<a data-path="${page}" href="${href(page)}"${page === current ? ' aria-current="page"' : ''}>${t(`nav.${page}`)}</a>`).join('');
   const social = "<a aria-label=\"Instagram\" href=\"https://www.instagram.com/sakarincosmos/\" rel=\"noopener noreferrer\" target=\"_blank\"><svg stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.75\" viewBox=\"0 0 24 24\"><rect height=\"20\" rx=\"0\" width=\"20\" x=\"2\" y=\"2\"></rect><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"></path><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"></line></svg></a><a aria-label=\"YouTube\" href=\"https://www.youtube.com/@sakarincosmos\" rel=\"noopener noreferrer\" target=\"_blank\"><svg stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.75\" viewBox=\"0 0 24 24\"><path d=\"M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z\"></path><polygon points=\"9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02\"></polygon></svg></a><a aria-label=\"SoundCloud\" href=\"https://soundcloud.com/sakarincosmos159\" rel=\"noopener noreferrer\" target=\"_blank\"><svg stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.75\" viewBox=\"0 0 24 24\"><path d=\"M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3\"></path></svg></a>";
   const languages = publishedLocales.length > 1
-    ? `<nav class="site-language" aria-label="${t('language')}">${publishedLocales.map(language => `<a href="${href(current, language)}${location.hash}" lang="${language}" hreflang="${language}"${language === locale ? ' aria-current="true"' : ''}>${language.toUpperCase()}</a>`).join('')}</nav>`
+    ? `<nav class="site-language" aria-label="${t('language')}">${publishedLocales.map(language => `<a href="${href(current, language)}${location.search}${location.hash}" lang="${language}" hreflang="${language}"${language === locale ? ' aria-current="true"' : ''}>${{ ko: 'KO', en: 'EN', ja: 'JP' }[language]}</a>`).join('')}</nav>`
     : '';
   const header = document.querySelector('[data-site-header]');
   header.innerHTML = `
@@ -27,7 +27,7 @@
         </button>
       </div>
     </div>
-    <nav id="mobile-navigation" class="site-mobile-nav" aria-label="${t('navigation')}" hidden>${navigation}</nav>`;
+    <div id="mobile-navigation" class="site-mobile-nav" hidden><nav aria-label="${t('navigation')}">${navigation}</nav>${languages}</div>`;
 
   const button = header.querySelector('.site-menu-toggle');
   const mobile = header.querySelector('.site-mobile-nav');
@@ -53,7 +53,7 @@
   footer.className = 'site-footer';
   footer.innerHTML = `
     <div class="site-footer-top">
-      <div><div class="site-footer-title">SAKARIN COSMOS</div><p class="site-footer-tagline">music keeps a place open.</p></div>
+      <div><div class="site-footer-title">${t('band.name')}</div><p class="site-footer-tagline">${t('band.tagline')}</p></div>
       <div class="site-social">${social}</div>
     </div>
     <div class="site-footer-bottom">
@@ -61,7 +61,4 @@
       <span>COPYRIGHT © SAKARIN COSMOS. ALL RELEASES INDEPENDENT.</span>
     </div>`;
   apply();
-  const observationHeading = [...document.querySelectorAll('h2')]
-    .find(node => node.textContent.includes('UPCOMING OBSERVATIONS'));
-  observationHeading?.closest('section')?.setAttribute('id', 'observations');
 })();

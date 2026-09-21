@@ -21,16 +21,18 @@ class Document(HTMLParser):
 
 class SiteChecks(unittest.TestCase):
     def test_documents_and_local_targets(self):
-        for page in PAGES:
+        documents = [(locale, ROOT / directory / f'{page}.html')
+                     for locale, directory in [('ko', ''), ('en', 'en'), ('ja', 'jp')] for page in PAGES]
+        for locale, path in documents:
+            page = str(path.relative_to(ROOT))
             with self.subTest(page=page):
-                path = ROOT / f'{page}.html'
                 nodes = Document(path.read_text()).nodes
                 ids = [attrs['id'] for _, attrs in nodes if 'id' in attrs]
                 self.assertEqual(len(ids), len(set(ids)), 'Duplicate element IDs')
                 self.assertEqual(sum(tag == 'h1' for tag, _ in nodes), 1)
-                self.assertEqual(next(attrs['lang'] for tag, attrs in nodes if tag == 'html'), 'ko')
+                self.assertEqual(next(attrs['lang'] for tag, attrs in nodes if tag == 'html'), locale)
                 self.assertTrue(any('data-site-header' in attrs for _, attrs in nodes))
-                scripts = [attrs['src'] for tag, attrs in nodes if tag == 'script']
+                scripts = [attrs['src'].removeprefix('../') for tag, attrs in nodes if tag == 'script']
                 self.assertLess(scripts.index('assets/js/i18n.js'), scripts.index('assets/js/site.js'))
                 self.assertLess(scripts.index('assets/js/site.js'), scripts.index('assets/js/cart-store.js'))
                 for tag, attrs in nodes:
@@ -41,11 +43,15 @@ class SiteChecks(unittest.TestCase):
                         target = urlsplit(value)
                         if not value or target.scheme or target.netloc:
                             continue
-                        resolved = ROOT / unquote(target.path) if target.path else path
+                        resolved = path.parent / unquote(target.path) if target.path else path
                         self.assertTrue(resolved.is_file(), f'{page}: missing {value}')
                         if target.fragment and resolved.suffix == '.html':
                             target_ids = [a.get('id') for _, a in Document(resolved.read_text()).nodes]
                             self.assertIn(target.fragment, target_ids, f'{page}: missing anchor {value}')
+
+    def test_generated_translations(self):
+        result = subprocess.run(['python3', str(ROOT / 'scripts/build_locales.py'), '--check'], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_javascript_syntax(self):
         for path in [*ROOT.glob('assets/js/**/*.js'), *ROOT.glob('locales/*.js')]:

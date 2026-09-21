@@ -1,6 +1,8 @@
 .media-embed { width: 100%; min-width: 0; }
 .media-embed iframe { display: block; width: 100%; max-width: 100%; border: 0; background: #0d0e10; }
 .media-audio { height: 166px; }
+/* The mobile visual player puts the cover behind a full-width waveform. */
+.media-audio-visual { height: auto; aspect-ratio: 1 / 1; min-height: 280px; max-height: 450px; }
 .media-playlist { height: 450px; }
 .media-video { aspect-ratio: 16 / 9; min-height: 200px; }
 /* Instagram's official script sets a 326px minimum inline. Let narrow phones fit. */
@@ -46,7 +48,10 @@
 .home-media-section-title p { font-size: 12px; color: #8f9098; margin-top: .5rem; }
 .home-media-section-title a { color: #bbc6e6; font-size: 12px; padding-block: .5rem; }
 @media (max-width: 639px) {
-  .instagram-preview { height: 360px; }
+  /* Reserve the full 3:4 image plus Instagram's profile header. */
+  .instagram-preview { height: auto; aspect-ratio: 3 / 4; box-sizing: content-box; padding-top: 64px; }
+  .instagram-preview > .instagram-media { position: absolute; top: 0; left: 0; }
+  .instagram-preview::after { display: none; }
 }
 @media (min-width: 768px) {
   .media-page, .home-media-section { padding-inline: 2rem; }

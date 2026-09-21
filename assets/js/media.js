@@ -68,7 +68,7 @@
   }
 
   media.get = id => {
-    const entry = Object.hasOwn(media.entries, id) ? media.entries[id] : null;
+    const entry = Object.hasOwn(media.entries, id) ? SiteI18n.localize(media.entries[id]) : null;
     const source = entry && entry.enabled !== false && resolve(entry.url);
     return source ? { ...source, id, title: typeof entry.title === 'string' ? entry.title : '',
       description: typeof entry.description === 'string' ? entry.description : '',
@@ -82,13 +82,13 @@
     && (!providers.length || providers.includes(entry.provider.toLowerCase())))
     .sort((a, b) => timestamp(b) - timestamp(a) || a.sourceOrder - b.sourceOrder || a.id.localeCompare(b.id));
   media.date = entry => {
-    if (!entry.publishedAt) return '날짜 미확인';
+    if (!entry.publishedAt) return SiteI18n.t('media.unknownDate');
     if (entry.publishedAt.length === 10) return entry.publishedAt.replaceAll('-', '.');
-    return new Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' })
+    return new Intl.DateTimeFormat({ ko: 'ko-KR', en: 'en-US', ja: 'ja-JP' }[SiteI18n.locale], { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' })
       .format(new Date(entry.publishedAt));
   };
   media.message = id => media.error || (media.entries[id]?.url
-    ? '콘텐츠를 불러올 수 없습니다.' : '콘텐츠를 준비 중입니다.');
+    ? SiteI18n.t('media.unavailable') : SiteI18n.t('media.pending'));
   media.mount = (container, id, { eager = false } = {}) => {
     const entry = media.get(id);
     container.replaceChildren();
@@ -106,7 +106,7 @@
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.className = 'media-source';
-    link.textContent = `${entry.provider}에서 열기 ↗`;
+    link.textContent = SiteI18n.t('media.open', { provider: entry.provider });
     if (entry.provider === 'Instagram') {
       const preview = document.createElement('div');
       preview.className = 'instagram-preview';
@@ -120,8 +120,8 @@
       block.dataset.instgrmVersion = '14';
       block.append(link.cloneNode(true));
       preview.append(block);
-      link.textContent = 'Instagram에서 더 보기 ↗';
-      link.setAttribute('aria-label', `${entry.title || '게시물'} — Instagram에서 전체 보기 (새 창)`);
+      link.textContent = SiteI18n.t('media.more');
+      link.setAttribute('aria-label', SiteI18n.t('media.moreLabel', { title: entry.title || entry.provider }));
       container.append(preview, link);
       processInstagram();
     } else {
@@ -133,6 +133,13 @@
       iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
       iframe.allowFullscreen = entry.provider === 'YouTube';
       iframe.className = entry.provider === 'YouTube' ? 'media-video' : entry.playlist ? 'media-playlist' : 'media-audio';
+      if (entry.provider === 'SoundCloud' && window.matchMedia('(max-width: 639px)').matches) {
+        const embed = new URL(entry.embed);
+        embed.searchParams.set('visual', 'true');
+        iframe.src = embed.href;
+        if (!entry.playlist) iframe.classList.add('media-audio-visual');
+        // Keep this player mounted on rotation so playback is not restarted.
+      }
       container.append(iframe, link);
     }
   };
@@ -144,7 +151,7 @@
     media.profiles = data.profiles || {};
     return true;
   }).catch(() => {
-    media.error = '콘텐츠 정보를 불러오지 못했습니다. 잠시 후 다시 방문해 주세요.';
+    media.error = SiteI18n.t('media.error');
     return false;
   });
 })();

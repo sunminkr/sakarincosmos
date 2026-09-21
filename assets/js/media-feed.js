@@ -16,7 +16,7 @@
     time.textContent = SiteMedia.date(entry);
     meta.append(provider, time);
     const title = document.createElement(heading);
-    title.textContent = entry.title || `${entry.provider} 게시물`;
+    title.textContent = entry.title || SiteI18n.t('media.post', { provider: entry.provider });
     header.append(meta, title);
     if (entry.author) {
       const author = document.createElement('p');
@@ -57,7 +57,7 @@
     });
     // Replacing the nodes also stops media removed by a filter change.
     grid.replaceChildren(...entries.map(entry => card(entry)));
-    status.textContent = SiteMedia.error || (entries.length ? `${entries.length}개의 기록 · 최신순` : '등록된 콘텐츠가 없습니다.');
+    status.textContent = SiteMedia.error || (entries.length ? SiteI18n.t('media.count', { count: entries.length }) : SiteI18n.t('media.none'));
   }
   buttons.forEach(button => button.addEventListener('click', () => {
     selected = button.dataset.providerFilter;

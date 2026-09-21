@@ -13,7 +13,7 @@ const { chromium } = require('playwright');
   await new Promise(resolve => socket.close(resolve));
   const root = path.resolve(__dirname, '..');
   const server = spawn('python3', ['-u', 'server.py'], {
-    cwd: root, env: { ...process.env, SITE_PORT: String(port) }, stdio: 'pipe'
+    cwd: root, env: { ...process.env, SITE_PORT: String(port) }, stdio: 'ignore'
   });
   const base = `http://127.0.0.1:${port}`;
   let browser;
@@ -79,10 +79,63 @@ const { chromium } = require('playwright');
     }
 
     await page.setViewportSize({ width: 390, height: 844 });
+    await go('observations');
+    assert.deepEqual(await page.locator('#timeline time').evaluateAll(nodes => nodes.map(node => node.dateTime)),
+      ['2026-09-19', '2026-10-23', '2026-12-26']);
+    assert.deepEqual(await page.locator('.timeline-filter').allTextContents(), ['ALL 03', 'UPCOMING 02', 'PAST 01']);
+    await page.locator('[data-date="2026-09-19"]').click();
+    assert.match(await page.locator('#selected-event').textContent(), /그럼에도 계속되는 것/);
+    assert.match(await page.locator('#selected-event').textContent(), /공연 시작18:30/);
+    await page.locator('#next-month').click();
+    await page.locator('[data-date="2026-10-23"]').click();
+    assert.match(await page.locator('#selected-event').textContent(), /공연명 미정/);
+    assert.match(await page.locator('#selected-event').textContent(), /시간 미정/);
+    assert.equal(await page.locator('#selected-event a').count(), 0);
+    await page.locator('#next-month').click();
+    await page.locator('#next-month').click();
+    await page.locator('[data-date="2026-12-26"]').click();
+    assert.match(await page.locator('#selected-event').textContent(), /Sound Crue/);
+    assert.match(await page.locator('#selected-event').textContent(), /일본 \/ 삿포로/);
+    await go('index');
+    assert.deepEqual(await page.locator('#home-shows time').evaluateAll(nodes => nodes.map(node => node.dateTime)),
+      ['2026-10-23', '2026-12-26']);
+    assert.match(await page.locator('#home-shows').textContent(), /시간 미정/);
+    assert.deepEqual(await page.locator('#home-products h3').allTextContents(), ['sakarin cosmos logo t-shirt']);
+    assert.equal(await page.locator('#home-products img, #home-products [style*="background-image"]').count(), 0);
+    assert.match(await page.locator('#home-products').textContent(), /₩25,000/);
+    await go('objects');
+    assert.equal(await page.locator('.reserve-btn:not(:disabled)').count(), 0);
+    console.log('PASS published schedule: three confirmed shows, start time, unknown details, no unconfirmed pickups');
+
+    assert.deepEqual(await page.locator('.catalog-item h2').allTextContents(), ['sakarin cosmos logo t-shirt']);
+    assert.equal(await page.locator('#catalog-grid img, #catalog-grid [style*="background-image"]').count(), 0);
+    assert.equal(await page.locator('.product-size').count(), 0, 'Unconfirmed sizes must not be displayed');
+    assert.deepEqual(await page.evaluate(() => SiteCatalog.products), [
+      { id: 'logo-t-shirt', name: 'sakarin cosmos logo t-shirt', price: 25000, sizes: [] }
+    ]);
+    await page.evaluate(() => {
+      localStorage.setItem('sakarin-cosmos-cart-v1', JSON.stringify([
+        { productId: 'orbit-tee', name: 'Orbit Tee', size: 'M', quantity: 1 },
+        { productId: 'signal-keyring', quantity: 2 }
+      ]));
+      dispatchEvent(new Event('cartchange'));
+    });
+    assert.equal(await page.evaluate(() => SiteCart.count()), 0, 'Deleted demo products must not survive in old carts');
+    assert.equal(await page.locator('[data-cart-count]').textContent(), '[0]');
+    await page.evaluate(() => SiteCart.clear());
+    console.log('PASS merchandise: one logo T-shirt, blank images, no invented options, removed demo cart entries');
+
+    // Sizes, pickup availability and a size-free item exist only in this test fixture.
+    const pickupCatalog = JSON.parse(await fs.readFile(path.join(root, 'data/catalog.json'), 'utf8'));
+    pickupCatalog.shows.forEach(show => { show.pickup = true; });
+    pickupCatalog.products[0].sizes = ['S', 'M', 'L', 'XL'];
+    pickupCatalog.products.push({ id: 'test-no-options', name: 'Test item', price: 14000, sizes: [] });
+    const mockPickupCatalog = route => route.fulfill({ json: pickupCatalog });
+    await context.route('**/data/catalog.json', mockPickupCatalog);
     await go('objects');
     assert.equal(await page.locator('[name="pickup_show"][value="bbang"]').isDisabled(), true);
     assert.equal(await page.locator('#pickup-status').textContent(), 'STATUS: PICKUP RESERVATION OPEN');
-    assert.equal(await page.locator('[name="pickup_show"]:checked').inputValue(), 'channel1969');
+    assert.equal(await page.locator('[name="pickup_show"]:checked').inputValue(), 'bbang-oct23');
     await page.evaluate(() => SiteCart.clear());
     const firstCard = page.locator('.catalog-item').first();
     await firstCard.locator('.reserve-btn').click();
@@ -118,7 +171,7 @@ const { chromium } = require('playwright');
     await page.locator('#open-order').click();
     const form = page.locator('#order-form');
     assert.equal(await form.locator('[name="showId"] option[value="bbang"]').count(), 0);
-    assert.match(await page.locator('#order-items').textContent(), /Orbit Tee \(M\) × 2/);
+    assert.match(await page.locator('#order-items').textContent(), /sakarin cosmos logo t-shirt \(M\) × 2/);
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('#order-modal').isVisible(), false);
     await page.locator('#open-order').click();
@@ -139,11 +192,11 @@ const { chromium } = require('playwright');
     fail = false;
     await form.locator('[type="submit"]').click();
     await page.waitForFunction(() => SiteCart.count() === 0);
-    assert.equal(sent.showId, 'channel1969');
+    assert.equal(sent.showId, 'bbang-oct23');
     assert.deepEqual(sent.items, [
-      { productId: 'orbit-tee', size: 'M', quantity: 2 },
-      { productId: 'orbit-tee', size: 'L', quantity: 1 },
-      { productId: 'orbit-tee', size: 'XL', quantity: 1 }
+      { productId: 'logo-t-shirt', size: 'M', quantity: 2 },
+      { productId: 'logo-t-shirt', size: 'L', quantity: 1 },
+      { productId: 'logo-t-shirt', size: 'XL', quantity: 1 }
     ]);
     await page.unroute('**/api/reservations');
     console.log('PASS batch sizes: variants, persistence, missing-size guard, failed retry and payload');
@@ -164,14 +217,14 @@ const { chromium } = require('playwright');
     });
     await single.locator('[type="submit"]').click();
     await page.waitForFunction(() => document.querySelector('#pickup-form-status').textContent.includes('접수'));
-    assert.deepEqual(sent.items, [{ productId: 'orbit-tee', size: 'S', quantity: 1 }]);
+    assert.deepEqual(sent.items, [{ productId: 'logo-t-shirt', size: 'S', quantity: 1 }]);
     assert.equal(await page.evaluate(() => SiteCart.count()), 0);
     await page.unroute('**/api/reservations');
     console.log('PASS single pickup: option, canonical show ID, removes submitted variant');
 
     await go('cart');
     await page.evaluate(() => {
-      localStorage.setItem('sakarin-cosmos-cart-v1', JSON.stringify([{ name: 'Orbit Tee', price: '₩25,000', quantity: 2 }]));
+      localStorage.setItem('sakarin-cosmos-cart-v1', JSON.stringify([{ name: 'sakarin cosmos logo t-shirt', price: '₩25,000', quantity: 2 }]));
       dispatchEvent(new Event('cartchange'));
     });
     assert.equal(await page.locator('#summary-count').textContent(), '2');
@@ -181,7 +234,7 @@ const { chromium } = require('playwright');
     await page.locator('.cart-size').selectOption('');
     assert.equal(await page.locator('#open-order').isDisabled(), true);
     await page.locator('.cart-size').selectOption('M');
-    await page.evaluate(() => SiteCart.add({ productId: 'signal-keyring' }));
+    await page.evaluate(() => SiteCart.add({ productId: 'test-no-options' }));
     assert.equal(await page.locator('.cart-size').count(), 1);
     assert.equal(await page.locator('#open-order').isEnabled(), true);
     const otherTab = await context.newPage();
@@ -196,33 +249,33 @@ const { chromium } = require('playwright');
     await page.locator('[data-date="2026-09-19"]').click();
     assert.equal(await page.locator('#selected-event a').count(), 0);
     await page.locator('#next-month').click();
-    await page.locator('[data-date="2026-10-14"]').click();
-    assert.match(await page.locator('#selected-event a').getAttribute('href'), /show=channel1969/);
+    await page.locator('[data-date="2026-10-23"]').click();
+    assert.match(await page.locator('#selected-event a').getAttribute('href'), /show=bbang-oct23/);
     const boundary = await page.evaluate(() => {
       const show = SiteCatalog.show('bbang');
       return [SiteCatalog.canPickup(show, new Date('2026-09-19T14:59:59Z')), SiteCatalog.canPickup(show, new Date('2026-09-19T15:00:00Z'))];
     });
     assert.deepEqual(boundary, [true, false]);
-    await page.clock.setFixedTime(new Date('2026-10-14T14:59:00Z'));
+    await page.clock.setFixedTime(new Date('2026-10-23T14:59:00Z'));
     await go('objects');
-    assert.equal(await page.locator('[name="pickup_show"][value="channel1969"]').isEnabled(), true);
+    assert.equal(await page.locator('[name="pickup_show"][value="bbang-oct23"]').isEnabled(), true);
     await page.locator('.product-size').first().selectOption('M');
     await page.locator('.reserve-btn').first().click();
     await page.locator('#tray-submit').click();
-    await page.clock.setFixedTime(new Date('2026-10-14T15:00:00Z'));
+    await page.clock.setFixedTime(new Date('2026-10-23T15:00:00Z'));
     await page.evaluate(() => window.dispatchEvent(new Event('focus')));
     assert.equal(await page.locator('#pickup-application-form [type="submit"]').isDisabled(), true);
-    await page.clock.setFixedTime(new Date('2026-10-14T14:59:00Z'));
+    await page.clock.setFixedTime(new Date('2026-10-23T14:59:00Z'));
     await go('cart');
     await page.locator('#open-order').click();
-    assert.equal(await page.locator('#order-form [name="showId"]').inputValue(), 'channel1969');
-    await page.clock.setFixedTime(new Date('2026-10-14T15:00:00Z'));
+    assert.equal(await page.locator('#order-form [name="showId"]').inputValue(), 'bbang-oct23');
+    await page.clock.setFixedTime(new Date('2026-10-23T15:00:00Z'));
     await page.evaluate(() => window.dispatchEvent(new Event('focus')));
     assert.equal(await page.locator('#order-form [name="showId"]').inputValue(), '');
     await page.evaluate(() => window.dispatchEvent(new Event('cartchange')));
     assert.equal(await page.locator('#order-form [name="showId"]').inputValue(), '', 'Expired selection must not silently switch shows');
     assert.equal(await page.locator('#order-form [type="submit"]').isDisabled(), true);
-    await page.locator('#order-form [name="showId"]').selectOption('ovantgarde');
+    await page.locator('#order-form [name="showId"]').selectOption('sound-crue');
     assert.equal(await page.locator('#order-form [type="submit"]').isEnabled(), true);
     await page.clock.setFixedTime(new Date('2030-01-01T00:00:00Z'));
     await go('objects');
@@ -257,7 +310,8 @@ const { chromium } = require('playwright');
     const dictionaries = await page.evaluate(() => Object.values(SiteMessages).map(messages => Object.keys(messages).sort()));
     assert.deepEqual(dictionaries[0], dictionaries[1]);
     assert.deepEqual(dictionaries[0], dictionaries[2]);
-    assert.equal(await page.evaluate(() => new URL(SiteI18n.href('objects', 'ja')).pathname), '/ja/objects.html');
+    assert.equal(await page.evaluate(() => new URL(SiteI18n.href('objects', 'ja')).pathname), '/jp/objects.html');
+    await require('./i18n.cjs')({ page, context, base, go, noOverflow, shot });
     await require('./media.cjs')({ page, context, base, go, noOverflow, shot });
     assert.deepEqual(errors, [], 'Browser JavaScript errors');
     console.log('All browser checks passed; reservation emails were mocked.');

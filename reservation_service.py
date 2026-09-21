@@ -11,55 +11,56 @@ EMAIL_RE = re.compile(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
 
 
 class ReservationError(ValueError):
-    def __init__(self, message, status=400):
+    def __init__(self, message, status=400, code='request.invalid'):
         super().__init__(message)
         self.status = status
+        self.code = code
 
 
 def validate_reservation(data, now=None):
     if not isinstance(data, dict):
-        raise ReservationError('요청 형식이 올바르지 않습니다.')
+        raise ReservationError('요청 형식이 올바르지 않습니다.', code='request.invalid')
     catalog = json.loads(CATALOG_PATH.read_text(encoding='utf-8'))
     current_day = (now or datetime.now(SEOUL)).astimezone(SEOUL).date().isoformat()
     show = next((show for show in catalog['shows'] if show['id'] == data.get('showId')), None)
     if not show or not show['pickup'] or show['date'] < current_day:
-        raise ReservationError('선택한 공연은 픽업 신청이 마감되었거나 신청할 수 없습니다. 다른 공연을 선택해 주세요.', 409)
+        raise ReservationError('선택한 공연은 픽업 신청이 마감되었거나 신청할 수 없습니다. 다른 공연을 선택해 주세요.', 409, code='validation.show')
 
     clean = {}
     for field, limit in [('name', 60), ('phone', 30), ('email', 120), ('note', 500)]:
         value = data.get(field, '')
         if not isinstance(value, str) or len(value.strip()) > limit:
-            raise ReservationError('신청 정보의 형식과 길이를 확인해 주세요.')
+            raise ReservationError('신청 정보의 형식과 길이를 확인해 주세요.', code='validation.format')
         clean[field] = value.strip()
         if field != 'note' and (not clean[field] or re.search(r'[\r\n]', value)):
-            raise ReservationError('필수 신청 정보를 확인해 주세요.')
+            raise ReservationError('필수 신청 정보를 확인해 주세요.', code='validation.required')
     if not EMAIL_RE.fullmatch(clean['email']):
-        raise ReservationError('이메일 주소를 확인해 주세요.')
+        raise ReservationError('이메일 주소를 확인해 주세요.', code='validation.email')
     if not (data.get('privacy') is True or data.get('privacy') == 'on'):
-        raise ReservationError('개인정보 수집·이용에 동의해 주세요.')
+        raise ReservationError('개인정보 수집·이용에 동의해 주세요.', code='validation.privacy')
 
     items = data.get('items')
     if not isinstance(items, list) or not 1 <= len(items) <= 50:
-        raise ReservationError('신청할 상품을 확인해 주세요.')
+        raise ReservationError('신청할 상품을 확인해 주세요.', code='validation.items')
     products = {product['id']: product for product in catalog['products']}
     merged = {}
     for item in items:
         if not isinstance(item, dict) or not isinstance(item.get('productId'), str):
-            raise ReservationError('상품 정보를 확인해 주세요.')
+            raise ReservationError('상품 정보를 확인해 주세요.', code='validation.product')
         product = products.get(item['productId'])
         if not product:
-            raise ReservationError('존재하지 않는 상품입니다. 페이지를 새로고침해 주세요.')
+            raise ReservationError('존재하지 않는 상품입니다. 페이지를 새로고침해 주세요.', code='validation.missingProduct')
         size = item.get('size', '')
         if not isinstance(size, str) or (size not in product['sizes'] if product['sizes'] else size != ''):
-            raise ReservationError(f"{product['name']}의 사이즈를 확인해 주세요.")
+            raise ReservationError(f"{product['name']}의 사이즈를 확인해 주세요.", code="validation.size")
         quantity = item.get('quantity')
         if type(quantity) is not int or not 1 <= quantity <= 9:
-            raise ReservationError('상품별 수량은 1개부터 9개까지 선택할 수 있습니다.')
+            raise ReservationError('상품별 수량은 1개부터 9개까지 선택할 수 있습니다.', code='validation.quantity')
         key = (product['id'], size)
         if key in merged:
             merged[key]['quantity'] += quantity
             if merged[key]['quantity'] > 9:
-                raise ReservationError('같은 상품과 사이즈는 최대 9개까지 신청할 수 있습니다.')
+                raise ReservationError('같은 상품과 사이즈는 최대 9개까지 신청할 수 있습니다.', code='validation.limit')
         else:
             merged[key] = {'productId': product['id'], 'name': product['name'],
                            'size': size, 'quantity': quantity, 'unitPrice': product['price']}

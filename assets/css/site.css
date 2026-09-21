@@ -27,7 +27,7 @@ body { margin: 0; }
 .site-nav a { padding: 4px 0; color: #c6c6ce; }
 .site-nav a[aria-current='page'] { border-bottom: 1px solid var(--site-accent); color: var(--site-paper); }
 .site-utility { display: flex; align-items: center; gap: .75rem; }
-.site-social { display: none; align-items: center; gap: .5rem; color: var(--site-muted); }
+.site-social { display: flex; align-items: center; gap: .5rem; color: var(--site-muted); }
 .site-social a { display: inline-flex; padding: 6px; }
 .site-social svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.75; }
 .site-cart { display: flex; align-items: center; gap: 6px; padding: 6px; font: 11px/16px var(--site-mono); white-space: nowrap; }
@@ -41,6 +41,9 @@ body { margin: 0; }
 .site-mobile-nav[hidden] { display: none; }
 .site-language { display: flex; gap: .5rem; font: 10px/16px var(--site-mono); }
 .site-language a[aria-current='true'] { color: var(--site-accent); }
+.site-utility > .site-language { display: none; }
+.site-mobile-nav .site-language { margin-top: .75rem; padding-top: .5rem; border-top: 1px solid #45464d; gap: 1.5rem; }
+.site-language a { min-height: 44px; display: inline-flex; align-items: center; }
 .site-footer { background: var(--site-ground); color: var(--site-muted); padding: 3rem 1.25rem; }
 .site-footer-top, .site-footer-bottom { display: flex; justify-content: space-between; gap: 1.75rem; flex-wrap: wrap; }
 .site-footer-title { font: 400 24px/32px 'EB Garamond', serif; letter-spacing: .05em; color: var(--site-paper); }
@@ -55,6 +58,20 @@ body { margin: 0; }
 @media (min-width: 768px) { .site-header-row { padding-inline: 2rem; } .site-footer { padding-inline: 2rem; } }
 @media (min-width: 1024px) { .site-header-row { padding-inline: 3rem; } .site-footer { padding-inline: 3rem; } }
 @media (min-width: 1200px) { .site-nav { display: flex; } .site-menu-toggle, .site-mobile-nav { display: none; } }
+@media (min-width: 1200px) { .site-utility > .site-language { display: flex; } .site-nav { gap: 1rem; } .site-utility { gap: .5rem; } }
+@media (max-width: 639px) {
+  .site-header-row { padding-inline: .75rem; gap: .5rem; }
+  .site-brand { flex-shrink: 1; min-width: 0; max-width: 128px; }
+  .site-brand-title { font-size: 17px; line-height: 20px; }
+  .site-coordinates { display: none; }
+  .site-utility { gap: 0; flex-shrink: 0; }
+  .site-utility .site-social { gap: 0; }
+  .site-utility .site-social a { width: 32px; height: 44px; align-items: center; justify-content: center; padding: 8px; }
+  .site-cart { gap: 3px; padding: 4px; font-size: 9px; }
+  .site-cart svg { width: 16px; }
+  .site-menu-toggle { width: 32px; padding: 6px; }
+  .site-footer .site-social { display: none; }
+}
 @media (max-width: 359px) { .site-header-row { gap: .5rem; padding-inline: .75rem; } .site-utility { gap: .25rem; } .site-brand-title { font-size: 17px; } .site-coordinates { font-size: 8px; letter-spacing: .08em; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto !important; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 
@@ -93,3 +110,7 @@ button:disabled { cursor: not-allowed; opacity: .45; }
 /* Keep short Korean words together; only break an oversized token when necessary. */
 html[lang="ko"] :is(p, label, h1, h2, h3, span, dd) { word-break: keep-all; overflow-wrap: anywhere; }
 main h1 > span { display: inline-block; }
+html[lang="ja"] body { font-family: 'Noto Sans JP', sans-serif; }
+.band-tagline { font: 400 clamp(28px, 5vw, 52px)/1.4 'EB Garamond', 'Noto Sans KR', 'Noto Sans JP', serif; }
+.band-bio { line-height: 2; max-width: 70ch; }
+#about { scroll-margin-top: 4rem; }

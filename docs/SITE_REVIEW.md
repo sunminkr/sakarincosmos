@@ -29,16 +29,16 @@
 | --- | --- | --- | --- |
 | 처리 | Instagram 6개·YouTube 1개·SoundCloud 1개 등록. 전체 최신순 정렬·필터·홈 연동 | 필요한 항목을 선별하고, 이후 새 게시물 추가 | `data/media.json`, `assets/js/media-feed.js`, `docs/MEDIA.md` |
 | 처리 | 헤더·푸터·본문의 SNS 링크를 공식 계정으로 교체 | 계정 변경 시 경로 갱신 | `assets/js/site.js`, 각 HTML |
-| 높음 | 홈의 물품 예약 링크가 선택 상품을 담지 않고 빈 장바구니로 이동 | 상품 식별자를 전달해 상세 선택으로 연결하거나 같은 담기 동작 적용 | `index.html` |
+| 처리 | 홈의 로고 티셔츠 링크가 굿즈 페이지의 해당 상품으로 이동 | 상품 변경 시 링크와 목록 갱신 | `index.html` |
 | 높음 | 공연·상품·옵션·수량·동의는 서버에서 검증하며 SMTP는 아직 모의 검증 | 실제 SMTP 설정과 발송 확인, 서버의 중복 신청 방지 정책 결정 | `server.py`, `reservation_service.py` |
-| 중간 | INFO는 홈 푸터로 이동하고 PRESS KIT는 아카이브를 가리킴 | 소개 내용과 실제 보도 자료/다운로드를 만들고 해당 경로로 연결 | `assets/js/i18n.js`, `assets/js/site.js` |
+| 일부 처리 | INFO는 세 언어 밴드 소개로 이동. PRESS KIT는 아직 아카이브를 가리킴 | 실제 보도 자료/다운로드를 만들고 연결 | `assets/js/i18n.js`, `assets/js/site.js` |
 | 처리 | 샘플 카드·가짜 페이지 이동 제거, 실제 데이터에서 개수 계산 | 공개 기록이 많아지면 페이지 나누기 검토 | `archive.html`, `assets/js/media-feed.js` |
 | 처리 | 아카이브는 카드 안에 직접 임베드하며 원본 링크 제공 | 외부 서비스의 임베드 표시 상태 확인 | `assets/js/media.js` |
-| 중간 | 본문과 신청 폼·서버 오류가 한/영 혼용이고 공연·물품 설명이 HTML/JS에 분산 | 공통 데이터와 번역 문구 분리 후 영어·일본어 본문 구성 | `locales/`, 각 HTML 및 페이지별 JS, `server.py` |
+| 처리 | 영어 `en/`·일본어 `jp/`에 여섯 페이지씩 제공. 본문·신청 폼·오류 문구 번역 | 원본이나 사전 수정 후 번역 HTML 재생성 | `locales/`, `scripts/build_locales.py`, `docs/I18N.md` |
 | 배포 전 | 개발용 Python 정적 서버가 저장소 전체를 제공하며 Tailwind가 CDN 런타임에 의존. 외부 샘플 이미지 사용 | 공개 파일만 제공하는 배포 구성, 비공개 파일·디렉터리 접근 차단, HTTPS·요청 제한, Tailwind 정적 CSS 생성, 자체 이미지 자산 정리 | `server.py`, 각 HTML |
 | 배포 전 | 실제 도메인 기준 canonical/hreflang, 공유 이미지, sitemap·robots·favicon·404 없음 | 번역 페이지 공개 상태와 도메인에 맞게 추가. 이전 공개 URL이 있다면 새 경로로 리다이렉트 | 각 HTML, 배포 설정 |
 
-SoundCloud 임베드·실제 콘텐츠 연결 → 실서버 메일 확인 → 본문 번역 순서로 진행하면 언어마다 같은 기능을 중복 수정하는 일을 줄일 수 있습니다.
+실제 콘텐츠 연결과 세 언어 페이지 구성을 완료했습니다. 실서버 메일 설정과 보도 자료, 배포 구성은 후속 작업입니다.
 
 ## 확인한 범위와 한계
 

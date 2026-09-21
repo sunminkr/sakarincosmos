@@ -20,13 +20,13 @@
       const shows = catalog.availableShows();
       select.replaceChildren(...(shows.length
         ? shows.map(show => new Option(catalog.showLabel(show), show.id))
-        : [new Option(catalog.error || '현재 신청 가능한 공연이 없습니다.', '')]));
+        : [new Option(catalog.error || SiteI18n.t('pickup.none'), '')]));
       if (shows.some(show => show.id === selected)) {
         select.value = selected;
         delete select.dataset.selectionExpired;
       } else if ((selected || select.dataset.selectionExpired) && shows.length) {
         select.dataset.selectionExpired = 'true';
-        select.prepend(new Option('선택한 공연은 마감되었습니다. 다시 선택해 주세요.', '', true, true));
+        select.prepend(new Option(SiteI18n.t('pickup.expired'), '', true, true));
       }
       select.disabled = !shows.length;
     },
@@ -39,11 +39,11 @@
     if (!response.ok) throw new Error('catalog');
     const data = await response.json();
     if (!Array.isArray(data.shows) || !Array.isArray(data.products)) throw new Error('catalog');
-    catalog.shows = data.shows.sort((a, b) => a.date.localeCompare(b.date));
+    catalog.shows = data.shows.map(SiteI18n.localize).sort((a, b) => a.date.localeCompare(b.date));
     catalog.products = data.products;
     return true;
   }).catch(() => {
-    catalog.error = '공연·상품 정보를 불러오지 못했습니다. 새로고침해 주세요.';
+    catalog.error = SiteI18n.t('catalog.error');
     return false;
   });
   // An open tab must also expire after midnight in Seoul, or when revisited.
