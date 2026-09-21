@@ -1,9 +1,1 @@
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } }
-html[data-page="transmissions"] .site-footer { padding-bottom: 8rem; }
-@media (max-width: 767px) {
-  html[data-page="transmissions"] .site-footer { padding-bottom: calc(13rem + env(safe-area-inset-bottom)); }
-  main aside.fixed { padding-bottom: calc(.625rem + env(safe-area-inset-bottom)); }
-  main aside.fixed > div > div:last-child { flex-wrap: wrap; gap: .5rem; }
-  main aside.fixed button { min-width: 40px; min-height: 40px; }
-  #player-title { white-space: normal; line-height: 1.4; }
-}

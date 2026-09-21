@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/media.css">
 <link rel="stylesheet" href="assets/css/pages/home.css">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
 </script>
@@ -29,6 +30,8 @@
 </script>
 <script src="assets/js/catalog.js" defer></script>
 <script src="assets/js/dialog.js" defer></script>
+<script src="assets/js/media.js" defer></script>
+<script src="assets/js/media-feed.js" defer></script>
 <script src="assets/js/cart-store.js" defer>
 </script>
 <script src="assets/js/pages/home.js" defer>
@@ -114,15 +117,15 @@
 <!-- Quick Social Signals & Coordinates Bar -->
 <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-md">
 <div class="flex items-center gap-space-lg">
-<a class="group flex items-center gap-space-xs font-label-catalog text-label-catalog text-on-surface-variant hover:text-on-surface transition-colors tracking-widest uppercase" href="https://instagram.com" rel="noopener noreferrer" target="_blank">
+<a class="group flex items-center gap-space-xs font-label-catalog text-label-catalog text-on-surface-variant hover:text-on-surface transition-colors tracking-widest uppercase" href="https://www.instagram.com/sakarincosmos/" rel="noopener noreferrer" target="_blank">
 <span class="text-primary text-[10px]">✦</span>
 <span>INSTAGRAM</span>
 </a>
-<a class="group flex items-center gap-space-xs font-label-catalog text-label-catalog text-on-surface-variant hover:text-on-surface transition-colors tracking-widest uppercase" href="https://youtube.com" rel="noopener noreferrer" target="_blank">
+<a class="group flex items-center gap-space-xs font-label-catalog text-label-catalog text-on-surface-variant hover:text-on-surface transition-colors tracking-widest uppercase" href="https://www.youtube.com/@sakarincosmos" rel="noopener noreferrer" target="_blank">
 <span class="text-primary text-[10px]">✦</span>
 <span>YOUTUBE</span>
 </a>
-<a class="group flex items-center gap-space-xs font-label-catalog text-label-catalog text-on-surface-variant hover:text-on-surface transition-colors tracking-widest uppercase" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank">
+<a class="group flex items-center gap-space-xs font-label-catalog text-label-catalog text-on-surface-variant hover:text-on-surface transition-colors tracking-widest uppercase" href="https://soundcloud.com/sakarincosmos159" rel="noopener noreferrer" target="_blank">
 <span class="text-primary text-[10px]">✦</span>
 <span>SOUNDCLOUD</span>
 </a>
@@ -133,84 +136,10 @@
 </div>
 </div>
 </section>
-<!-- LATEST TRANSMISSION SECTION -->
-<section class="w-full bg-surface px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl">
-<div class="w-full flex flex-col gap-space-lg">
-<!-- Section Header with Korean Subtitle -->
-<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-space-xs">
-<div class="flex items-baseline gap-space-md">
-<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-normal uppercase">LATEST TRANSMISSION</h2>
-<span class="font-label-code text-label-code text-outline tracking-widest">최근 발신 [REF. SC-2609]</span>
-</div>
-<span class="font-label-code text-label-code text-outline tracking-wider">RECORDED: 2026.09.19</span>
-</div>
-<!-- Feature Card: Orbit Live at Club BBang -->
-<div class="w-full bg-surface-container-low p-space-md md:p-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
-<!-- Thumbnail / Tape Reel View -->
-<div class="lg:col-span-6 relative aspect-[16/10] bg-surface-container-lowest overflow-hidden group">
-<div class="absolute inset-0 bg-cover bg-center grayscale contrast-125 transition-transform duration-700 group-hover:scale-105" data-alt="High contrast monochromatic photograph of an analog tape recorder reel spinning inside a dim underground venue. Subtle amber-toned cathode light, tactile metallic finish, tape spooling softly, moody darkness, Seoul indie club BBang ambiance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCo89_pTmUwhR1JInkgy9Nrop4HnLRaJICjrkUfGqEEPW-mfNvBMupzxTon7lwi-80P-naNJncUJH70i4FneftRHmwm_5QeSGA71cFPoHTzRZvGgup2JHmUnbuMaY9rD9DW-pPicKgv0zxp_oanFfO_9mmIeFoqcfT16jbCo-Cq_idiu5iA9YWkim2xfa3a2f83OBE9t0AlI10JCorBn4WsIDFdQlf_j0QlOIbKzm71wmQ0BPijJtEk4g')">
-</div>
-<div class="absolute inset-0 bg-surface-container-lowest/30">
-</div>
-<!-- Micro Labeling on Tape -->
-<div class="absolute top-space-sm left-space-sm bg-surface-container-lowest/90 px-2 py-1 font-label-micro text-label-micro text-secondary tracking-widest uppercase">
-            FORMAT: 4-TRACK REEL TAPE
-          </div>
-<div class="absolute bottom-space-sm left-space-sm bg-surface-container-lowest/90 px-2 py-1 font-label-code text-label-code text-on-surface tracking-widest">
-            04:18 · STEREO MASTER
-          </div>
-<!-- Play Trigger Center Icon -->
-<button aria-label="Listen to transmission" class="absolute inset-0 m-auto w-12 h-12 bg-on-surface text-surface-container-lowest flex items-center justify-center transition-all duration-200 hover:bg-primary hover:text-on-primary" id="playback-btn">
-<span class="material-symbols-outlined text-[24px]">play_arrow</span>
-</button>
-</div>
-<!-- Release Metadata & Content -->
-<div class="lg:col-span-6 flex flex-col justify-between h-full py-space-xs">
-<div class="flex flex-col gap-space-sm">
-<div class="flex items-center gap-space-sm font-label-micro text-label-micro tracking-widest text-primary uppercase">
-<span>● MAGNETIC IMPRINT</span>
-<span class="text-outline-variant">/</span>
-<span>LIVE CAPTURE · 4-TRACK CASSETTE</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight">
-              Orbit Live at Club BBang 2026.09.19
-            </h3>
-<p class="font-label-code text-label-code text-secondary">
-              신곡 데모 / New Song Demo (Ver. Tape Spliced)
-            </p>
-<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs leading-relaxed">
-              홍대 클럽 빵 지하실의 공기, 리버브 잔향, 관객들의 숨소리가 테이프의 히스 노이즈와 함께 고스란히 담겼습니다. 왜곡된 기타 루프와 드럼 신호의 불규칙한 교차.
-            </p>
-</div>
-<!-- Interactive Play Bar Component -->
-<div class="mt-space-lg flex flex-col gap-space-xs bg-surface-container p-space-sm">
-<div class="flex justify-between items-center font-label-micro text-label-micro text-outline">
-<span id="player-time">00:00</span>
-<span class="text-secondary font-label-code text-label-code">TRACK 01: 궤도 (ORBIT)</span>
-<span>04:18</span>
-</div>
-<!-- Scrub line -->
-<div class="w-full h-1 bg-surface-container-highest relative cursor-pointer" id="scrub-container">
-<div class="h-full bg-primary w-1/4" id="scrub-progress">
-</div>
-</div>
-<div class="flex justify-between items-center pt-1 font-label-micro text-label-micro text-outline">
-<span>AZIMUTH: +0.42°</span>
-<span>SAMPLE RATE: 44.1kHz / 16-BIT ARCHIVE</span>
-</div>
-</div>
-<!-- Actions -->
-<div class="mt-space-md flex flex-wrap items-center gap-space-sm">
-<a class="px-space-md py-space-sm bg-on-surface text-surface-container-lowest font-label-code text-label-code tracking-widest uppercase hover:bg-primary hover:text-on-primary transition-colors" data-path="transmissions" href="transmissions.html">
-              LISTEN FULL ARCHIVE
-            </a>
-<a class="px-space-md py-space-sm bg-surface-container text-on-surface font-label-code text-label-code tracking-widest uppercase hover:bg-surface-bright transition-colors" data-path="archive" href="archive.html">
-              VIEW NOTES &amp; CORD
-            </a>
-</div>
-</div>
-</div>
-</div>
+<!-- Latest published recording from the shared media list. -->
+<section class="home-media-section">
+<div class="home-media-section-title"><div><h2>LATEST TRANSMISSION</h2><p>최근 발신</p></div><a data-path="transmissions" href="transmissions.html">음악·영상 전체 보기 →</a></div>
+<div id="home-featured"><p class="media-empty">기록을 불러오는 중입니다.</p></div>
 </section>
 <!-- UPCOMING OBSERVATIONS SECTION -->
 <section class="w-full bg-surface-container-lowest px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl">
@@ -232,125 +161,10 @@
 </div>
 </div>
 </section>
-<!-- FROM THE ARCHIVE: CONTACT SHEET COLLAGE -->
-<section class="w-full bg-surface px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl">
-<div class="w-full flex flex-col gap-space-lg">
-<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-space-xs">
-<div class="flex items-baseline gap-space-md">
-<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-normal uppercase">FROM THE ARCHIVE</h2>
-<span class="font-label-code text-label-code text-outline tracking-widest">기록 보관소 단편</span>
-</div>
-<a class="font-label-code text-label-code text-primary hover:text-on-surface transition-colors tracking-widest uppercase" data-path="archive" href="archive.html">
-          VIEW FULL ARCHIVE →
-        </a>
-</div>
-<!-- Asymmetrical Archival Mosaic / Contact Sheet -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start">
-<!-- Frame 1: Rehearsal Photo Plate with Grease Pencil Marks -->
-<div class="md:col-span-7 bg-surface-container-low p-space-md flex flex-col gap-space-xs relative group">
-<div class="flex justify-between items-center font-label-micro text-label-micro text-outline">
-<span>KODAK TX 400 · EXP 24A</span>
-<span>ROLL #08 / YONGSAN BASEMENT</span>
-</div>
-<div class="relative aspect-[4/3] bg-surface-container-lowest overflow-hidden">
-<div class="w-full h-full bg-cover bg-center grayscale contrast-125 group-hover:scale-105 transition-transform duration-500" data-alt="Grainy black and white 35mm rehearsal photograph of Sakarin Cosmos band members in low incandescent lighting. Amplifiers stacked, microphone stands crisscrossing, blurry motion of bass player tuning instrument, grease pencil red-orange crop marks drawn on negative contact sheet border." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAInwoPd8iePy4_iYLILMRApDuTSEYY1c4gX-5BZJtFNihHGuXeeIobg1Pw8XZ9SUjAF5_JB5omZ6AQ-jlcpIUOCsIaxAzcQibODay6ZCU6U5TNT5HmbXUXzVowSGUydp8OPsn5RD7Dg39WFYaz1CRKh0nHwF6qNZnrzogkm_y4rQJcc4UNlI8kWmBxs3A4PlGcD7hdV6UFYPOaKwnq2_RzAU6CaSFHIrfq84rlJVLJlSzKLK5mTVDN1w')">
-</div>
-<!-- Grease Pencil Overlay SVG -->
-<div class="absolute inset-0 pointer-events-none p-4 flex flex-col justify-between">
-<div class="flex justify-between text-primary/80 font-label-micro text-label-micro">
-<span>⌜ CROP 1:1</span>
-<span>KEEP FLARE ⌝</span>
-</div>
-<div class="flex justify-between text-primary/80 font-label-micro text-label-micro">
-<span>⌞ PUSH +2 EV</span>
-<span>MATCH DRUM ⌟</span>
-</div>
-</div>
-</div>
-<p class="font-body-sm text-body-sm text-secondary pt-space-xs">
-            1998.11.04 — 겨울 시작 전, 문래동 지하 합주실에서 녹음된 미발표 데모 트랙의 마스터 테이프 릴 점검.
-          </p>
-</div>
-<!-- Frame 2: Setlist Fragment -->
-<div class="md:col-span-5 bg-surface-container-high p-space-md flex flex-col gap-space-sm">
-<div class="flex justify-between items-center font-label-micro text-label-micro text-outline">
-<span>SCRAP ITEM: SETLIST</span>
-<span>SEOUL CLUB BBANG</span>
-</div>
-<div class="bg-surface-container-lowest p-space-md flex flex-col gap-space-sm font-label-code text-label-code">
-<span class="text-secondary font-headline-sm text-headline-sm italic font-display-hero border-b border-surface-container-highest pb-1">
-              Set Order (2026.09.19)
-            </span>
-<ul class="flex flex-col gap-1 text-on-surface-variant pt-space-xs">
-<li class="flex justify-between">
-<span>01. 궤도 (Orbit)</span>
-<span class="text-outline">05:12</span>
-</li>
-<li class="flex justify-between text-on-surface">
-<span>02. 은하수 건너 (Cross Galaxy)</span>
-<span class="text-primary">04:30</span>
-</li>
-<li class="flex justify-between">
-<span>03. 침묵의 신호 (Silent Signal)</span>
-<span class="text-outline">06:04</span>
-</li>
-<li class="flex justify-between">
-<span>04. 겨울 통과 (Winter Pass)</span>
-<span class="text-outline">03:45</span>
-</li>
-<li class="flex justify-between text-secondary">
-<span>[ENCORE] 밤의 주파수 (Night Hz)</span>
-<span class="text-outline">--:--</span>
-</li>
-</ul>
-<div class="pt-space-xs text-outline font-label-micro text-label-micro border-t border-surface-container-highest">
-              * 손글씨 메모: "기타 딜레이 피드백 30초 유지 후 절단할 것."
-            </div>
-</div>
-<!-- Frame 3: Studio Notebook Memo Scrap -->
-<div class="bg-surface-container p-space-md flex flex-col gap-space-xs">
-<div class="font-label-micro text-label-micro text-primary">STUDIO MEMO #14</div>
-<p class="font-headline-sm text-headline-sm italic text-on-surface font-display-hero">
-              "일부 신호는 여전히 우리에게 도달한다."
-            </p>
-<p class="font-body-sm text-body-sm text-secondary font-display-hero italic">
-              (some signals still reach us.)
-            </p>
-<span class="font-label-micro text-label-micro text-outline pt-space-xs">
-              FIELD LOG NO. 09 / TAPE CASSETTE INLAY NOTE
-            </span>
-</div>
-</div>
-<!-- Frame 4: Xerox Gig Poster Fragment -->
-<div class="md:col-span-12 lg:col-span-12 bg-surface-container-low p-space-md grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
-<div class="md:col-span-4 aspect-[3/4] bg-surface-container-lowest relative overflow-hidden">
-<div class="w-full h-full bg-cover bg-center grayscale contrast-150" data-alt="Photocopied monochrome gig poster pinned to raw concrete wall with masking tape texture. High contrast xerox distortion, bold Korean and English letterpress type, celestial star maps overlaid, stark DIY aesthetic from Hongdae live club circuit." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVSRvLViWvpuTRqGYR26q4qqgEhFnog2QF8kB-b2BZ78jWn5aYRA8hkqMWPEBce_IglVwoEugFy-p7IDg5XQkXex_sJ_5gj2tw-1AJS7cPz-xdfTY0lM50Fx8RJuvENuVXgSWgiKHTKnSJgmonPoaDgR19mf1CpyW9lm8gQO-cQLx69EzJGGTjdsWnuW0hj5EbM9lTJxKqllPdhlpLEmRogwNnxCFJFZ9UQZHoLdiZ31rWzz3uiWyE1w')">
-</div>
-<div class="absolute top-2 right-2 bg-on-surface text-surface-container-lowest px-1 font-label-micro text-label-micro uppercase">
-              XEROX COPY
-            </div>
-</div>
-<div class="md:col-span-8 flex flex-col gap-space-sm">
-<div class="font-label-catalog text-label-catalog text-secondary tracking-widest uppercase">
-              POSTER EPHEMERA · AUTUMN 2026
-            </div>
-<h4 class="font-headline-md text-headline-md text-on-surface">
-              밤의 관측소 / Live Transmissions Vol. II
-            </h4>
-<p class="font-body-md text-body-md text-on-surface-variant">
-              리소인쇄기와 중고 복사기로 인쇄된 A3 포스터 50장. 각 장마다 토너의 농도와 롤러 자국이 모두 다르게 남겨졌으며, 홍대와 문래동 인근의 닫힌 셔터 위에 부착되었습니다.
-            </p>
-<div class="flex items-center gap-space-md pt-space-sm font-label-code text-label-code text-outline">
-<span>EDITION: 50 COPIES</span>
-<span>·</span>
-<span>DIMENSIONS: 297 × 420 MM</span>
-<span>·</span>
-<span class="text-primary">ARCHIVED COPY #02</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- Recent posts from the same chronological archive. -->
+<section class="home-media-section">
+<div class="home-media-section-title"><div><h2>FROM THE ARCHIVE</h2><p>최근의 기록</p></div><a data-path="archive" href="archive.html">아카이브 전체 보기 →</a></div>
+<div id="home-archive" class="media-grid"><p class="media-empty">기록을 불러오는 중입니다.</p></div>
 </section>
 <!-- OBJECTS PREVIEW SECTION -->
 <section class="w-full bg-surface-container-lowest px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl">

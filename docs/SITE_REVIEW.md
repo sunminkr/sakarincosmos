@@ -27,13 +27,13 @@
 
 | 우선순위 | 확인된 상태 | 다음 작업 | 관련 파일 |
 | --- | --- | --- | --- |
-| 높음 | 현재 플레이어는 데모 동작 | 실제 SoundCloud 트랙/플레이리스트 임베드로 교체하고 모바일 크기를 확인. 직접 음원 연결은 제외 | `assets/js/pages/home.js`, `transmissions.js`, `archive.js` |
-| 높음 | 아카이브 YouTube 영상이 샘플 ID이고 SNS 링크가 서비스 첫 화면으로 이동 | 실제 프로필·게시물·영상 주소로 교체. 헤더·푸터 SNS는 `site.js` 한 곳에서 수정 | `assets/js/site.js`, `assets/js/pages/archive.js`, `transmissions.html` |
+| 처리 | Instagram 6개·YouTube 1개·SoundCloud 1개 등록. 전체 최신순 정렬·필터·홈 연동 | 필요한 항목을 선별하고, 이후 새 게시물 추가 | `data/media.json`, `assets/js/media-feed.js`, `docs/MEDIA.md` |
+| 처리 | 헤더·푸터·본문의 SNS 링크를 공식 계정으로 교체 | 계정 변경 시 경로 갱신 | `assets/js/site.js`, 각 HTML |
 | 높음 | 홈의 물품 예약 링크가 선택 상품을 담지 않고 빈 장바구니로 이동 | 상품 식별자를 전달해 상세 선택으로 연결하거나 같은 담기 동작 적용 | `index.html` |
 | 높음 | 공연·상품·옵션·수량·동의는 서버에서 검증하며 SMTP는 아직 모의 검증 | 실제 SMTP 설정과 발송 확인, 서버의 중복 신청 방지 정책 결정 | `server.py`, `reservation_service.py` |
 | 중간 | INFO는 홈 푸터로 이동하고 PRESS KIT는 아카이브를 가리킴 | 소개 내용과 실제 보도 자료/다운로드를 만들고 해당 경로로 연결 | `assets/js/i18n.js`, `assets/js/site.js` |
-| 중간 | 아카이브 ALL 표시 42개와 실제 카드 12개가 다름. PREV/NEXT DRAWER 버튼에 이동 동작이 없음 | 실제 데이터에서 개수 계산, 더 보기/페이지 이동 구현 또는 준비 전 버튼 숨김 | `archive.html`, `assets/js/pages/archive.js` |
-| 중간 | 픽업 모달의 초점 관리는 구현. 아카이브 카드와 모달은 마우스 중심 | 아카이브 카드의 키보드 열기와 모달 초점 관리 적용 | `assets/js/pages/archive.js` |
+| 처리 | 샘플 카드·가짜 페이지 이동 제거, 실제 데이터에서 개수 계산 | 공개 기록이 많아지면 페이지 나누기 검토 | `archive.html`, `assets/js/media-feed.js` |
+| 처리 | 아카이브는 카드 안에 직접 임베드하며 원본 링크 제공 | 외부 서비스의 임베드 표시 상태 확인 | `assets/js/media.js` |
 | 중간 | 본문과 신청 폼·서버 오류가 한/영 혼용이고 공연·물품 설명이 HTML/JS에 분산 | 공통 데이터와 번역 문구 분리 후 영어·일본어 본문 구성 | `locales/`, 각 HTML 및 페이지별 JS, `server.py` |
 | 배포 전 | 개발용 Python 정적 서버가 저장소 전체를 제공하며 Tailwind가 CDN 런타임에 의존. 외부 샘플 이미지 사용 | 공개 파일만 제공하는 배포 구성, 비공개 파일·디렉터리 접근 차단, HTTPS·요청 제한, Tailwind 정적 CSS 생성, 자체 이미지 자산 정리 | `server.py`, 각 HTML |
 | 배포 전 | 실제 도메인 기준 canonical/hreflang, 공유 이미지, sitemap·robots·favicon·404 없음 | 번역 페이지 공개 상태와 도메인에 맞게 추가. 이전 공개 URL이 있다면 새 경로로 리다이렉트 | 각 HTML, 배포 설정 |

@@ -24,6 +24,7 @@ const { chromium } = require('playwright');
     }
     browser = await chromium.launch();
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+    await require('./media.cjs').mockProviders(context);
     await context.route('https://lh3.googleusercontent.com/**', route => route.abort());
     const page = await context.newPage();
     await page.clock.setFixedTime(new Date('2026-09-21T03:00:00Z'));
@@ -32,7 +33,7 @@ const { chromium } = require('playwright');
     page.on('pageerror', error => errors.push(error.message));
     const go = async name => {
       await page.goto(`${base}/${name}.html`, { waitUntil: 'domcontentloaded' });
-      await page.evaluate(() => SiteCatalog.ready);
+      await page.evaluate(async () => { await SiteCatalog.ready; await window.SiteMedia?.ready; });
       await page.waitForFunction(() => getComputedStyle(document.querySelector('main')).paddingTop === '64px');
       await page.evaluate(() => document.fonts.ready);
     };
@@ -257,6 +258,7 @@ const { chromium } = require('playwright');
     assert.deepEqual(dictionaries[0], dictionaries[1]);
     assert.deepEqual(dictionaries[0], dictionaries[2]);
     assert.equal(await page.evaluate(() => new URL(SiteI18n.href('objects', 'ja')).pathname), '/ja/objects.html');
+    await require('./media.cjs')({ page, context, base, go, noOverflow, shot });
     assert.deepEqual(errors, [], 'Browser JavaScript errors');
     console.log('All browser checks passed; reservation emails were mocked.');
   } finally {

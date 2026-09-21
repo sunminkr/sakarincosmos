@@ -1,56 +1,3 @@
-(function() {
-      const playBtn = document.getElementById('playback-btn');
-      const timeDisplay = document.getElementById('player-time');
-      const progressBar = document.getElementById('scrub-progress');
-      const scrubContainer = document.getElementById('scrub-container');
-      
-      let isPlaying = false;
-      let seconds = 0;
-      let interval = null;
-
-      if (playBtn && timeDisplay && progressBar) {
-        playBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          isPlaying = !isPlaying;
-          
-          const icon = playBtn.querySelector('span');
-          if (isPlaying) {
-            icon.textContent = 'pause';
-            interval = setInterval(function() {
-              if (seconds < 258) {
-                seconds++;
-                const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-                const secs = String(seconds % 60).padStart(2, '0');
-                timeDisplay.textContent = mins + ':' + secs;
-                const percent = (seconds / 258) * 100;
-                progressBar.style.width = percent + '%';
-              } else {
-                clearInterval(interval);
-                isPlaying = false;
-                icon.textContent = 'play_arrow';
-                seconds = 0;
-              }
-            }, 1000);
-          } else {
-            icon.textContent = 'play_arrow';
-            clearInterval(interval);
-          }
-        });
-      }
-
-      if (scrubContainer && progressBar) {
-        scrubContainer.addEventListener('click', function(e) {
-          const rect = scrubContainer.getBoundingClientRect();
-          const clickPos = (e.clientX - rect.left) / rect.width;
-          seconds = Math.floor(clickPos * 258);
-          const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-          const secs = String(seconds % 60).padStart(2, '0');
-          if (timeDisplay) timeDisplay.textContent = mins + ':' + secs;
-          progressBar.style.width = (clickPos * 100) + '%';
-        });
-      }
-    })();
-
 (async () => {
   await SiteCatalog.ready;
   function renderShows() {
@@ -65,4 +12,16 @@
   }
   window.addEventListener('schedulechange', renderShows);
   renderShows();
+})();
+
+(async () => {
+  await SiteMedia.ready;
+  const featured = SiteMedia.list(['soundcloud', 'youtube'])[0];
+  const featuredBox = document.getElementById('home-featured');
+  if (featured) featuredBox.replaceChildren(SiteMediaFeed.card(featured, 'h3'));
+  else featuredBox.querySelector('p').textContent = SiteMedia.error || '등록된 음악·영상이 없습니다.';
+  const recent = SiteMedia.list().filter(entry => entry.id !== featured?.id).slice(0, 3);
+  const archive = document.getElementById('home-archive');
+  if (recent.length) archive.replaceChildren(...recent.map(entry => SiteMediaFeed.card(entry, 'h3')));
+  else archive.querySelector('p').textContent = SiteMedia.error || '등록된 기록이 없습니다.';
 })();

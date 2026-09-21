@@ -1,13 +1,15 @@
-// Shared keyboard and focus behavior for the pickup dialogs.
-window.SiteDialog = modal => {
+// Shared keyboard and focus behavior for pickup and media dialogs.
+window.SiteDialog = (modal, { onClose } = {}) => {
   let opener;
   let previousOverflow = '';
-  const focusable = () => [...modal.querySelectorAll('button, a[href], input, select, textarea, [tabindex="0"]')]
+  const focusable = () => [...modal.querySelectorAll('button, a[href], input, select, textarea, iframe, [tabindex="0"]')]
     .filter(node => !node.disabled && node.getClientRects().length && node.type !== 'hidden');
   const close = () => {
+    if (modal.classList.contains('hidden')) return;
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     document.body.style.overflow = previousOverflow;
+    onClose?.();
     if (opener?.isConnected) opener.focus();
   };
   modal.addEventListener('click', event => {
