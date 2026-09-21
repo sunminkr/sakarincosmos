@@ -7,8 +7,8 @@ const instagramSDK = `window.instgrm = { Embeds: { process() {
   document.querySelectorAll('blockquote.instagram-media').forEach(block => {
     const frame = document.createElement('iframe');
     frame.className = 'instagram-media'; frame.title = 'Instagram post';
-    frame.src = block.dataset.instgrmPermalink + 'embed/';
-    frame.style.cssText = 'width:100%;min-width:326px;max-width:540px;height:680px';
+    frame.src = block.dataset.instgrmPermalink + (block.hasAttribute('data-instgrm-captioned') ? 'embed/captioned/' : 'embed/');
+    frame.style.cssText = 'width:100%;min-width:326px;max-width:540px;height:1800px';
     block.replaceWith(frame);
   });
 } } };`;
@@ -95,6 +95,23 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
     await page.locator('[data-provider-filter="instagram"]').click();
     await page.waitForSelector('iframe.instagram-media');
     assert.equal(await page.locator('.media-audio, .media-playlist').count(), 0);
+    const preview = page.locator('.instagram-preview');
+    const previewHeight = width < 640 ? 360 : 400;
+    assert.equal((await preview.boundingBox()).height, previewHeight);
+    assert.equal(await preview.getAttribute('inert'), '');
+    assert.doesNotMatch(await preview.locator('iframe').getAttribute('src'), /captioned/);
+    const beforeHeight = (await page.locator('.media-card').boundingBox()).height;
+    await preview.locator('iframe').evaluate(frame => { frame.style.height = '3000px'; });
+    assert.equal((await preview.boundingBox()).height, previewHeight, 'SDK resize must not expand the preview');
+    assert.equal((await page.locator('.media-card').boundingBox()).height, beforeHeight, 'Long embeds must not expand the card');
+    const more = page.locator('.media-instagram > .media-source');
+    assert.equal(await more.getAttribute('href'), 'https://www.instagram.com/p/TestPhoto/');
+    assert.equal(await more.getAttribute('target'), '_blank');
+    assert.match(await more.textContent(), /더 보기/);
+    assert.ok((await more.boundingBox()).y >= (await preview.boundingBox()).y + previewHeight, 'More link must remain outside the clipped preview');
+    await more.focus();
+    await page.keyboard.press('Shift+Tab');
+    assert.equal(await page.evaluate(() => document.activeElement.tagName === 'IFRAME'), false, 'Clipped iframe controls must not receive keyboard focus');
     await noOverflow(`Instagram ${width}px`);
     if (width === 390) await shot('instagram-embed-mobile');
 
@@ -109,11 +126,37 @@ async function checkMedia({ page, context, base, go, noOverflow, shot }) {
   }
   console.log('PASS media: all embeds, chronological home previews, disabled entries and 320–1440px layouts');
 
+  // Clicking the preview itself must lead to the original post, not hidden embed controls.
+  await go('archive');
+  await page.locator('[data-provider-filter="instagram"]').click();
+  await page.waitForSelector('iframe.instagram-media');
+  await context.route('https://www.instagram.com/p/TestPhoto/', route => route.fulfill({ contentType: 'text/html', body: 'Original post' }));
+  await page.locator('.instagram-preview').scrollIntoViewIfNeeded();
+  const box = await page.locator('.instagram-preview').boundingBox();
+  const popupPromise = page.waitForEvent('popup');
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+  const popup = await popupPromise;
+  await popup.waitForURL('https://www.instagram.com/p/TestPhoto/');
+  await popup.close();
+  await context.unroute('https://www.instagram.com/p/TestPhoto/');
+  console.log('PASS Instagram preview: fixed height, late resizing, keyboard focus and original-post link');
+
   delete config.entries['new-video'];
   await go('index');
   assert.equal(await page.locator('#home-featured .media-card').getAttribute('data-media-id'), 'playlist', 'Deleting the latest record updates the home feature');
   await go('archive');
   assert.equal(await page.locator('.media-card').count(), 3);
+  // Keep the grid usable with fewer records after deletions, including one or none.
+  config = { entries: {
+    'one-photo': entry('https://www.instagram.com/p/TestPhoto/', '2026-09-20'),
+    'one-track': entry('https://soundcloud.com/embed-test/track', '2026-06-10')
+  } };
+  await go('index');
+  const lastCard = page.locator('#home-archive .media-card');
+  assert.equal(await lastCard.count(), 1);
+  const gridWidth = (await page.locator('#home-archive').boundingBox()).width;
+  assert.ok(Math.abs((await lastCard.boundingBox()).width - gridWidth) < 1, 'A remaining home card must not leave empty fixed columns');
+  await noOverflow('home after deleting all but one recent record');
   config = { entries: {} };
   await go('archive');
   assert.equal(await page.locator('.media-card, iframe').count(), 0);

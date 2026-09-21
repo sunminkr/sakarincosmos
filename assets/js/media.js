@@ -3,7 +3,10 @@
   const configURL = new URL('../../data/media.json', document.currentScript.src);
   const media = window.SiteMedia = { entries: {}, error: '' };
   let instagramScript;
+  let instagramPending = false;
   function processInstagram() {
+    if (instagramPending) return;
+    instagramPending = true;
     if (!instagramScript) instagramScript = new Promise(resolve => {
       if (window.instgrm?.Embeds) { resolve(true); return; }
       const script = document.createElement('script');
@@ -13,7 +16,10 @@
       script.onerror = () => resolve(false);
       document.head.append(script);
     });
-    instagramScript.then(loaded => { if (loaded) window.instgrm.Embeds.process(); });
+    instagramScript.then(loaded => {
+      instagramPending = false;
+      if (loaded) window.instgrm.Embeds.process();
+    });
   }
 
   function sourceURL(value) {
@@ -87,6 +93,7 @@
     const entry = media.get(id);
     container.replaceChildren();
     container.classList.add('media-embed');
+    container.classList.toggle('media-instagram', entry?.provider === 'Instagram');
     if (!entry) {
       const message = document.createElement('p');
       message.className = 'media-empty';
@@ -101,13 +108,21 @@
     link.className = 'media-source';
     link.textContent = `${entry.provider}에서 열기 ↗`;
     if (entry.provider === 'Instagram') {
+      const preview = document.createElement('div');
+      preview.className = 'instagram-preview';
+      // This is a bounded visual preview. Keep cropped iframe controls out of
+      // keyboard navigation; the visible source link opens the complete post.
+      preview.inert = true;
+      preview.setAttribute('aria-hidden', 'true');
       const block = document.createElement('blockquote');
       block.className = 'instagram-media';
       block.dataset.instgrmPermalink = entry.source;
       block.dataset.instgrmVersion = '14';
-      block.dataset.instgrmCaptioned = '';
       block.append(link.cloneNode(true));
-      container.append(block, link);
+      preview.append(block);
+      link.textContent = 'Instagram에서 더 보기 ↗';
+      link.setAttribute('aria-label', `${entry.title || '게시물'} — Instagram에서 전체 보기 (새 창)`);
+      container.append(preview, link);
       processInstagram();
     } else {
       const iframe = document.createElement('iframe');
