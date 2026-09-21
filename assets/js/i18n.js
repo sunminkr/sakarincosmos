@@ -28,7 +28,7 @@
 
   function apply(root = document) {
     const attributes = { 'data-i18n': null, 'data-i18n-label': 'aria-label',
-      'data-i18n-placeholder': 'placeholder', 'data-i18n-content': 'content' };
+      'data-i18n-placeholder': 'placeholder', 'data-i18n-content': 'content', 'data-i18n-alt': 'alt' };
     Object.entries(attributes).forEach(([hook, attribute]) => {
       root.querySelectorAll(`[${hook}]`).forEach(node => {
         const value = t(node.getAttribute(hook));

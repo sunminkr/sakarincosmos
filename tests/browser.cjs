@@ -115,7 +115,8 @@ const { chromium } = require('playwright');
     console.log('PASS published schedule: Korean venue name, three shows, two upcoming pickups and closed past show');
 
     assert.deepEqual(await page.locator('.catalog-item h2').allTextContents(), ['sakarin cosmos logo t-shirt']);
-    assert.equal(await page.locator('#catalog-grid img, #catalog-grid [style*="background-image"]').count(), 0);
+    assert.equal(await page.locator('#catalog-grid img').count(), 3);
+    assert.equal(await page.locator('#catalog-grid .product-image-placeholder').count(), 0);
     assert.equal(await page.locator('.product-size').count(), 0, 'Unconfirmed sizes must not be displayed');
     assert.deepEqual(await page.evaluate(() => SiteCatalog.products), [
       { id: 'logo-t-shirt', name: 'sakarin cosmos logo t-shirt', price: 25000, sizes: [] }
@@ -130,7 +131,7 @@ const { chromium } = require('playwright');
     assert.equal(await page.evaluate(() => SiteCart.count()), 0, 'Deleted demo products must not survive in old carts');
     assert.equal(await page.locator('[data-cart-count]').textContent(), '[0]');
     await page.evaluate(() => SiteCart.clear());
-    console.log('PASS merchandise: one logo T-shirt, blank images, no invented options, removed demo cart entries');
+    console.log('PASS merchandise: one logo T-shirt, three product photos, no invented options, removed demo cart entries');
 
     // Sizes and an extra size-free item exist only in this test fixture.
     const pickupCatalog = JSON.parse(await fs.readFile(path.join(root, 'data/catalog.json'), 'utf8'));

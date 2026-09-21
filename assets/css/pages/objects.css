@@ -1,4 +1,13 @@
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } }
+.product-photo { display: block; }
+.product-photo img { display: block; width: 100%; height: auto; }
+.product-photo-main { background: #fff; }
+.product-details { padding: 0 1.5rem 1.5rem; }
+.product-details summary { min-height: 44px; padding-block: .75rem; border-top: 1px solid #45464b; color: #bbc6e6; font-size: .875rem; cursor: pointer; }
+.product-photo-hint { margin-block: .5rem 1rem; color: #c6c6cd; font-size: .75rem; line-height: 1.8; }
+.product-detail-images { display: grid; gap: 1.5rem; }
+.product-detail-images figure { margin: 0; }
+.product-detail-images figcaption { padding-top: .5rem; color: #c6c6cd; font-size: .75rem; line-height: 1.8; }
 .concert-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #1f2022; cursor: pointer; }
 .concert-row input { flex-shrink: 0; accent-color: #bbc6e6; }
 .concert-description { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: .25rem; }

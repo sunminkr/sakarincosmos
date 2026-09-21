@@ -30,7 +30,7 @@ def render(source, page, locale, dictionary):
 
     def attributes(match):
         tag = match.group(0)
-        for hook, attribute in [('data-i18n-content', 'content'), ('data-i18n-label', 'aria-label'), ('data-i18n-placeholder', 'placeholder')]:
+        for hook, attribute in [('data-i18n-content', 'content'), ('data-i18n-label', 'aria-label'), ('data-i18n-placeholder', 'placeholder'), ('data-i18n-alt', 'alt')]:
             key = re.search(r'\b' + hook + r'="([^"]+)"', tag)
             if key:
                 value = html.escape(dictionary[key[1]], quote=True)
