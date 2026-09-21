@@ -1,0 +1,102 @@
+(() => {
+  const venueLabels = {
+    bbang: '2026.09.19 Club BBang, Seoul',
+    channel1969: '2026.10.14 Channel 1969, Seoul',
+    ovantgarde: '2026.11.07 Ovantgarde, Busan'
+  };
+  let selectedItem = { name: '', price: '' };
+
+  const fieldClass = 'w-full bg-surface-container-lowest border border-outline-variant/50 px-3 py-2.5 text-on-surface font-body-md text-body-md focus:border-primary focus:outline-none';
+  const modal = document.createElement('div');
+  modal.id = 'pickup-application-modal';
+  modal.className = 'fixed inset-0 z-[80] hidden items-center justify-center bg-surface-container-lowest/85 backdrop-blur-sm p-4';
+  modal.innerHTML = `
+    <section class="w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-surface border border-outline-variant/40" role="dialog" aria-modal="true" aria-labelledby="pickup-modal-title">
+      <div class="sticky top-0 bg-surface-container-lowest px-5 md:px-7 py-4 border-b border-outline-variant/30 flex items-center justify-between z-10">
+        <div><div class="font-label-micro text-label-micro text-primary tracking-widest">PICKUP REGISTER / SECURE DISPATCH</div><h2 id="pickup-modal-title" class="font-headline-md text-headline-md mt-1">현장 픽업 신청 정보</h2></div>
+        <button type="button" data-modal-close class="p-2 text-outline hover:text-on-surface" aria-label="신청 창 닫기"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="pickup-application-form" class="p-5 md:p-7 space-y-5">
+        <div class="bg-surface-container-low p-4 border-l-2 border-primary">
+          <div class="font-label-micro text-label-micro text-outline">SELECTED OBJECT</div>
+          <div id="pickup-selected-item" class="font-headline-sm text-headline-sm mt-1"></div>
+          <div id="pickup-selected-venue" class="font-label-code text-label-code text-primary mt-2"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">성함 / NAME *</span><input class="${fieldClass}" name="name" autocomplete="name" required maxlength="60"></label>
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">연락처 / PHONE *</span><input class="${fieldClass}" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="010-0000-0000"></label>
+        </div>
+        <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">이메일 / EMAIL *</span><input class="${fieldClass}" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@example.com"></label>
+        <div class="grid md:grid-cols-2 gap-4">
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">수량 / QTY *</span><select class="${fieldClass}" name="quantity" required><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label>
+          <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">사이즈 / OPTION</span><select class="${fieldClass}" name="option"><option value="해당 없음">해당 없음</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option></select></label>
+        </div>
+        <label class="block"><span class="block font-label-code text-label-code text-outline mb-2">요청 사항 / NOTE</span><textarea class="${fieldClass} resize-y min-h-24" name="note" maxlength="500" placeholder="픽업 또는 상품에 관해 남길 내용"></textarea></label>
+        <label class="flex items-start gap-3 text-body-sm text-on-surface-variant leading-5"><input class="mt-1 accent-primary" name="privacy" type="checkbox" required><span>픽업 진행을 위해 성함, 연락처, 이메일을 수집하고 공연 종료 후 30일 이내 파기하는 데 동의합니다. *</span></label>
+        <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="item"><input type="hidden" name="price"><input type="hidden" name="venue">
+        <div id="pickup-form-status" class="hidden p-3 font-label-code text-label-code" role="status" aria-live="polite"></div>
+        <div class="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-2">
+          <button type="button" data-modal-close class="px-5 py-3 bg-surface-container text-outline font-label-code text-label-code tracking-widest">CANCEL</button>
+          <button type="submit" class="px-5 py-3 bg-primary text-on-primary font-label-code text-label-code tracking-widest hover:bg-primary-fixed disabled:opacity-50">SEND PICKUP REQUEST →</button>
+        </div>
+      </form>
+    </section>`;
+
+  function currentVenue() {
+    const checked = document.querySelector('input[name="pickup_show"]:checked');
+    return venueLabels[checked?.value] || '공연 선택 정보 없음';
+  }
+  function closeModal() {
+    modal.classList.add('hidden'); modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+  function openModal() {
+    if (!selectedItem.name) return;
+    const venue = currentVenue();
+    modal.querySelector('#pickup-selected-item').textContent = `${selectedItem.name} · ${selectedItem.price}`;
+    modal.querySelector('#pickup-selected-venue').textContent = venue;
+    modal.querySelector('[name="item"]').value = selectedItem.name;
+    modal.querySelector('[name="price"]').value = selectedItem.price;
+    modal.querySelector('[name="venue"]').value = venue;
+    modal.classList.remove('hidden'); modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => modal.querySelector('[name="name"]').focus(), 0);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.appendChild(modal);
+    document.querySelectorAll('.reserve-btn').forEach((button) => button.addEventListener('click', () => {
+      selectedItem = { name: button.dataset.itemName || '', price: button.dataset.itemPrice || '' };
+    }, true));
+    document.getElementById('tray-submit')?.addEventListener('click', (event) => {
+      event.preventDefault(); event.stopImmediatePropagation();
+      document.getElementById('reservation-tray')?.classList.add('translate-y-full');
+      openModal();
+    }, true);
+    modal.querySelectorAll('[data-modal-close]').forEach(button => button.addEventListener('click', closeModal));
+    modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+    modal.querySelector('form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = event.currentTarget, submit = form.querySelector('[type="submit"]'), status = form.querySelector('#pickup-form-status');
+      if (form.website.value) return;
+      submit.disabled = true; submit.textContent = 'SENDING...';
+      status.className = 'p-3 font-label-code text-label-code bg-surface-container text-outline';
+      status.textContent = '픽업 신청을 전송하고 있습니다.';
+      try {
+        const response = await fetch('/api/reservations', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(Object.fromEntries(new FormData(form))) });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.message || '전송에 실패했습니다.');
+        status.className = 'p-3 font-label-code text-label-code bg-secondary-container text-on-surface';
+        status.textContent = '신청이 접수되어 담당자에게 자동 발송되었습니다.';
+        form.reset();
+        setTimeout(closeModal, 2200);
+      } catch (error) {
+        status.className = 'p-3 font-label-code text-label-code bg-error-container text-on-error-container';
+        status.textContent = error.message === 'Failed to fetch' ? '메일 서버에 연결할 수 없습니다. 서버 설정을 확인해 주세요.' : error.message;
+      } finally { submit.disabled = false; submit.textContent = 'SEND PICKUP REQUEST →'; }
+    });
+  });
+})();
