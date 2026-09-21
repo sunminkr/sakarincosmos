@@ -72,7 +72,7 @@ button:disabled { cursor: not-allowed; opacity: .45; }
 [role="dialog"] :is(input, select, textarea) { max-width: 100%; min-width: 0; }
 [role="dialog"] input:not([type="checkbox"]):not([type="hidden"]), [role="dialog"] select, [role="dialog"] textarea { font-size: 16px; }
 [role="dialog"] button { white-space: normal; min-height: 44px; }
-[role="dialog"] [data-close], [role="dialog"] [data-modal-close] { flex-shrink: 0; width: 44px; }
+[role="dialog"] .dialog-close-icon { flex-shrink: 0; width: 44px; }
 .privacy-consent { display: flex; align-items: start; gap: .75rem; line-height: 1.6; }
 .privacy-consent input { flex-shrink: 0; margin-top: .25rem; }
 .site-menu-toggle, .site-cart { min-height: 44px; }
@@ -85,6 +85,9 @@ button:disabled { cursor: not-allowed; opacity: .45; }
   [role="dialog"] .sticky { gap: .5rem; }
   [role="dialog"] .flex.justify-end { flex-wrap: wrap; }
   [role="dialog"] form > .flex.justify-end > button { flex: 1 1 140px; }
+}
+@media (max-width: 639px) {
+  [role="dialog"] form > .flex-col-reverse.justify-end > button { flex: 0 0 auto; }
 }
 [role="dialog"] :is(input, select, textarea) { scroll-margin-top: 7rem; }
 /* Keep short Korean words together; only break an oversized token when necessary. */

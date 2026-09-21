@@ -10,7 +10,7 @@
     <section class="w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-surface border border-outline-variant/40" role="dialog" aria-modal="true" aria-labelledby="pickup-modal-title">
       <div class="sticky top-0 bg-surface-container-lowest px-5 md:px-7 py-4 border-b border-outline-variant/30 flex items-center justify-between z-10">
         <div><div class="font-label-micro text-label-micro text-primary tracking-widest">PICKUP REGISTER / SECURE DISPATCH</div><h2 id="pickup-modal-title" class="font-headline-md text-headline-md mt-1">현장 픽업 신청 정보</h2></div>
-        <button type="button" data-modal-close class="p-2 text-outline hover:text-on-surface" aria-label="신청 창 닫기"><span class="material-symbols-outlined">close</span></button>
+        <button type="button" data-modal-close class="dialog-close-icon p-2 text-outline hover:text-on-surface" aria-label="신청 창 닫기"><span class="material-symbols-outlined">close</span></button>
       </div>
       <form id="pickup-application-form" class="p-5 md:p-7 space-y-5">
         <div class="bg-surface-container-low p-4 border-l-2 border-primary">
