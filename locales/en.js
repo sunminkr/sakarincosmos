@@ -218,5 +218,7 @@ window.SiteMessages.en = {
   "home.objectsTitle": "OBJECTS & ARTIFACTS",
   "observations.ledger": "02 / MONTHLY LEDGER",
   "observations.timelineTitle": "01 / TIMELINE",
-  "observations.tagline": "places where sound briefly gathered."
+  "observations.tagline": "places where sound briefly gathered.",
+  "media.saved": "The latest records could not be loaded. Saved records are shown below; follow the source links to view the originals.",
+  "shows.saved": "The latest show information could not be loaded. The published schedule is shown; contact us for updates."
 };

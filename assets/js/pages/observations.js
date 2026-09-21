@@ -1,5 +1,13 @@
 (async () => {
   await SiteCatalog.ready;
+  if (SiteCatalog.error) {
+    const status = document.getElementById('schedule-status');
+    status.textContent = SiteI18n.t('shows.saved');
+    status.hidden = false;
+    return;
+  }
+  document.getElementById('calendar-ledger').hidden = false;
+  document.querySelectorAll('.timeline-filter').forEach(button => { button.disabled = false; });
   const events = SiteCatalog.shows;
   const timeline = document.getElementById('timeline');
   const calendar = document.getElementById('calendar');

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css">
+<noscript><link rel="stylesheet" href="../assets/css/no-script.css"></noscript>
 <link rel="stylesheet" href="../assets/css/media.css">
 <link rel="stylesheet" href="../assets/css/pages/transmissions.css">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
@@ -42,16 +43,17 @@
 <body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-surface">
 <a class="skip-link" href="#main-content" data-i18n="skip">本文へスキップ</a>
 <header class="site-header" data-site-header>
-<noscript>
+<div class="site-header-fallback">
 <a class="site-brand" href="index.html">SAKARIN COSMOS</a>
 <nav aria-label="メインメニュー" data-i18n-label="navigation">
 <a href="transmissions.html" data-i18n="nav.transmissions">音源</a>
 <a href="observations.html" data-i18n="nav.observations">ライブ記録</a>
 <a href="archive.html" data-i18n="nav.archive">アーカイブ</a>
 <a href="objects.html" data-i18n="nav.objects">グッズ</a>
+<a href="index.html#about" data-path="info" data-i18n="nav.info">紹介</a>
 </nav>
 <a href="cart.html" data-i18n="cart.nav">受け取りカート</a>
-</noscript>
+</div>
 </header>
 <main id="main-content" tabindex="-1" class="w-full pt-16 bg-surface min-h-screen">
 <div class="media-page" data-media-feed data-providers="soundcloud,youtube">
@@ -61,18 +63,21 @@
 <p data-i18n="transmissions.intro">SoundCloudの音源とYouTubeのライブ映像です。</p>
 </section>
 <div class="media-filter-bar">
-<div class="media-filters" role="group" aria-label="コンテンツの種類" data-i18n-label="media.kind"><button type="button" data-provider-filter="all" aria-pressed="true"><span data-i18n="filter.all">すべて</span><span data-count>…</span></button>
-<button type="button" data-provider-filter="soundcloud" aria-pressed="false">SoundCloud <span data-count>…</span></button>
-<button type="button" data-provider-filter="youtube" aria-pressed="false">YouTube <span data-count>…</span></button></div>
-<p class="media-feed-status" data-feed-status role="status" data-i18n="media.loading">記録を読み込んでいます。</p>
+<div class="media-filters" role="group" aria-label="コンテンツの種類" data-i18n-label="media.kind"><button type="button" disabled data-provider-filter="all" aria-pressed="true"><span data-i18n="filter.all">すべて</span><span data-count><!-- prerender:count-all:start -->02<!-- prerender:count-all:end --></span></button>
+<button type="button" disabled data-provider-filter="soundcloud" aria-pressed="false">SoundCloud <span data-count><!-- prerender:count-soundcloud:start -->01<!-- prerender:count-soundcloud:end --></span></button>
+<button type="button" disabled data-provider-filter="youtube" aria-pressed="false">YouTube <span data-count><!-- prerender:count-youtube:start -->01<!-- prerender:count-youtube:end --></span></button></div>
+<p class="media-feed-status" data-feed-status role="status"><!-- prerender:feed-status:start -->2件の記録・新しい順<!-- prerender:feed-status:end --></p>
 </div>
-<section class="media-grid" data-feed-grid aria-label="日付順のコンテンツ" data-i18n-label="media.chronological"></section>
+<section class="media-grid" data-feed-grid aria-label="日付順のコンテンツ" data-i18n-label="media.chronological"><!-- prerender:media-feed:start --><article class="media-card" data-media-id="youtube-i7-C-GW8MZ8" data-provider="youtube"><div class="media-card-heading"><div class="media-card-meta"><span>YouTube</span><time datetime="2026-09-20T13:03:19-07:00">2026.09.21</time></div><h2>[Full] 사카린 코스모스 Sakarin Cosmos | 그럼에도 계속되는 것 (260919 @클럽빵)</h2><p class="media-card-author">@sakarincosmos</p></div><div class="media-static-source"><a class="media-source" href="https://www.youtube.com/watch?v=i7-C-GW8MZ8" target="_blank" rel="noopener noreferrer">YouTubeで開く ↗</a></div><p class="media-card-description">#풀버전 #라이브 #직캠 
+이디어츠 주나 생일 기념 라이브
+그럼에도 계속되는 것 @클럽빵 260919</p></article>
+<article class="media-card" data-media-id="soundcloud-2336597921" data-provider="soundcloud"><div class="media-card-heading"><div class="media-card-meta"><span>SoundCloud</span><time datetime="2026-06-10T09:00:06Z">2026.06.10</time></div><h2>C코드혁명(demo)</h2><p class="media-card-author">@sakarincosmos159</p></div><div class="media-static-source"><a class="media-source" href="https://soundcloud.com/sakarincosmos159/c" target="_blank" rel="noopener noreferrer">SoundCloudで開く ↗</a></div></article><!-- prerender:media-feed:end --></section>
 <noscript><p data-i18n="media.profiles">公式アカウントでもコンテンツをご覧いただけます。</p><a href="https://www.instagram.com/sakarincosmos/">Instagram</a> · <a href="https://www.youtube.com/@sakarincosmos">YouTube</a> · <a href="https://soundcloud.com/sakarincosmos159">SoundCloud</a></noscript>
 </div>
 </main>
-<footer id="info" data-site-footer>
-<noscript>SAKARIN COSMOS · <a href="mailto:hello@sakarincosmos.com" data-i18n="contact">お問い合わせ</a>
-</noscript>
+<footer id="info" class="site-footer" data-site-footer>
+<div class="site-footer-top"><div><div class="site-footer-title" data-i18n="band.name">サカリンコスモス</div><p class="site-footer-tagline" data-i18n="band.tagline">人工的な、最も人間的な衝突</p></div></div>
+<div class="site-footer-bottom"><div class="site-footer-links"><a href="mailto:hello@sakarincosmos.com" data-path="contact" data-i18n="contact">お問い合わせ</a><a href="index.html#about" data-path="info" data-i18n="band.about">バンド紹介</a><span>SEOUL, KR</span></div></div>
 </footer>
 </body>
 </html>

@@ -41,6 +41,24 @@
 (async () => {
   await SiteCatalog.ready;
   function renderShows() {
+    if (SiteCatalog.error) {
+      // Keep the published schedule if the live data cannot be fetched.
+      const status = document.getElementById('home-shows-status');
+      status.textContent = SiteI18n.t('shows.saved');
+      status.hidden = false;
+      document.querySelectorAll('#home-shows .home-show').forEach(article => {
+        if (article.querySelector('time').dateTime < SiteCatalog.today()) article.remove();
+      });
+      const count = document.querySelectorAll('#home-shows .home-show').length;
+      document.getElementById('home-show-count').textContent = String(count).padStart(2, '0');
+      if (!count) {
+        const empty = document.createElement('p');
+        empty.className = 'p-space-md';
+        empty.textContent = SiteI18n.t('shows.noUpcoming');
+        document.getElementById('home-shows').replaceChildren(empty);
+      }
+      return;
+    }
     const shows = SiteCatalog.shows.filter(show => !SiteCatalog.isPast(show));
     document.getElementById('home-show-count').textContent = String(shows.length).padStart(2, '0');
     document.getElementById('home-shows').innerHTML = shows.length ? shows.map(show => `
@@ -56,12 +74,24 @@
 
 (async () => {
   await SiteMedia.ready;
+  if (SiteMedia.error) {
+    const status = document.getElementById('home-media-status');
+    status.textContent = SiteI18n.t('media.saved');
+    status.hidden = false;
+    return;
+  }
+  const empty = key => {
+    const message = document.createElement('p');
+    message.className = 'media-empty';
+    message.textContent = SiteI18n.t(key);
+    return message;
+  };
   const featured = SiteMedia.list(['soundcloud', 'youtube'])[0];
   const featuredBox = document.getElementById('home-featured');
   if (featured) featuredBox.replaceChildren(SiteMediaFeed.card(featured, 'h3'));
-  else featuredBox.querySelector('p').textContent = SiteMedia.error || SiteI18n.t('media.noMusic');
+  else featuredBox.replaceChildren(empty('media.noMusic'));
   const recent = SiteMedia.list().filter(entry => entry.id !== featured?.id).slice(0, 3);
   const archive = document.getElementById('home-archive');
   if (recent.length) archive.replaceChildren(...recent.map(entry => SiteMediaFeed.card(entry, 'h3')));
-  else archive.querySelector('p').textContent = SiteMedia.error || SiteI18n.t('media.noRecords');
+  else archive.replaceChildren(empty('media.noRecords'));
 })();

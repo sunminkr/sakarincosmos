@@ -22,6 +22,7 @@ archive.html               사진·영상·기록
 objects.html               물품·개별 픽업 신청
 cart.html                  장바구니·일괄 픽업 신청
 assets/
+  images/band/             밴드 사진
   css/
     site.css               공통 헤더·푸터·접근성 스타일
     media.css              반응형 Instagram·YouTube·SoundCloud 임베드

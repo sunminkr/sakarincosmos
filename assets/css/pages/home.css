@@ -1,4 +1,9 @@
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } }
+.home-hero-photo { position: absolute; top: 50%; left: 0; width: 100%; height: auto; max-height: 100%; object-fit: contain; transform: translateY(-50%); mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 70%, transparent); pointer-events: none; }
+.home-hero-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(13 14 16 / 20%), rgb(13 14 16 / 20%) 35%, rgb(13 14 16 / 65%) 70%, #0d0e10); pointer-events: none; }
+@media (max-width: 767px) {
+  .home-hero-photo { top: 12%; transform: none; }
+}
 .home-shows { background: #1b1c1e; }
 .home-show { display: grid; grid-template-columns: 150px 1fr auto; align-items: center; gap: 1.5rem; padding: 1.25rem; border-bottom: 1px solid #45464d80; }
 .home-show time { font: 11px/1.5 'JetBrains Mono', monospace; color: #bbc6e6; }

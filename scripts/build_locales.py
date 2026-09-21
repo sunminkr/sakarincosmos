@@ -4,6 +4,9 @@ import html
 import json
 from pathlib import Path
 import re
+from datetime import date, datetime
+
+from prerender import render_content, SEOUL
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ['index', 'transmissions', 'observations', 'archive', 'objects', 'cart']
@@ -44,16 +47,20 @@ def render(source, page, locale, dictionary):
     return source
 
 
-def build(check=False):
+def build(check=False, as_of=None):
     dictionaries = {locale: messages(locale) for locale in LOCALES}
     keys = set(dictionaries['ko'])
     assert all(set(values) == keys for values in dictionaries.values()), 'Locale dictionary keys differ'
+    catalog = json.loads((ROOT / 'data/catalog.json').read_text())
+    media = json.loads((ROOT / 'data/media.json').read_text())
+    today = as_of or datetime.now(SEOUL).date()
     stale = []
     for page in PAGES:
         source = (ROOT / f'{page}.html').read_text()
         for locale, directory in LOCALES.items():
             output = ROOT / directory / f'{page}.html'
             expected = render(source, page, locale, dictionaries[locale])
+            expected = render_content(expected, page, locale, dictionaries[locale], catalog, media, today)
             if check:
                 if not output.exists() or output.read_text() != expected:
                     stale.append(str(output.relative_to(ROOT)))
@@ -67,4 +74,6 @@ def build(check=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
-    build(parser.parse_args().check)
+    parser.add_argument('--as-of', type=date.fromisoformat, help='Schedule date (YYYY-MM-DD); defaults to today in Seoul')
+    args = parser.parse_args()
+    build(args.check, args.as_of)

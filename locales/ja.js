@@ -218,5 +218,7 @@ window.SiteMessages.ja = {
   "home.objectsTitle": "グッズ",
   "observations.ledger": "02 / 月別カレンダー",
   "observations.timelineTitle": "01 / タイムライン",
-  "observations.tagline": "音がひととき集まった場所。"
+  "observations.tagline": "音がひととき集まった場所。",
+  "media.saved": "最新の記録を読み込めないため、保存済みの記録を表示しています。リンク先で元の投稿をご確認ください。",
+  "shows.saved": "最新の公演情報を読み込めないため、公開済みの日程を表示しています。変更についてはお問い合わせください。"
 };

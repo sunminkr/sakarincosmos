@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<noscript><link rel="stylesheet" href="assets/css/no-script.css"></noscript>
 <link rel="stylesheet" href="assets/css/pages/observations.css">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
 </script>
@@ -39,16 +40,17 @@
 <body class="font-sans antialiased selection:bg-primary selection:text-surface-lowest">
 <a class="skip-link" href="#main-content" data-i18n="skip">본문으로 건너뛰기</a>
 <header class="site-header" data-site-header>
-<noscript>
+<div class="site-header-fallback">
 <a class="site-brand" href="index.html">SAKARIN COSMOS</a>
 <nav aria-label="주 메뉴" data-i18n-label="navigation">
 <a href="transmissions.html" data-i18n="nav.transmissions">TRANSMISSIONS</a>
 <a href="observations.html" data-i18n="nav.observations">OBSERVATIONS</a>
 <a href="archive.html" data-i18n="nav.archive">ARCHIVE</a>
 <a href="objects.html" data-i18n="nav.objects">OBJECTS</a>
+<a href="index.html#about" data-path="info" data-i18n="nav.info">INFO</a>
 </nav>
 <a href="cart.html" data-i18n="cart.nav">PICKUP CART</a>
-</noscript>
+</div>
 </header>
 <main id="main-content" tabindex="-1" class="pt-16 min-h-screen">
 <section class="px-5 md:px-8 lg:px-12 pt-10 pb-8 border-b border-line/30">
@@ -69,15 +71,17 @@
 <h2 class="font-serif text-3xl mt-1" data-i18n="observations.timeline">공연의 앞과 뒤</h2>
 </div>
 <div class="flex gap-2 font-mono text-[9px] tracking-wider" role="group" aria-label="공연 필터" data-i18n-label="shows.filter">
-<button class="timeline-filter bg-paper text-surface px-3 py-2" data-filter="all">ALL …</button>
-<button class="timeline-filter bg-surface-low text-muted px-3 py-2" data-filter="future">UPCOMING …</button>
-<button class="timeline-filter bg-surface-low text-muted px-3 py-2" data-filter="past">PAST …</button>
+<button class="timeline-filter bg-paper text-surface px-3 py-2" data-filter="all" disabled><!-- prerender:timeline-count-all:start -->ALL 03<!-- prerender:timeline-count-all:end --></button>
+<button class="timeline-filter bg-surface-low text-muted px-3 py-2" data-filter="future" disabled><!-- prerender:timeline-count-future:start -->UPCOMING 02<!-- prerender:timeline-count-future:end --></button>
+<button class="timeline-filter bg-surface-low text-muted px-3 py-2" data-filter="past" disabled><!-- prerender:timeline-count-past:start -->PAST 01<!-- prerender:timeline-count-past:end --></button>
 </div>
 </div>
-<div class="grid lg:grid-cols-2 gap-px bg-line/30" id="timeline">
-</div>
+<div class="grid lg:grid-cols-2 gap-px bg-line/30" id="timeline"><!-- prerender:timeline:start --><article class="timeline-event bg-surface p-5 md:p-6 opacity-65"><div class="timeline-date"><time datetime="2026-09-19">2026.09.19</time><span>ARCHIVED</span></div><div><p class="font-mono text-[9px] text-muted">서울 / 마포 · 공연 시작 18:30</p><h3 class="font-serif text-2xl mt-1">클럽 빵</h3><p class="text-sm text-muted mt-1">그럼에도 계속되는 것</p></div></article>
+<article class="timeline-event bg-surface p-5 md:p-6"><div class="timeline-date"><time datetime="2026-10-23">2026.10.23</time><span>UPCOMING</span></div><div><p class="font-mono text-[9px] text-muted">서울 / 마포 · 공연 시작 시간 미정</p><h3 class="font-serif text-2xl mt-1">클럽 빵</h3><p class="text-sm text-muted mt-1">공연명 미정</p></div></article>
+<article class="timeline-event bg-surface p-5 md:p-6"><div class="timeline-date"><time datetime="2026-12-26">2026.12.26</time><span>UPCOMING</span></div><div><p class="font-mono text-[9px] text-muted">일본 / 삿포로 · 공연 시작 시간 미정</p><h3 class="font-serif text-2xl mt-1">Sound Crue</h3><p class="text-sm text-muted mt-1">공연명 미정</p></div></article><!-- prerender:timeline:end --></div>
+<p id="schedule-status" class="media-feed-status" role="status" hidden></p>
 </section>
-<section class="px-5 md:px-8 lg:px-12 py-10 bg-surface-lowest border-y border-line/20">
+<section id="calendar-ledger" hidden class="px-5 md:px-8 lg:px-12 py-10 bg-surface-lowest border-y border-line/20">
 <div class="grid lg:grid-cols-12 gap-8">
 <div class="lg:col-span-8">
 <div class="flex items-center justify-between mb-5">
@@ -124,9 +128,9 @@
 </div>
 </section>
 </main>
-<footer id="info" data-site-footer>
-<noscript>SAKARIN COSMOS · <a href="mailto:hello@sakarincosmos.com" data-i18n="contact">CONTACT</a>
-</noscript>
+<footer id="info" class="site-footer" data-site-footer>
+<div class="site-footer-top"><div><div class="site-footer-title" data-i18n="band.name">SAKARIN COSMOS</div><p class="site-footer-tagline" data-i18n="band.tagline">인공적인, 가장 인간적인 충돌</p></div></div>
+<div class="site-footer-bottom"><div class="site-footer-links"><a href="mailto:hello@sakarincosmos.com" data-path="contact" data-i18n="contact">CONTACT</a><a href="index.html#about" data-path="info" data-i18n="band.about">밴드 소개</a><span>SEOUL, KR</span></div></div>
 </footer>
 </body>
 </html>

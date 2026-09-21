@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css">
+<noscript><link rel="stylesheet" href="../assets/css/no-script.css"></noscript>
 <link rel="stylesheet" href="../assets/css/media.css">
 <link rel="stylesheet" href="../assets/css/pages/archive.css">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
@@ -42,16 +43,17 @@
 <body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-surface">
 <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
 <header class="site-header" data-site-header>
-<noscript>
+<div class="site-header-fallback">
 <a class="site-brand" href="index.html">SAKARIN COSMOS</a>
 <nav aria-label="Main navigation" data-i18n-label="navigation">
 <a href="transmissions.html" data-i18n="nav.transmissions">TRANSMISSIONS</a>
 <a href="observations.html" data-i18n="nav.observations">OBSERVATIONS</a>
 <a href="archive.html" data-i18n="nav.archive">ARCHIVE</a>
 <a href="objects.html" data-i18n="nav.objects">OBJECTS</a>
+<a href="index.html#about" data-path="info" data-i18n="nav.info">INFO</a>
 </nav>
 <a href="cart.html" data-i18n="cart.nav">PICKUP CART</a>
-</noscript>
+</div>
 </header>
 <main id="main-content" tabindex="-1" class="w-full pt-16 bg-surface min-h-screen">
 <div class="media-page" data-media-feed data-providers="">
@@ -61,19 +63,25 @@
 <p data-i18n="archive.intro">Photos, sounds and live records from Instagram, YouTube and SoundCloud.</p>
 </section>
 <div class="media-filter-bar">
-<div class="media-filters" role="group" aria-label="Content type" data-i18n-label="media.kind"><button type="button" data-provider-filter="all" aria-pressed="true"><span data-i18n="filter.all">All</span><span data-count>…</span></button>
-<button type="button" data-provider-filter="soundcloud" aria-pressed="false">SoundCloud <span data-count>…</span></button>
-<button type="button" data-provider-filter="youtube" aria-pressed="false">YouTube <span data-count>…</span></button>
-<button type="button" data-provider-filter="instagram" aria-pressed="false">Instagram <span data-count>…</span></button></div>
-<p class="media-feed-status" data-feed-status role="status" data-i18n="media.loading">Loading records.</p>
+<div class="media-filters" role="group" aria-label="Content type" data-i18n-label="media.kind"><button type="button" disabled data-provider-filter="all" aria-pressed="true"><span data-i18n="filter.all">All</span><span data-count><!-- prerender:count-all:start -->05<!-- prerender:count-all:end --></span></button>
+<button type="button" disabled data-provider-filter="soundcloud" aria-pressed="false">SoundCloud <span data-count><!-- prerender:count-soundcloud:start -->01<!-- prerender:count-soundcloud:end --></span></button>
+<button type="button" disabled data-provider-filter="youtube" aria-pressed="false">YouTube <span data-count><!-- prerender:count-youtube:start -->01<!-- prerender:count-youtube:end --></span></button>
+<button type="button" disabled data-provider-filter="instagram" aria-pressed="false">Instagram <span data-count><!-- prerender:count-instagram:start -->03<!-- prerender:count-instagram:end --></span></button></div>
+<p class="media-feed-status" data-feed-status role="status"><!-- prerender:feed-status:start -->5 records · Newest first<!-- prerender:feed-status:end --></p>
 </div>
-<section class="media-grid" data-feed-grid aria-label="Chronological content" data-i18n-label="media.chronological"></section>
+<section class="media-grid" data-feed-grid aria-label="Chronological content" data-i18n-label="media.chronological"><!-- prerender:media-feed:start --><article class="media-card" data-media-id="youtube-i7-C-GW8MZ8" data-provider="youtube"><div class="media-card-heading"><div class="media-card-meta"><span>YouTube</span><time datetime="2026-09-20T13:03:19-07:00">2026.09.21</time></div><h2>[Full] 사카린 코스모스 Sakarin Cosmos | 그럼에도 계속되는 것 (260919 @클럽빵)</h2><p class="media-card-author">@sakarincosmos</p></div><div class="media-static-source"><a class="media-source" href="https://www.youtube.com/watch?v=i7-C-GW8MZ8" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a></div><p class="media-card-description">#풀버전 #라이브 #직캠 
+이디어츠 주나 생일 기념 라이브
+그럼에도 계속되는 것 @클럽빵 260919</p></article>
+<article class="media-card" data-media-id="instagram-DddvgjZR5xC" data-provider="instagram"><div class="media-card-heading"><div class="media-card-meta"><span>Instagram</span><time datetime="2026-09-19">2026.09.19</time></div><h2>사카린 코스모스 · 클럽 빵 라이브</h2><p class="media-card-author">@clubbbang</p></div><div class="media-static-source"><a class="media-source" href="https://www.instagram.com/reel/DddvgjZR5xC/" target="_blank" rel="noopener noreferrer">Open on Instagram ↗</a></div></article>
+<article class="media-card" data-media-id="instagram-DbxKf9WhgXe" data-provider="instagram"><div class="media-card-heading"><div class="media-card-meta"><span>Instagram</span><time datetime="2026-08-07">2026.08.07</time></div><h2>그럼에도, 계속되는 것 · 공연 안내</h2><p class="media-card-author">@idiots.band</p></div><div class="media-static-source"><a class="media-source" href="https://www.instagram.com/p/DbxKf9WhgXe/" target="_blank" rel="noopener noreferrer">Open on Instagram ↗</a></div></article>
+<article class="media-card" data-media-id="soundcloud-2336597921" data-provider="soundcloud"><div class="media-card-heading"><div class="media-card-meta"><span>SoundCloud</span><time datetime="2026-06-10T09:00:06Z">2026.06.10</time></div><h2>C코드혁명(demo)</h2><p class="media-card-author">@sakarincosmos159</p></div><div class="media-static-source"><a class="media-source" href="https://soundcloud.com/sakarincosmos159/c" target="_blank" rel="noopener noreferrer">Open on SoundCloud ↗</a></div></article>
+<article class="media-card" data-media-id="instagram-DZZkpWwTPwN" data-provider="instagram"><div class="media-card-heading"><div class="media-card-meta"><span>Instagram</span><time datetime="2026-06-10">2026.06.10</time></div><h2>Build finished successfully. Deploying...</h2><p class="media-card-author">@sakarincosmos</p></div><div class="media-static-source"><a class="media-source" href="https://www.instagram.com/reel/DZZkpWwTPwN/" target="_blank" rel="noopener noreferrer">Open on Instagram ↗</a></div></article><!-- prerender:media-feed:end --></section>
 <noscript><p data-i18n="media.profiles">Find the content on our official profiles.</p><a href="https://www.instagram.com/sakarincosmos/">Instagram</a> · <a href="https://www.youtube.com/@sakarincosmos">YouTube</a> · <a href="https://soundcloud.com/sakarincosmos159">SoundCloud</a></noscript>
 </div>
 </main>
-<footer id="info" data-site-footer>
-<noscript>SAKARIN COSMOS · <a href="mailto:hello@sakarincosmos.com" data-i18n="contact">CONTACT</a>
-</noscript>
+<footer id="info" class="site-footer" data-site-footer>
+<div class="site-footer-top"><div><div class="site-footer-title" data-i18n="band.name">Sakarin Cosmos</div><p class="site-footer-tagline" data-i18n="band.tagline">Artificial, the most human collision</p></div></div>
+<div class="site-footer-bottom"><div class="site-footer-links"><a href="mailto:hello@sakarincosmos.com" data-path="contact" data-i18n="contact">CONTACT</a><a href="index.html#about" data-path="info" data-i18n="band.about">About the band</a><span>SEOUL, KR</span></div></div>
 </footer>
 </body>
 </html>

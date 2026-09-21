@@ -1,0 +1,18 @@
+/* Readable documents even when the runtime CSS compiler and page scripts are off. */
+body { background: #121315; color: #e3e2e4; font: 16px/1.8 'Noto Sans KR', 'Noto Sans JP', sans-serif; }
+a { color: #bbc6e6; }
+.site-header { position: static; height: auto; }
+.site-header-fallback { flex-wrap: wrap; }
+.site-header-fallback nav { flex-wrap: wrap; }
+main { max-width: 1440px; margin: auto; padding: 1.25rem; }
+main section { margin-block: 2rem; }
+main :is(h1, h2, h3, p) { margin-block: .75rem; }
+.home-hero-photo { position: static; display: block; width: 100%; height: auto; transform: none; }
+.home-hero-shade { display: none; }
+.home-shows, #timeline { padding: 1rem; }
+.timeline-event { padding-block: 1rem; border-bottom: 1px solid #45464d; }
+.home-show { padding: 1rem; }
+.media-page { padding: 0; }
+#home-featured .media-card { display: block; }
+.media-card { padding-bottom: .5rem; }
+[hidden] { display: none !important; }

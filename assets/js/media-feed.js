@@ -47,9 +47,14 @@
 
   async function render() {
     await SiteMedia.ready;
+    if (SiteMedia.error) {
+      status.textContent = SiteI18n.t('media.saved');
+      return;
+    }
     const all = SiteMedia.list(providers);
     const entries = all.filter(entry => selected === 'all' || entry.provider.toLowerCase() === selected);
     buttons.forEach(button => {
+      button.disabled = false;
       const provider = button.dataset.providerFilter;
       const count = all.filter(entry => provider === 'all' || entry.provider.toLowerCase() === provider).length;
       button.querySelector('[data-count]').textContent = String(count).padStart(2, '0');

@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
+<noscript><link rel="stylesheet" href="assets/css/no-script.css"></noscript>
 <link rel="stylesheet" href="assets/css/pages/cart.css">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
 </script>
@@ -39,16 +40,17 @@
 <body class="font-sans antialiased">
 <a class="skip-link" href="#main-content" data-i18n="skip">본문으로 건너뛰기</a>
 <header class="site-header" data-site-header>
-<noscript>
+<div class="site-header-fallback">
 <a class="site-brand" href="index.html">SAKARIN COSMOS</a>
 <nav aria-label="주 메뉴" data-i18n-label="navigation">
 <a href="transmissions.html" data-i18n="nav.transmissions">TRANSMISSIONS</a>
 <a href="observations.html" data-i18n="nav.observations">OBSERVATIONS</a>
 <a href="archive.html" data-i18n="nav.archive">ARCHIVE</a>
 <a href="objects.html" data-i18n="nav.objects">OBJECTS</a>
+<a href="index.html#about" data-path="info" data-i18n="nav.info">INFO</a>
 </nav>
 <a href="cart.html" data-i18n="cart.nav">PICKUP CART</a>
-</noscript>
+</div>
 </header>
 <main id="main-content" tabindex="-1" class="pt-16 min-h-screen">
 <section class="px-5 md:px-8 lg:px-12 py-10 border-b border-line/30">
@@ -126,9 +128,9 @@
 </form>
 </section>
 </div>
-<footer id="info" data-site-footer>
-<noscript>SAKARIN COSMOS · <a href="mailto:hello@sakarincosmos.com" data-i18n="contact">CONTACT</a>
-</noscript>
+<footer id="info" class="site-footer" data-site-footer>
+<div class="site-footer-top"><div><div class="site-footer-title" data-i18n="band.name">SAKARIN COSMOS</div><p class="site-footer-tagline" data-i18n="band.tagline">인공적인, 가장 인간적인 충돌</p></div></div>
+<div class="site-footer-bottom"><div class="site-footer-links"><a href="mailto:hello@sakarincosmos.com" data-path="contact" data-i18n="contact">CONTACT</a><a href="index.html#about" data-path="info" data-i18n="band.about">밴드 소개</a><span>SEOUL, KR</span></div></div>
 </footer>
 </body>
 </html>

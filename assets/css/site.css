@@ -8,6 +8,9 @@
 }
 html { scroll-padding-top: 5rem; }
 body { margin: 0; }
+.site-header-fallback { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: var(--site-ground); font: 10px/1.6 var(--site-mono); overflow-x: auto; }
+.site-header-fallback nav { display: flex; gap: 1rem; }
+.site-header-fallback a { white-space: nowrap; }
 .site-header, .site-header *, .site-footer, .site-footer * { box-sizing: border-box; }
 .site-header {
   position: fixed; inset: 0 0 auto; z-index: 50; height: 4rem;

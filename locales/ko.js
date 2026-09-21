@@ -218,5 +218,7 @@ window.SiteMessages.ko = {
   "home.objectsTitle": "OBJECTS & ARTIFACTS",
   "observations.ledger": "02 / MONTHLY LEDGER",
   "observations.timelineTitle": "01 / TIMELINE",
-  "observations.tagline": "places where sound briefly gathered."
+  "observations.tagline": "places where sound briefly gathered.",
+  "media.saved": "최신 기록을 불러오지 못해 저장된 기록을 표시합니다. 원본 링크에서 확인해 주세요.",
+  "shows.saved": "최신 공연 정보를 불러오지 못해 저장된 일정을 표시합니다. 변경 사항은 문의해 주세요."
 };
