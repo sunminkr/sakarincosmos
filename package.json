@@ -1,0 +1,10 @@
+{
+  "name": "archive-site",
+  "private": true,
+  "scripts": {
+    "test": "python3 tests/check_site.py && python3 tests/test_reservations.py && node tests/browser.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

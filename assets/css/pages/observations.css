@@ -1,0 +1,23 @@
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#121315;color:#e3e2e4}.event-day{position:relative}.event-day:after{content:'';position:absolute;left:50%;bottom:.45rem;width:4px;height:4px;background:#bbc6e6;transform:translateX(-50%)}.event-day.past:after{background:#6e7074}.event-day.selected{outline:1px solid #bbc6e6;outline-offset:-1px;background:#1f2022}.calendar-cell:focus-visible,button:focus-visible,a:focus-visible{outline:1px solid #bbc6e6;outline-offset:3px}@media(max-width:640px){.calendar-cell{min-height:3.7rem}}
+.timeline-event { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 1.25rem; }
+.timeline-date { color: #bbc6e6; font: 12px/1.6 'JetBrains Mono', monospace; }
+.timeline-date span { display: block; margin-top: .5rem; color: #8f9098; font-size: 9px; }
+#calendar { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.calendar-cell, .calendar-gap { min-width: 0; min-height: 80px; padding: .5rem; border-right: 1px solid #45464d80; border-bottom: 1px solid #45464d80; text-align: left; color: #8f9098; font: 11px/1.5 'JetBrains Mono', monospace; }
+.calendar-cell { display: flex; flex-direction: column; gap: .5rem; justify-content: start; }
+.calendar-cell.selected { outline: 1px solid #bbc6e6; outline-offset: -1px; background: #1f2022; }
+.calendar-venue { display: block; width: 100%; font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.event-details { font: 11px/1.8 'JetBrains Mono', monospace; }
+.event-details > div { display: flex; justify-content: space-between; gap: 1rem; padding: .5rem 0; border-bottom: 1px solid #45464d80; }
+.event-details dt { flex-shrink: 0; color: #8f9098; }
+.event-details dd { text-align: right; }
+@media (max-width: 639px) {
+  .timeline-event { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .timeline-date { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+  .timeline-date span { margin-top: 0; }
+  #month-title { font-size: 24px; }
+  #month-title, #month-title + div { min-width: 0; }
+  .calendar-cell, .calendar-gap { min-height: 56px; padding: .375rem; }
+  .calendar-venue { display: none; }
+  #today { padding-inline: .5rem; }
+}

@@ -1,0 +1,14 @@
+@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } }
+.home-shows { background: #1b1c1e; }
+.home-show { display: grid; grid-template-columns: 150px 1fr auto; align-items: center; gap: 1.5rem; padding: 1.25rem; border-bottom: 1px solid #45464d80; }
+.home-show time { font: 11px/1.5 'JetBrains Mono', monospace; color: #bbc6e6; }
+.home-show h3 { font: 24px/1.3 'EB Garamond', serif; }
+.home-show p { font-size: 12px; line-height: 1.8; color: #8f9098; }
+.home-show > a, .home-show > span { padding: .75rem; font: 11px/1.5 'JetBrains Mono', monospace; }
+.home-show > a { background: #121315; color: #bbc6e6; }
+@media (max-width: 639px) {
+  .home-show { grid-template-columns: 1fr; gap: .75rem; }
+  .home-show > a, .home-show > span { justify-self: start; }
+  main > div > section .flex.items-baseline { flex-direction: column; align-items: start; }
+  main .flex.items-baseline > h2 { width: 100%; }
+}

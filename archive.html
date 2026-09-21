@@ -1,32 +1,67 @@
 <!DOCTYPE html>
-<script src="../site.js" defer></script>
-<script src="../cart-store.js" defer></script>
-
-<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }
-@keyframes tapeSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.animate-spin-slow { animation: tapeSpin 5s linear infinite; }
-.paused { animation-play-state: paused !important; }
-.crt-scanlines::after {
-  content: " ";
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 19, 21, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
-  background-size: 100% 4px;
-  pointer-events: none;
-  opacity: 0.65;
-}
-</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary": "#27313e", "on-error-container": "#ffdad6", "on-primary": "#253049", "on-surface-variant": "#c6c6ce", "secondary-fixed": "#d9e3f4", "secondary": "#bdc7d7", "surface-dim": "#121315", "surface-container-low": "#1b1c1e", "tertiary": "#b8c6f0", "surface-container-high": "#292a2c", "on-tertiary": "#212f51", "on-primary-container": "#323d57", "on-secondary-container": "#acb6c6", "secondary-container": "#3e4755", "surface-container-highest": "#343537", "surface-container-lowest": "#0d0e10", "on-tertiary-fixed": "#0a1a3b", "surface-variant": "#343537", "error-container": "#93000a", "background": "#121315", "on-surface": "#e3e2e4", "on-background": "#e3e2e4", "surface-container": "#1f2022", "on-primary-fixed": "#0f1b33", "outline": "#8f9098", "surface": "#121315", "primary-container": "#9da8c7", "primary-fixed-dim": "#bbc6e6", "tertiary-container": "#9aa8d0", "inverse-surface": "#e3e2e4", "outline-variant": "#45464d", "on-tertiary-fixed-variant": "#384669", "inverse-primary": "#535e7a", "surface-bright": "#38393b", "error": "#ffb4ab", "on-error": "#690005", "on-primary-fixed-variant": "#3b4661", "primary": "#bbc6e6", "on-secondary-fixed-variant": "#3e4755", "on-secondary-fixed": "#121c28", "tertiary-fixed-dim": "#b8c6f0", "tertiary-fixed": "#d9e2ff", "surface-tint": "#bbc6e6", "primary-fixed": "#d9e2ff", "inverse-on-surface": "#303032", "secondary-fixed-dim": "#bdc7d7", "on-tertiary-container": "#2f3d5f" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "3rem", "space-xl": "3rem", "space-md": "1rem", "gutter-mobile": "0.75rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "gutter": "1.25rem", "space-lg": "1.75rem", "space-sm": "0.5rem" }, "fontFamily": { "label-code": [ "JetBrains Mono" ], "label-catalog": [ "JetBrains Mono" ], "body-lg": [ "Noto Sans" ], "label-micro": [ "JetBrains Mono" ], "display-hero-mobile": [ "EB Garamond" ], "headline-lg-mobile": [ "EB Garamond" ], "body-sm": [ "Noto Sans" ], "headline-md": [ "EB Garamond" ], "headline-lg": [ "EB Garamond" ], "body-md": [ "Noto Sans" ], "display-hero": [ "EB Garamond" ], "headline-sm": [ "EB Garamond" ] }, "fontSize": { "label-code": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "400" } ], "label-catalog": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "500" } ], "body-lg": [ "16px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "300" } ], "label-micro": [ "9px", { "lineHeight": "12px", "letterSpacing": "0.18em", "fontWeight": "400" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-md": [ "14px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "300" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-sm": [ "19px", { "lineHeight": "26px", "letterSpacing": "0.02em", "fontWeight": "500" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-surface"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md"><div class="h-16 w-full px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-fit"><a class="group flex flex-col items-start leading-none" data-path="transmissions" href="#"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-surface group-hover:text-primary transition-colors">SAKARIN COSMOS</span><span class="font-label-micro text-label-micro text-outline flex items-center gap-space-xs mt-0.5"><span>✦ RA 05h 35m</span><span>·</span><span>DEC -05°23′</span><span class="hidden sm:inline text-outline-variant">[SEOUL ARCHIVE]</span></span></a></div><nav class="hidden lg:flex items-center gap-space-lg font-label-catalog text-label-catalog uppercase tracking-widest" data-active-classes="text-on-surface border-b border-primary font-medium"><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="transmissions" href="#">TRANSMISSIONS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="observations" href="#">OBSERVATIONS</a><a aria-current="page" class="py-1 transition-colors text-on-surface border-b border-primary font-medium" data-path="archive" href="#">ARCHIVE</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="objects" href="#">OBJECTS</a><a class="text-on-surface-variant hover:text-on-surface py-1 transition-colors" data-path="info" href="#">INFO</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-sm text-outline"><a aria-label="Instagram" class="p-1.5 hover:text-on-surface transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><rect height="20" rx="0" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a aria-label="YouTube" class="p-1.5 hover:text-on-surface transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a><a aria-label="SoundCloud" class="p-1.5 hover:text-on-surface transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3"></path></svg></a></div><div class="h-4 w-px bg-surface-container-highest hidden sm:block"></div><a aria-label="Manifest Register" class="flex items-center gap-1.5 px-2 py-1 font-label-code text-label-code text-on-surface-variant hover:text-on-surface transition-colors" data-path="reserve-ledger" href="#"><span class="material-symbols-outlined text-[17px]">shopping_bag</span><span class="font-label-code text-label-code text-primary">[0]</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<html class="dark" lang="ko" data-page="archive">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>Archive — Sakarin Cosmos</title>
+<meta name="description" content="사진, 영상, 포스터와 녹음으로 남긴 사카린 코스모스의 기록입니다." data-i18n-content="meta.archive.description">
+<meta name="theme-color" content="#0d0e10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/pages/archive.css">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+</script>
+<script src="assets/js/theme.js">
+</script>
+<script src="locales/ko.js" defer>
+</script>
+<script src="locales/en.js" defer>
+</script>
+<script src="locales/ja.js" defer>
+</script>
+<script src="assets/js/i18n.js" defer>
+</script>
+<script src="assets/js/site.js" defer>
+</script>
+<script src="assets/js/catalog.js" defer></script>
+<script src="assets/js/dialog.js" defer></script>
+<script src="assets/js/cart-store.js" defer>
+</script>
+<script src="assets/js/pages/archive.js" defer>
+</script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-on-surface">
+<a class="skip-link" href="#main-content" data-i18n="skip">본문으로 건너뛰기</a>
+<header class="site-header" data-site-header>
+<noscript>
+<a class="site-brand" href="index.html">SAKARIN COSMOS</a>
+<nav aria-label="주 메뉴">
+<a href="transmissions.html">TRANSMISSIONS</a>
+<a href="observations.html">OBSERVATIONS</a>
+<a href="archive.html">ARCHIVE</a>
+<a href="objects.html">OBJECTS</a>
+</nav>
+<a href="cart.html">PICKUP CART</a>
+</noscript>
+</header>
+<main id="main-content" tabindex="-1" class="w-full pt-16 bg-surface min-h-screen">
+<div class="flex flex-col w-full">
 <!-- Subtle ambient cosmic dust / tape hiss overlay -->
 <div class="relative w-full overflow-hidden bg-surface text-on-surface">
-<div class="absolute inset-0 pointer-events-none bg-[radial-gradient(#bbc6e6_0.75px,transparent_1px)] [background-size:24px_24px] opacity-[0.035]"></div>
+<div class="absolute inset-0 pointer-events-none bg-[radial-gradient(#bbc6e6_0.75px,transparent_1px)] [background-size:24px_24px] opacity-[0.035]">
+</div>
 <!-- Editorial Header & Manifest Ledger Block -->
 <section class="relative w-full px-margin-mobile md:px-margin-tablet lg:px-margin pt-space-xl pb-space-lg">
 <div class="flex flex-col gap-space-lg">
 <!-- Archival Serial Tag / Technical Margin -->
 <div class="flex flex-wrap items-center justify-between gap-space-sm font-label-catalog text-label-catalog text-outline uppercase tracking-widest pb-space-xs">
 <div class="flex items-center gap-space-sm">
-<span class="inline-block w-1.5 h-1.5 bg-primary"></span>
+<span class="inline-block w-1.5 h-1.5 bg-primary">
+</span>
 <span>BOX REF: SKC-ARCH-2026-V1</span>
 <span class="text-surface-container-highest">/</span>
 <span class="text-primary-fixed-dim">COLLECTION NO. 01–84</span>
@@ -81,7 +116,7 @@
 </div>
 <!-- Filter Bar & Classification Trigger Strip -->
 <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md pt-space-sm">
-<div class="flex flex-wrap items-center gap-1.5 font-label-code text-label-code" id="filter-container">
+<div class="flex flex-wrap items-center gap-1.5 font-label-code text-label-code" id="filter-container" data-filter-bar>
 <button class="filter-btn active-filter px-3 py-1.5 bg-primary text-on-primary transition-all flex items-center gap-1.5" data-filter="all">
 <span>ALL</span>
 <span class="font-label-micro opacity-80">(42)</span>
@@ -141,14 +176,15 @@
 <article class="archive-card lg:col-span-7 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="photo" data-gear="Nikon FM2 · Kodak Tri-X 400" data-notes="Negative developed in D-76 at 20°C. Heavy silver grain intentional." data-type="photo">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary">
+</span>
 <span class="text-on-surface">PLATE #01</span>
 <span>· 35MM TX-400</span>
 </span>
 <span>CAT. #SKC-260919</span>
 </div>
 <div class="relative group overflow-hidden bg-surface-container-high aspect-[16/10]">
-<img class="w-full h-full object-cover grayscale contrast-125 transition-all duration-500 group-hover:scale-[1.02] group-hover:contrast-100" data-alt="Grainy, contrasty 35mm black and white photograph of an indie rock guitarist hunched over an offset electric guitar tuning strings during a dimly lit soundcheck at underground Seoul club BBang. Moody stage lighting, microphone stands in silhouette, analog film grain, deep shadows, and stark silver highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANQa_wUAVl8TyCbP-roBU-N6ZT7Dm9ACU2LggR571T73JYXUY5cxNmJZEt-fCwDGrl6BCaZn84jvWVeuTwtU27tM_L8tF_Hui_BS1r5m0dPt9NetRX01Zp3gIPhxxOR_M-yKtOdLzCmwdEq7rFxDHMDjAo7pWhv249WY32TcWc3suo7O3HZe8itulKlDrRIIGKvxjWW1aS4jF0uh_WEDCDMN8FJ_806QDp4xxgv5Sp3nNbn1Itht_puA"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-125 transition-all duration-500 group-hover:scale-[1.02] group-hover:contrast-100" alt="Grainy, contrasty 35mm black and white photograph of an indie rock guitarist hunched over an offset electric guitar tuning strings during a dimly lit soundcheck at underground Seoul club BBang. Moody stage lighting, microphone stands in silhouette, analog film grain, deep shadows, and stark silver highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANQa_wUAVl8TyCbP-roBU-N6ZT7Dm9ACU2LggR571T73JYXUY5cxNmJZEt-fCwDGrl6BCaZn84jvWVeuTwtU27tM_L8tF_Hui_BS1r5m0dPt9NetRX01Zp3gIPhxxOR_M-yKtOdLzCmwdEq7rFxDHMDjAo7pWhv249WY32TcWc3suo7O3HZe8itulKlDrRIIGKvxjWW1aS4jF0uh_WEDCDMN8FJ_806QDp4xxgv5Sp3nNbn1Itht_puA"/>
 <div class="absolute inset-0 bg-surface-dim/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-space-md">
 <div class="bg-surface-container-lowest/95 backdrop-blur-sm p-space-sm font-label-code text-label-code text-on-surface flex flex-col gap-1 w-full">
 <div class="flex justify-between items-center text-primary">
@@ -178,7 +214,8 @@
 <article class="archive-card lg:col-span-5 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer border border-surface-container-highest/40 hover:border-primary/50" data-category="youtube" data-gear="Krasnogorsk-3 16mm (Kodak 500T 7219) · Telecine 2K" data-notes="Film stock hand-processed in Moscow; magnetic sound synched at 24fps via vintage Nagra 4.2." data-type="youtube" data-yt-id="dQw4w9WgXcQ">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5 text-error">
-<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse">
+</span>
 <span class="text-on-surface">YOUTUBE REEL</span>
 <span>· 16MM KODACHROME SCAN</span>
 </span>
@@ -186,10 +223,11 @@
 </div>
 <div class="relative group aspect-video bg-black overflow-hidden crt-scanlines">
 <!-- Video Thumbnail / Player Overlay -->
-<img class="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-[1.02] transition-all duration-500 filter contrast-125" data-alt="Grainy 16mm film capture of Sakarin Cosmos performing on a dim industrial stage with heavy projector beam lighting, dust particles floating in light cone, raw vintage cinematic look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1K23EBjiqEMkEtuqiqoFfHH0h1vuwl0nw9_0MfVKJtao9I20QRguJDxOvG0mSJ9PuG0ryVez3tc_bePIBFc3UC6k34clJdvRbfwrQckTHHq8xX2sY9YhncTiX2i3icttdH73JBoDiBpVJUiIyXKSQA0hdm6rPVyNwIe8iJUlQx8jedpJ8GRE6m4ePWy4_kd28v_tguKs8PbFDD1VLVT2t6keSKrbVBbl917XtUojnrY4zW_USKuSxvw"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-[1.02] transition-all duration-500 filter contrast-125" alt="Grainy 16mm film capture of Sakarin Cosmos performing on a dim industrial stage with heavy projector beam lighting, dust particles floating in light cone, raw vintage cinematic look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1K23EBjiqEMkEtuqiqoFfHH0h1vuwl0nw9_0MfVKJtao9I20QRguJDxOvG0mSJ9PuG0ryVez3tc_bePIBFc3UC6k34clJdvRbfwrQckTHHq8xX2sY9YhncTiX2i3icttdH73JBoDiBpVJUiIyXKSQA0hdm6rPVyNwIe8iJUlQx8jedpJ8GRE6m4ePWy4_kd28v_tguKs8PbFDD1VLVT2t6keSKrbVBbl917XtUojnrY4zW_USKuSxvw"/>
 <!-- CRT OSD Overlay -->
 <div class="absolute top-2 left-2 px-2 py-0.5 bg-black/80 font-label-code text-label-micro text-primary flex items-center gap-1.5 border border-primary/20">
-<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping">
+</span>
 <span>REC ● [16MM TELECINE]</span>
 <span class="text-outline">04:12:08</span>
 </div>
@@ -237,7 +275,8 @@
 <article class="archive-card lg:col-span-5 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="setlist" data-gear="Epson Expression 12000XL scanner · 1200 DPI" data-notes="Found attached to stage wedges with black vinyl gaffer tape." data-type="doc">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-secondary"></span>
+<span class="w-1.5 h-1.5 bg-secondary">
+</span>
 <span class="text-on-surface">DOC #02</span>
 <span>· STAGE MANIFEST</span>
 </span>
@@ -303,7 +342,8 @@
 <article class="archive-card lg:col-span-7 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer border border-surface-container-highest/40 hover:border-primary/50" data-audio-src="orbit-rough-4track" data-category="soundcloud" data-gear="Tascam Portastudio 424 MKII · Type II CrO2 Cassette" data-notes="Tracked live in room onto 4 separate tape tracks; bounce mixdown done via Roland RE-201 Space Echo." data-type="soundcloud">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5 text-primary">
-<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse">
+</span>
 <span class="text-on-surface">SOUNDCLOUD EMBED</span>
 <span>· REHEARSAL CASSETTE ARCHIVE</span>
 </span>
@@ -330,38 +370,69 @@
 <!-- Waveform Canvas Mockup -->
 <div class="w-full h-16 bg-surface-container-lowest px-2 flex items-center gap-[2px] overflow-hidden rounded relative" id="sc-waveform">
 <!-- Simulated audio bars in dark cosmic palette -->
-<span class="w-1 bg-outline-variant h-3 rounded-full"></span>
-<span class="w-1 bg-outline-variant h-5 rounded-full"></span>
-<span class="w-1 bg-outline-variant h-8 rounded-full"></span>
-<span class="w-1 bg-primary h-12 rounded-full"></span>
-<span class="w-1 bg-primary h-10 rounded-full"></span>
-<span class="w-1 bg-primary h-7 rounded-full"></span>
-<span class="w-1 bg-primary h-14 rounded-full"></span>
-<span class="w-1 bg-primary h-11 rounded-full"></span>
-<span class="w-1 bg-primary h-6 rounded-full"></span>
-<span class="w-1 bg-primary h-9 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-13 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-10 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-8 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-14 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-9 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-5 rounded-full"></span>
-<span class="w-1 bg-primary-fixed-dim h-11 rounded-full"></span>
-<span class="w-1 bg-primary h-15 rounded-full"></span>
-<span class="w-1 bg-primary h-12 rounded-full"></span>
-<span class="w-1 bg-primary h-8 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-10 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-6 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-13 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-7 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-4 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-9 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-12 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-7 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-5 rounded-full"></span>
-<span class="w-1 bg-surface-container-highest h-3 rounded-full"></span>
+<span class="w-1 bg-outline-variant h-3 rounded-full">
+</span>
+<span class="w-1 bg-outline-variant h-5 rounded-full">
+</span>
+<span class="w-1 bg-outline-variant h-8 rounded-full">
+</span>
+<span class="w-1 bg-primary h-12 rounded-full">
+</span>
+<span class="w-1 bg-primary h-10 rounded-full">
+</span>
+<span class="w-1 bg-primary h-7 rounded-full">
+</span>
+<span class="w-1 bg-primary h-14 rounded-full">
+</span>
+<span class="w-1 bg-primary h-11 rounded-full">
+</span>
+<span class="w-1 bg-primary h-6 rounded-full">
+</span>
+<span class="w-1 bg-primary h-9 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-13 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-10 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-8 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-14 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-9 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-5 rounded-full">
+</span>
+<span class="w-1 bg-primary-fixed-dim h-11 rounded-full">
+</span>
+<span class="w-1 bg-primary h-15 rounded-full">
+</span>
+<span class="w-1 bg-primary h-12 rounded-full">
+</span>
+<span class="w-1 bg-primary h-8 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-10 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-6 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-13 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-7 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-4 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-9 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-12 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-7 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-5 rounded-full">
+</span>
+<span class="w-1 bg-surface-container-highest h-3 rounded-full">
+</span>
 <!-- Scrubber position line -->
-<div class="absolute left-[38%] top-0 bottom-0 w-0.5 bg-error shadow-sm pointer-events-none"></div>
+<div class="absolute left-[38%] top-0 bottom-0 w-0.5 bg-error shadow-sm pointer-events-none">
+</div>
 <div class="absolute left-2 bottom-1 text-[9px] font-label-code text-outline opacity-70">01:58 / 05:24</div>
 </div>
 <!-- Player status & control strip -->
@@ -375,8 +446,10 @@
 <span>192 KBPS STREAM</span>
 </div>
 <div class="flex items-center gap-space-md">
-<span class="flex items-center gap-1 hover:text-on-surface"><span class="material-symbols-outlined text-[12px]">favorite</span> 1,248</span>
-<span class="flex items-center gap-1 hover:text-on-surface"><span class="material-symbols-outlined text-[12px]">repeat</span> 184</span>
+<span class="flex items-center gap-1 hover:text-on-surface">
+<span class="material-symbols-outlined text-[12px]">favorite</span> 1,248</span>
+<span class="flex items-center gap-1 hover:text-on-surface">
+<span class="material-symbols-outlined text-[12px]">repeat</span> 184</span>
 </div>
 </div>
 </div>
@@ -405,14 +478,15 @@
 <article class="archive-card lg:col-span-5 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="poster" data-gear="Manual Silkscreen Press · Off-white 65gsm Newsprint" data-notes="Two-screen carbon ink run. Edition of 100 with hand-numbered stamp." data-type="poster">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-tertiary"></span>
+<span class="w-1.5 h-1.5 bg-tertiary">
+</span>
 <span class="text-on-surface">POSTER #03</span>
 <span>· SILKSCREEN</span>
 </span>
 <span>CAT. #SKC-260501</span>
 </div>
 <div class="relative group bg-surface-container-high aspect-[3/4] overflow-hidden">
-<img class="w-full h-full object-cover contrast-150 transition-all duration-500 group-hover:scale-[1.02]" data-alt="High contrast black and white screenprinted gig poster with rough photocopier xerox degradation and tactile paper textures for indie concert titled SIGNAL LOST &amp; FOUND Vol. 3. Typography in bold grotesque and classical serif lettering, cosmic orbital diagram illustrations, grain, halftone dots, and deep pitch blacks." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZCqtkTv88Bd1NDRjgsxPpu5BqjOgSikGbfMwOFMey1BwbPvYep10YyUCVtu0XJxHcJCxRj3uwoJZu62bbH-taCsOP67HyGVQfFYiN4dKrgELZ-M7kq56dkTk_mgdYUfF415KMPhHcNpBO8BFoOZVKEBjs2AD_wXS94QhJl4Ee7AcnUG3H6qiqGRwZm7fziCbuMFdFeBjoG5U0HSOWM6ACZD5L5V9HMIpgogK09FuHdie2xOMFPc3uKA"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover contrast-150 transition-all duration-500 group-hover:scale-[1.02]" alt="High contrast black and white screenprinted gig poster with rough photocopier xerox degradation and tactile paper textures for indie concert titled SIGNAL LOST &amp; FOUND Vol. 3. Typography in bold grotesque and classical serif lettering, cosmic orbital diagram illustrations, grain, halftone dots, and deep pitch blacks." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZCqtkTv88Bd1NDRjgsxPpu5BqjOgSikGbfMwOFMey1BwbPvYep10YyUCVtu0XJxHcJCxRj3uwoJZu62bbH-taCsOP67HyGVQfFYiN4dKrgELZ-M7kq56dkTk_mgdYUfF415KMPhHcNpBO8BFoOZVKEBjs2AD_wXS94QhJl4Ee7AcnUG3H6qiqGRwZm7fziCbuMFdFeBjoG5U0HSOWM6ACZD5L5V9HMIpgogK09FuHdie2xOMFPc3uKA"/>
 <div class="absolute top-space-sm left-space-sm bg-surface-container-lowest/90 px-2 py-1 font-label-micro text-label-micro text-primary uppercase tracking-widest">
               EDITION 42 / 100 NEWSPRINT
             </div>
@@ -436,7 +510,8 @@
 <article class="archive-card lg:col-span-4 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer border border-surface-container-highest/40 hover:border-primary/50" data-category="instagram" data-gear="Contax T2 · Ilford HP5 Plus 400" data-notes="Polaroid and 35mm prints pinned to sound dampening board during midnight rehearsal." data-type="instagram">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="w-1.5 h-1.5 bg-primary">
+</span>
 <span class="text-on-surface font-medium">INSTAGRAM ARCHIVE</span>
 </span>
 <span class="font-label-code text-label-micro text-primary">@sakarin_cosmos</span>
@@ -458,24 +533,32 @@
 </div>
 <!-- Image Viewport with Carousel Indicator -->
 <div class="relative group aspect-square bg-surface-container overflow-hidden">
-<img class="w-full h-full object-cover contrast-110 group-hover:scale-105 transition-transform duration-500" data-alt="Underground rehearsal room equipment with pedalboard illuminated by tiny green and red LED lights, tangled jack cables, and handwritten notepad resting on amp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkLRU1EcnUt9265JGzJXMyVSizlGwMsu96mumXs4gezrCQngLBjgkqBNo1_5Zb_ppvefU1JFceN9dawRqJlQpgTh6OE7GRmTGkCe2auThavtyn5avz72z5GoxaBeC-ofME78kN22MFIyQvb4HZPsCBq3U4wTaY629QV-6eS8Ki0l87Ji1O_sCSSEEiUYFATxTpf6QNE-su-_DddsCk0SBF4YHJ_4OlEM5RikmW_IJqoXl6RVFLC4zQzw"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover contrast-110 group-hover:scale-105 transition-transform duration-500" alt="Underground rehearsal room equipment with pedalboard illuminated by tiny green and red LED lights, tangled jack cables, and handwritten notepad resting on amp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkLRU1EcnUt9265JGzJXMyVSizlGwMsu96mumXs4gezrCQngLBjgkqBNo1_5Zb_ppvefU1JFceN9dawRqJlQpgTh6OE7GRmTGkCe2auThavtyn5avz72z5GoxaBeC-ofME78kN22MFIyQvb4HZPsCBq3U4wTaY629QV-6eS8Ki0l87Ji1O_sCSSEEiUYFATxTpf6QNE-su-_DddsCk0SBF4YHJ_4OlEM5RikmW_IJqoXl6RVFLC4zQzw"/>
 <div class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/70 text-[10px] font-label-code text-on-surface">
 1/4
 </div>
 <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-<span class="w-1.5 h-1.5 rounded-full bg-outline/50"></span>
-<span class="w-1.5 h-1.5 rounded-full bg-outline/50"></span>
-<span class="w-1.5 h-1.5 rounded-full bg-outline/50"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary">
+</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline/50">
+</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline/50">
+</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline/50">
+</span>
 </div>
 </div>
 <!-- Social Interactions & Caption -->
 <div class="flex flex-col gap-1 pt-1 font-label-code text-label-micro">
 <div class="flex items-center justify-between text-outline">
 <div class="flex items-center gap-3 text-on-surface">
-<span class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[16px]">favorite</span> 492</span>
-<span class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[16px]">chat_bubble</span> 31</span>
-<span class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[16px]">send</span></span>
+<span class="flex items-center gap-1 hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">favorite</span> 492</span>
+<span class="flex items-center gap-1 hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span> 31</span>
+<span class="flex items-center gap-1 hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">send</span>
+</span>
 </div>
 <span class="material-symbols-outlined text-[16px] hover:text-primary">bookmark</span>
 </div>
@@ -505,7 +588,8 @@
 <article class="archive-card lg:col-span-4 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer border border-surface-container-highest/40 hover:border-primary/50" data-category="soundcloud" data-gear="Nagra 4.2 Reel-to-Reel · 1/4 inch tape" data-notes="Unreleased soundcheck tape spool from Sangsu basement performance." data-type="cassette">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-secondary-fixed"></span>
+<span class="w-1.5 h-1.5 bg-secondary-fixed">
+</span>
 <span class="text-on-surface font-medium">SOUNDBOARD CASSETTE</span>
 </span>
 <span class="font-label-code text-label-micro text-primary">SPOOL #09-B</span>
@@ -521,19 +605,26 @@
 <div class="flex items-center justify-around py-2">
 <!-- Reel Left -->
 <div class="w-12 h-12 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center relative tape-reel">
-<div class="w-4 h-4 rounded-full bg-surface-dim border border-primary"></div>
-<div class="absolute w-1 h-3 bg-primary top-0"></div>
-<div class="absolute w-1 h-3 bg-primary bottom-0"></div>
+<div class="w-4 h-4 rounded-full bg-surface-dim border border-primary">
+</div>
+<div class="absolute w-1 h-3 bg-primary top-0">
+</div>
+<div class="absolute w-1 h-3 bg-primary bottom-0">
+</div>
 </div>
 <!-- Center clear tape window with ribbon -->
 <div class="h-6 w-20 bg-surface-container-high/60 rounded flex items-center justify-center overflow-hidden border border-surface-container-highest">
-<div class="w-full h-2 bg-secondary-container/80"></div>
+<div class="w-full h-2 bg-secondary-container/80">
+</div>
 </div>
 <!-- Reel Right -->
 <div class="w-12 h-12 rounded-full border-2 border-outline-variant bg-surface-container flex items-center justify-center relative tape-reel">
-<div class="w-4 h-4 rounded-full bg-surface-dim border border-primary"></div>
-<div class="absolute w-1 h-3 bg-primary left-0"></div>
-<div class="absolute w-1 h-3 bg-primary right-0"></div>
+<div class="w-4 h-4 rounded-full bg-surface-dim border border-primary">
+</div>
+<div class="absolute w-1 h-3 bg-primary left-0">
+</div>
+<div class="absolute w-1 h-3 bg-primary right-0">
+</div>
 </div>
 </div>
 <div class="text-center font-label-code text-label-micro text-outline italic">
@@ -568,14 +659,15 @@
 <article class="archive-card lg:col-span-7 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="zine" data-gear="Minolta Xerox 5000 · 80gsm Recycled Paper" data-notes="Cut-and-paste collage master created with scalpel and gaffer glue." data-type="zine">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-primary-fixed-dim"></span>
+<span class="w-1.5 h-1.5 bg-primary-fixed-dim">
+</span>
 <span class="text-on-surface">ZINE #04</span>
 <span>· SELF-PUBLISHED SPREAD</span>
 </span>
 <span>CAT. #SKC-260318</span>
 </div>
 <div class="relative group bg-surface-container-high aspect-[16/9] overflow-hidden">
-<img class="w-full h-full object-cover contrast-110 group-hover:scale-[1.01] transition-transform duration-500" data-alt="Two-page spread of an independent self-published indie music zine scanned flat on an open binder. Features Xerox photocopied typewriter lyrics in Korean and English, collaged tape-cut handwritten guitar tablatures, a tiny pasted Polaroid of a city river at dusk, and faded star map diagrams on matte rough paper." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPwfPeDSzellc8_0bamFrBIvR7kpIzVmOr1Qf2b81TQnCJphTuaAFeNDYY6OTrxADWZcb---foBQ7nRhbIHbKwi7ZUGt12bM6rT_civyYE1wOw_lKC6_w0U6SdcVVYI3tunIY2I7BRNICXCnqXEeN-nTC4crXVJzgShMK1G2taKIfbI7QCZG8nBISgcCDM_aibZe1kUSxEEVVxO5I93tVURoKoYAjRfTuUqLh15aN3SzOpRy9f-Q7itA"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover contrast-110 group-hover:scale-[1.01] transition-transform duration-500" alt="Two-page spread of an independent self-published indie music zine scanned flat on an open binder. Features Xerox photocopied typewriter lyrics in Korean and English, collaged tape-cut handwritten guitar tablatures, a tiny pasted Polaroid of a city river at dusk, and faded star map diagrams on matte rough paper." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPwfPeDSzellc8_0bamFrBIvR7kpIzVmOr1Qf2b81TQnCJphTuaAFeNDYY6OTrxADWZcb---foBQ7nRhbIHbKwi7ZUGt12bM6rT_civyYE1wOw_lKC6_w0U6SdcVVYI3tunIY2I7BRNICXCnqXEeN-nTC4crXVJzgShMK1G2taKIfbI7QCZG8nBISgcCDM_aibZe1kUSxEEVVxO5I93tVURoKoYAjRfTuUqLh15aN3SzOpRy9f-Q7itA"/>
 <div class="absolute bottom-space-sm right-space-sm bg-surface-container-lowest/90 px-2.5 py-1 font-label-code text-label-code text-on-surface">
               PAGES 14–15: "CELESTIAL ARCHITECTURE"
             </div>
@@ -599,14 +691,15 @@
 <article class="archive-card lg:col-span-5 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="photo" data-gear="Mamiya 7II · 80mm f/4 · Ilford Delta 3200" data-notes="Pushed two stops in development for extreme soot and grit." data-type="photo">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="w-1.5 h-1.5 bg-primary">
+</span>
 <span class="text-on-surface">PLATE #05</span>
 <span>· MEDIUM FORMAT</span>
 </span>
 <span>CAT. #SKC-260405</span>
 </div>
 <div class="relative group bg-surface-container-high aspect-square overflow-hidden">
-<img class="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105" data-alt="Square format black and white photograph of an underground music venue green room backstage mirror covered in band stickers, marker signatures, and dust. Faint reflection of musicians holding tea cups in dim atmospheric incandescent light. Deep analog shadows and subtle vintage warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOANwzQ9qMALNE8VQNnVGzrfXCZay8lJHAyLVVZm64rMsIQaihdDvymLNansrOvV9iMU3tlzX77GmpfWZoyd9ScGLp5YFUIPH3UuzccJgbkXhpL3_g8vGiHEV5BmgPTAqEwdQLBR6jQqjHP2RbkdijNEKYVRyZyTHKTsqd8p3_hf-Eg0cmRtpFqbP3ZNkSbOpehBZGSY2E_zzNN2GOlocvPGpZfxHVgXxgoPPu2woplujcLdNaTdVsfA"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105" alt="Square format black and white photograph of an underground music venue green room backstage mirror covered in band stickers, marker signatures, and dust. Faint reflection of musicians holding tea cups in dim atmospheric incandescent light. Deep analog shadows and subtle vintage warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOANwzQ9qMALNE8VQNnVGzrfXCZay8lJHAyLVVZm64rMsIQaihdDvymLNansrOvV9iMU3tlzX77GmpfWZoyd9ScGLp5YFUIPH3UuzccJgbkXhpL3_g8vGiHEV5BmgPTAqEwdQLBR6jQqjHP2RbkdijNEKYVRyZyTHKTsqd8p3_hf-Eg0cmRtpFqbP3ZNkSbOpehBZGSY2E_zzNN2GOlocvPGpZfxHVgXxgoPPu2woplujcLdNaTdVsfA"/>
 </div>
 <div class="p-space-md flex flex-col gap-space-xs bg-surface-container-low">
 <div class="flex items-baseline justify-between">
@@ -627,7 +720,8 @@
 <article class="archive-card lg:col-span-4 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="other" data-gear="Rhodia 80gsm Grid · Rotring Isograph 0.35" data-notes="Kept in guitar gig bag side pocket for 4 months." data-type="note">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-secondary-fixed"></span>
+<span class="w-1.5 h-1.5 bg-secondary-fixed">
+</span>
 <span class="text-on-surface">FRAG #06</span>
 <span>· MANUSCRIPT NOTE</span>
 </span>
@@ -677,7 +771,8 @@
 <article class="archive-card lg:col-span-8 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="other" data-gear="Flatbed 600 DPI Scan · Carbon Stamped Paper" data-notes="Original admission stub with red solvent stamp." data-type="stub">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="w-1.5 h-1.5 bg-primary">
+</span>
 <span class="text-on-surface">EPHEM #07</span>
 <span>· TICKET ADMISSION</span>
 </span>
@@ -725,7 +820,8 @@
 <article class="archive-card lg:col-span-12 flex flex-col bg-surface-container-lowest transition-transform duration-300 cursor-pointer" data-category="photo" data-gear="Tascam DR-40X Stereo · Marantz PMD-430 Cassette" data-notes="Recorded during winter night power surges. Tape hiss preserved as master texture." data-type="photo">
 <div class="p-space-sm bg-surface-container-low flex items-center justify-between font-label-code text-label-code text-outline">
 <span class="flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="w-1.5 h-1.5 bg-primary">
+</span>
 <span class="text-on-surface">PANEL #08</span>
 <span>· NOCTURNE STUDY</span>
 </span>
@@ -735,7 +831,7 @@
 </div>
 </div>
 <div class="relative group bg-surface-container-high aspect-[21/9] overflow-hidden">
-<img class="w-full h-full object-cover grayscale brightness-90 transition-all duration-700 group-hover:scale-[1.01]" data-alt="Moody cinematic panoramic black and white photograph of an empty underground music rehearsal room at night. Vintage tube amplifier pilot light glowing softly in total darkness, coiled black guitar cables spilling across linoleum floor, and a cassette deck with small tape spool resting on a wooden stool in quiet stillness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKyuZt3F3pjzL3Mv4YReLiejrhqFvGZcQ8_6e5lym2piPwB3ANac1tgMdGitxjrxJgz_zy2n2-0hwRydyPg3TyzxS5f2BrNwOZMtecM1ObRCG0dZ0gmWXnXmti00-ovMpCTF1c4qSdmNabGP9S21QAP5QXkDoTTE-tt9yW9DM8D8pU5gzQSBa_vcyTF6Yg7j0tDtkRJj2ctzHHnWYc_IisunlwOsqMRm44hzs8IzNaDfV-7sLfeGx1gA"/>
+<img loading="lazy" decoding="async" class="w-full h-full object-cover grayscale brightness-90 transition-all duration-700 group-hover:scale-[1.01]" alt="Moody cinematic panoramic black and white photograph of an empty underground music rehearsal room at night. Vintage tube amplifier pilot light glowing softly in total darkness, coiled black guitar cables spilling across linoleum floor, and a cassette deck with small tape spool resting on a wooden stool in quiet stillness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKyuZt3F3pjzL3Mv4YReLiejrhqFvGZcQ8_6e5lym2piPwB3ANac1tgMdGitxjrxJgz_zy2n2-0hwRydyPg3TyzxS5f2BrNwOZMtecM1ObRCG0dZ0gmWXnXmti00-ovMpCTF1c4qSdmNabGP9S21QAP5QXkDoTTE-tt9yW9DM8D8pU5gzQSBa_vcyTF6Yg7j0tDtkRJj2ctzHHnWYc_IisunlwOsqMRm44hzs8IzNaDfV-7sLfeGx1gA"/>
 <div class="absolute bottom-space-md left-space-md max-w-lg bg-surface-container-lowest/90 backdrop-blur-sm p-space-sm">
 <div class="font-headline-sm text-headline-sm text-on-surface">Late Night Amplifier Idle</div>
 <div class="font-label-code text-label-code text-primary mt-0.5">HAPJEONG STUDIO 2 — 03:42 AM · AFTER 6 HOURS TRACKING</div>
@@ -752,7 +848,8 @@
 <span class="text-label-micro text-outline-variant uppercase">REC GEAR</span>
 <span class="text-on-surface">MARANTZ PMD-430 TAPE</span>
 </div>
-<div class="h-6 w-px bg-surface-container-highest"></div>
+<div class="h-6 w-px bg-surface-container-highest">
+</div>
 <div class="flex flex-col items-start md:items-end">
 <span class="text-label-micro text-outline-variant uppercase">STATUS</span>
 <span class="text-primary">ARCHIVAL MASTERED</span>
@@ -767,7 +864,8 @@
 <div class="bg-surface-container-low max-w-2xl w-full p-space-lg flex flex-col gap-space-md shadow-2xl border border-surface-container-highest/60 max-h-[90vh] overflow-y-auto">
 <div class="flex items-center justify-between font-label-catalog text-label-catalog text-outline uppercase pb-space-xs border-b border-surface-container-highest">
 <span class="flex items-center gap-1.5 text-primary">
-<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="w-1.5 h-1.5 bg-primary">
+</span>
 <span id="modal-heading">ARCHIVE ARTIFACT INSPECTION</span>
 </span>
 <button class="text-on-surface hover:text-primary transition-colors flex items-center p-1" id="modal-close">
@@ -825,183 +923,10 @@ NEXT DRAWER (BATCH 02)
 </section>
 </div>
 </div>
-<script>
-  (function() {
-    // Dynamic Filter Behavior with Media Support
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.archive-card');
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-
-        // Update active button state
-        filterButtons.forEach(b => {
-          b.classList.remove('bg-primary', 'text-on-primary');
-          b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
-        });
-        btn.classList.add('bg-primary', 'text-on-primary');
-        btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
-
-        // Filter cards smoothly
-        cards.forEach(card => {
-          const category = card.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
-            card.style.display = 'flex';
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            }, 10);
-          } else {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(12px)';
-            setTimeout(() => {
-              card.style.display = 'none';
-            }, 200);
-          }
-        });
-      });
-    });
-
-    // SoundCloud play toggle simulation
-    window.toggleSoundcloudPlay = function(btn) {
-      const icon = btn.querySelector('.material-symbols-outlined');
-      const label = document.querySelector('.sc-status-label');
-      if (icon.innerText === 'play_arrow') {
-        icon.innerText = 'pause';
-        if (label) label.innerText = 'PLAYING 4-TRACK STEREO BOUNCE';
-      } else {
-        icon.innerText = 'play_arrow';
-        if (label) label.innerText = 'PAUSED · CLICK TO AUDITION';
-      }
-    };
-
-    // Cassette Player Animation & Playback Simulation
-    let cassettePlaying = false;
-    let cassetteInterval;
-    let seconds = 0;
-
-    window.toggleCassettePlay = function(btn) {
-      cassettePlaying = !cassettePlaying;
-      const reels = document.querySelectorAll('.tape-reel');
-      const btnIcon = btn.querySelector('.material-symbols-outlined');
-      const btnText = btn.querySelector('span:last-child');
-      const timer = document.querySelector('.tape-timer');
-
-      if (cassettePlaying) {
-        reels.forEach(r => r.classList.add('animate-spin-slow'));
-        reels.forEach(r => r.classList.remove('paused'));
-        btnIcon.innerText = 'pause';
-        btnText.innerText = 'STOP TAPE';
-        cassetteInterval = setInterval(() => {
-          seconds++;
-          const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-          const secs = String(seconds % 60).padStart(2, '0');
-          if (timer) timer.innerText = `${mins}:${secs} / 02:45`;
-          if (seconds >= 165) {
-            clearInterval(cassetteInterval);
-            seconds = 0;
-            toggleCassettePlay(btn);
-          }
-        }, 1000);
-      } else {
-        reels.forEach(r => r.classList.add('paused'));
-        btnIcon.innerText = 'play_arrow';
-        btnText.innerText = 'ROLL TAPE';
-        clearInterval(cassetteInterval);
-      }
-    };
-
-    // Inspect Card Interaction & Dynamic Modal Populator
-    const modal = document.getElementById('inspect-modal');
-    const closeBtn = document.getElementById('modal-close');
-    const dismissBtn = document.getElementById('modal-dismiss');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modal-desc');
-    const modalCat = document.getElementById('modal-cat');
-    const modalGear = document.getElementById('modal-gear');
-    const modalNotes = document.getElementById('modal-notes');
-    const modalMediaFrame = document.getElementById('modal-media-frame');
-
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        const title = card.querySelector('h2')?.innerText || 'Archive Artifact';
-        const desc = card.querySelector('p.text-on-surface-variant')?.innerText || '';
-        const cat = card.querySelector('.p-space-sm span:last-child')?.innerText || '#SKC-ARCH';
-        const gear = card.getAttribute('data-gear') || 'Standard Studio Hardware';
-        const notes = card.getAttribute('data-notes') || 'Stored in environmental chamber.';
-        const type = card.getAttribute('data-type') || 'photo';
-
-        modalTitle.innerText = title;
-        modalDesc.innerText = desc;
-        modalCat.innerText = cat;
-        modalGear.innerText = gear;
-        modalNotes.innerText = notes;
-
-        // Custom rich media embed preview inside drawer modal
-        if (type === 'youtube') {
-          modalMediaFrame.innerHTML = `
-            <div class="relative aspect-video bg-black crt-scanlines">
-              <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          `;
-        } else if (type === 'soundcloud') {
-          modalMediaFrame.innerHTML = `
-            <div class="p-space-md bg-surface-container flex flex-col gap-3">
-              <div class="flex items-center justify-between font-label-code text-label-code text-primary">
-                <span>SOUNDCLOUD ANALOG MASTER STREAM</span>
-                <span>4-TRACK TAPE BOUNCE</span>
-              </div>
-              <div class="p-3 bg-surface-dim border border-surface-container-highest flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <span class="material-symbols-outlined text-primary text-[28px]">graphic_eq</span>
-                  <div class="flex flex-col">
-                    <span class="font-headline-sm text-sm text-on-surface">Orbit (궤도) - Rough Rehearsal Master</span>
-                    <span class="text-outline font-label-micro">Hapjeong Basement · 192kbps Lossless Feed</span>
-                  </div>
-                </div>
-                <a href="https://soundcloud.com" target="_blank" class="px-3 py-1 bg-primary text-on-primary font-label-code text-label-micro">LISTEN ON SC ↗</a>
-              </div>
-            </div>
-          `;
-        } else if (type === 'instagram') {
-          modalMediaFrame.innerHTML = `
-            <div class="p-space-md bg-surface-container flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-primary text-[24px]">photo_camera</span>
-                <div>
-                  <span class="font-label-code text-on-surface text-label-code">@sakarin_cosmos instagram post</span>
-                  <p class="text-body-sm text-outline">Rehearsal loop testing with taped pedal chain.</p>
-                </div>
-              </div>
-              <a href="https://instagram.com" target="_blank" class="px-3 py-1 bg-surface-container-highest text-primary font-label-code text-label-micro border border-primary/30">OPEN POST ↗</a>
-            </div>
-          `;
-        } else {
-          // If image present, display large inspect view
-          const img = card.querySelector('img');
-          if (img) {
-            modalMediaFrame.innerHTML = `<img class="w-full max-h-[360px] object-cover contrast-110" src="${img.src}" alt="${title}">`;
-          } else {
-            modalMediaFrame.innerHTML = `<div class="p-space-lg text-center font-label-code text-outline italic">ARCHIVAL DOCUMENT FACSIMILE RECORD</div>`;
-          }
-        }
-
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      });
-    });
-
-    const closeModal = () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      if (modalMediaFrame) modalMediaFrame.innerHTML = '';
-    };
-
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (dismissBtn) dismissBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-  })();
-</script></main><footer class="w-full bg-surface-container-lowest"><div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl flex flex-col gap-space-lg"><div class="flex flex-col md:flex-row md:items-baseline justify-between gap-space-md"><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface uppercase tracking-wider">SAKARIN COSMOS</span><span class="font-headline-sm text-headline-sm italic text-outline mt-1 font-display-hero">music keeps a place open.</span></div><div class="flex items-center gap-space-md text-outline"><a aria-label="Instagram" class="hover:text-on-surface transition-colors" href="https://instagram.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><rect height="20" rx="0" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a aria-label="YouTube" class="hover:text-on-surface transition-colors" href="https://youtube.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a><a aria-label="SoundCloud" class="hover:text-on-surface transition-colors" href="https://soundcloud.com" rel="noopener noreferrer" target="_blank"><svg class="w-4 h-4 fill-none stroke-current" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24"><path d="M3 13v3M6 10v6M9 8v8M12 6v10M15 9v7M18 11v5M21 13v3"></path></svg></a></div></div><div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pt-space-md font-label-code text-label-code text-outline"><div class="flex flex-wrap items-center gap-space-md"><a class="hover:text-on-surface transition-colors" data-path="contact" href="#">CONTACT</a><span class="text-surface-container-highest">/</span><a class="hover:text-on-surface transition-colors" data-path="press-kit" href="#">PRESS KIT</a><span class="text-surface-container-highest">/</span><span class="text-outline-variant">SEOUL, KR</span></div><div class="text-outline font-label-micro text-label-micro">COPYRIGHT © SAKARIN COSMOS. ALL RELEASES INDEPENDENT.</div></div></div></footer></body></html>
+</main>
+<footer id="info" data-site-footer>
+<noscript>SAKARIN COSMOS · <a href="mailto:hello@sakarincosmos.com">CONTACT</a>
+</noscript>
+</footer>
+</body>
+</html>
