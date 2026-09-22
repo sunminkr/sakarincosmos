@@ -69,7 +69,7 @@ module.exports = async ({ page, context, base, go, noOverflow, shot }) => {
     assert.equal(await page.evaluate(() => SiteCart.count()), 1);
     assert.equal(await page.locator('[name="pickup_show"]:checked').inputValue(), 'bbang-oct23');
     await page.locator('.product-size').selectOption('L');
-    await page.locator('.reserve-btn').click();
+    await page.locator('#logo-t-shirt .reserve-btn').click();
     await page.locator('#tray-submit').click();
     assert.equal(await page.locator('#pickup-modal-title').textContent(), await page.evaluate(() => SiteI18n.t('form.pickupTitle')));
     assert.doesNotMatch(await page.locator('#pickup-application-form').innerText(), /[가-힣]/);

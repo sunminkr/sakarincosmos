@@ -106,6 +106,21 @@ class SiteChecks(unittest.TestCase):
                 result = subprocess.run(['node', '--check', str(path)], capture_output=True, text=True)
                 self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_prerender_pickup_closes_three_days_before_show(self):
+        source = (ROOT / 'index.html').read_text()
+        catalog = json.loads((ROOT / 'data/catalog.json').read_text())
+        media = json.loads((ROOT / 'data/media.json').read_text())
+        for locale in ['ko', 'en', 'ja']:
+            for day, open_pickup in [(date(2026, 10, 20), True), (date(2026, 10, 21), False)]:
+                with self.subTest(locale=locale, day=day):
+                    output = render_content(source, 'index', locale, messages(locale), catalog, media, day)
+                    schedule = output.split('<!-- prerender:home-shows:start -->', 1)[1].split('<!-- prerender:home-shows:end -->', 1)[0]
+                    nodes = Document(schedule).nodes
+                    self.assertEqual([attrs['datetime'] for tag, attrs in nodes if tag == 'time'], ['2026-10-23', '2026-12-26'])
+                    self.assertEqual('objects.html?show=bbang-oct23#concert-selector-list' in schedule, open_pickup)
+                    if not open_pickup:
+                        self.assertIn(messages(locale)['pickup.closed'], schedule)
+
     def test_old_source_paths_removed(self):
         self.assertFalse(list(ROOT.glob('sakarin_cosmos_*')))
         self.assertFalse(list(ROOT.glob('**/code.html')))

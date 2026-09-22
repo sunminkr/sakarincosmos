@@ -41,7 +41,7 @@
       button.setAttribute('aria-pressed', String(active));
     });
     document.getElementById('selected-event').innerHTML = `<time class="font-mono text-xs text-muted" datetime="${date}">${date.replaceAll('-', '.')}</time>` + (show ? `
-      <div class="mt-6 border-t border-line/30 pt-6"><span class="font-mono text-[9px] text-primary">${SiteCatalog.isPast(show) ? SiteI18n.t('shows.archivedPickup') : SiteCatalog.canPickup(show) ? SiteI18n.t('pickup.availableBadge') : SiteI18n.t('pickup.unknown')}</span>
+      <div class="mt-6 border-t border-line/30 pt-6"><span class="font-mono text-[9px] text-primary">${SiteCatalog.isPast(show) ? SiteI18n.t('shows.archivedPickup') : SiteCatalog.canPickup(show) ? SiteI18n.t('pickup.availableBadge') : SiteI18n.t(show.pickup ? 'pickup.closed' : 'pickup.unknown')}</span>
         <h3 class="font-serif text-4xl mt-2">${escape(show.venue)}</h3><p class="font-serif italic text-xl text-muted mt-1">${escape(show.title || SiteI18n.t('shows.titleUnknown'))}</p>
         <dl class="event-details mt-6"><div><dt>${SiteI18n.t('shows.location')}</dt><dd>${escape(show.city)}</dd></div><div><dt>${SiteI18n.t('shows.start')}</dt><dd>${escape(show.startsAt || SiteI18n.t('shows.timeUnknown'))}</dd></div></dl>
         ${show.note ? `<p class="text-sm text-muted leading-6 mt-6">${escape(show.note)}</p>` : ''}

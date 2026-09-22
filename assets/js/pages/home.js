@@ -48,7 +48,13 @@
       status.textContent = SiteI18n.t('shows.saved');
       status.hidden = false;
       document.querySelectorAll('#home-shows .home-show').forEach(article => {
-        if (article.querySelector('time').dateTime < SiteCatalog.today()) article.remove();
+        const show = { date: article.querySelector('time').dateTime, pickup: true };
+        if (SiteCatalog.isPast(show)) article.remove();
+        else if (!SiteCatalog.canPickup(show)) {
+          const closed = document.createElement('span');
+          closed.textContent = SiteI18n.t('pickup.closed');
+          article.querySelector('a')?.replaceWith(closed);
+        }
       });
       const count = document.querySelectorAll('#home-shows .home-show').length;
       document.getElementById('home-show-count').textContent = String(count).padStart(2, '0');
@@ -66,7 +72,7 @@
       <article class="home-show">
         <time datetime="${show.date}">${show.date.replaceAll('-', '.')}</time>
         <div><h3>${SiteCatalog.escape(show.venue)}</h3><p>${SiteCatalog.escape(show.title || SiteI18n.t('shows.titleUnknown'))} · ${SiteCatalog.escape(show.startsAt ? `${SiteI18n.t('shows.start')} ${show.startsAt}` : SiteI18n.t('shows.timeUnknown'))}</p><p>${SiteCatalog.escape(show.city)}</p></div>
-        ${SiteCatalog.canPickup(show) ? `<a href="${SiteI18n.href('objects')}?show=${show.id}#concert-selector-list">${SiteI18n.t('pickup.link')}</a>` : `<span>${SiteI18n.t('pickup.unknown')}</span>`}
+        ${SiteCatalog.canPickup(show) ? `<a href="${SiteI18n.href('objects')}?show=${show.id}#concert-selector-list">${SiteI18n.t('pickup.link')}</a>` : `<span>${SiteI18n.t(show.pickup ? 'pickup.closed' : 'pickup.unknown')}</span>`}
       </article>`).join('') : `<p class="p-space-md">${SiteCatalog.error || SiteI18n.t('shows.noUpcoming')}</p>`;
   }
   window.addEventListener('schedulechange', renderShows);

@@ -27,7 +27,7 @@
 .media-eyebrow { margin: 0 0 1.25rem; font: 10px/1.6 var(--site-mono); letter-spacing: .14em; color: #bbc6e6; }
 .media-page-title { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 1rem; margin-bottom: .75rem; }
 .media-page-title h1 { font: 400 clamp(38px, 6vw, 64px)/1.1 'EB Garamond', serif; letter-spacing: -.02em; }
-.media-page-title span, .media-page-heading > p:last-child { color: #8f9098; font-size: 13px; line-height: 1.8; }
+.media-page-title span { color: #8f9098; font-size: 13px; line-height: 1.8; }
 .media-filter-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 0; margin-bottom: 1.75rem; border-block: 1px solid #45464d; }
 .media-filters { display: flex; flex-wrap: wrap; gap: .5rem; }
 .media-filters button { min-height: 44px; padding: .5rem .75rem; background: #1b1c1e; color: #c6c6ce; font: 12px/1.5 'Noto Sans KR', sans-serif; }

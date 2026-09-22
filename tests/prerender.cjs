@@ -45,6 +45,15 @@ module.exports = async ({ browser, base }) => {
       }
       // Published dates must not re-open expired pickups during a data outage.
       if (javascript) {
+        await page.clock.setFixedTime(new Date('2026-10-20T14:59:59Z'));
+        await page.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded' });
+        await page.evaluate(() => SiteCatalog.ready);
+        assert.equal(await page.locator('#home-shows a').count(), 2);
+        await page.clock.setFixedTime(new Date('2026-10-20T15:00:00Z'));
+        await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+        assert.equal(await page.locator('#home-shows a').count(), 1);
+        assert.equal(await page.locator('#home-shows .home-show').count(), 2, 'Closed pickups remain upcoming shows');
+        assert.match(await page.locator('#home-shows .home-show').first().innerText(), /픽업 마감/);
         await page.clock.setFixedTime(new Date('2030-01-01T00:00:00Z'));
         await page.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded' });
         await page.evaluate(() => SiteCatalog.ready);

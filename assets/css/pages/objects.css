@@ -1,13 +1,15 @@
 @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } }
-.product-photo { display: block; }
-.product-photo img { display: block; width: 100%; height: auto; }
-.product-photo-main { background: #fff; }
-.product-details { padding: 0 1.5rem 1.5rem; }
-.product-details summary { min-height: 44px; padding-block: .75rem; border-top: 1px solid #45464b; color: #bbc6e6; font-size: .875rem; cursor: pointer; }
-.product-photo-hint { margin-block: .5rem 1rem; color: #c6c6cd; font-size: .75rem; line-height: 1.8; }
-.product-detail-images { display: grid; gap: 1.5rem; }
-.product-detail-images figure { margin: 0; }
-.product-detail-images figcaption { padding-top: .5rem; color: #c6c6cd; font-size: .75rem; line-height: 1.8; }
+#catalog-grid { align-items: start; }
+.product-size-guide { min-width: 0; padding: 0 1rem 1rem; }
+.product-size-guide summary { min-height: 44px; padding-block: .75rem; border-top: 1px solid #45464d; color: #bbc6e6; font-size: .875rem; cursor: pointer; }
+.product-size-guide summary:focus-visible { outline: 2px solid #bbc6e6; outline-offset: 2px; }
+.product-size-guide table { width: 100%; table-layout: fixed; border-collapse: collapse; color: #e3e2e4; font-size: .75rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.product-size-guide caption { padding-bottom: .5rem; color: #8f9098; text-align: right; }
+.product-size-guide th, .product-size-guide td { padding: .625rem .2rem; border-bottom: 1px solid #45464d80; text-align: center; }
+.product-size-guide th { font-weight: 500; }
+.product-size-guide th:first-child { width: 30%; text-align: left; overflow-wrap: anywhere; }
+.product-size-guide thead { background: #292a2c; color: #bbc6e6; }
+#pickup-application-form label[hidden] { display: none; }
 .concert-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #1f2022; cursor: pointer; }
 .concert-row input { flex-shrink: 0; accent-color: #bbc6e6; }
 .concert-description { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: .25rem; }
@@ -16,13 +18,17 @@
 .concert-date { color: #bbc6e6; }
 .concert-closed { opacity: .5; cursor: default; }
 .concert-status { flex-shrink: 0; }
-.pickup-instructions { border-top: 1px solid #45464b; padding-top: 1.5rem; }
-.pickup-steps { list-style: decimal-leading-zero outside; margin: 1rem 0 0; padding-left: 2rem; }
+.pickup-help { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.pickup-help-copy { flex: 1 1 24rem; }
+.pickup-help button { max-width: 100%; white-space: normal; }
+.pickup-instructions { width: 100%; border-top: 1px solid #45464b; padding-top: 1.5rem; }
+.pickup-steps { list-style: decimal-leading-zero outside; margin: 1rem 0 0; padding-left: clamp(1.5rem, 4vw, 2rem); }
 .pickup-steps li { padding: 1rem 0 1rem .5rem; border-bottom: 1px solid #45464b; }
 .pickup-steps li:last-child { border-bottom: 0; padding-bottom: 0; }
 .pickup-steps li::marker { color: #bbc6e6; font: 13px/1.6 'JetBrains Mono', monospace; }
 .pickup-steps h5 { color: #e3e2e5; font-size: 1rem; font-weight: 600; line-height: 1.6; }
-.pickup-steps p { max-width: 70ch; margin-top: .5rem; color: #c6c6cd; font-size: .875rem; line-height: 1.85; overflow-wrap: anywhere; }
+.pickup-steps p { margin-top: .5rem; color: #c6c6cd; font-size: .875rem; line-height: 1.85; }
+#pickup-instructions :is(h4, h5, p), .pickup-help p { max-width: none; white-space: normal; word-break: normal; overflow-wrap: break-word; text-wrap: wrap; }
 #reservation-tray { padding-bottom: env(safe-area-inset-bottom); }
 #reservation-tray > div > div:last-child { flex-wrap: wrap; }
 #reservation-tray button { min-height: 44px; }

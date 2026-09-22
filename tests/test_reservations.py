@@ -28,31 +28,39 @@ def request_data(**changes):
 class ReservationChecks(unittest.TestCase):
     def setUp(self):
         self.published_catalog = CATALOG_PATH.read_text(encoding='utf-8')
-        catalog = json.loads(self.published_catalog)
-        # Options are simulated without publishing unconfirmed product details.
-        catalog['products'][0]['sizes'] = ['S', 'M', 'L', 'XL']
-        catalog['products'].append({'id': 'test-no-options', 'name': 'Test item', 'price': 14000, 'sizes': []})
         catalog_patch = patch('reservation_service.CATALOG_PATH')
         mocked_path = catalog_patch.start()
         self.addCleanup(catalog_patch.stop)
-        mocked_path.read_text.return_value = json.dumps(catalog)
+        mocked_path.read_text.return_value = self.published_catalog
         self.mocked_path = mocked_path
 
-    def test_seoul_midnight_deadline(self):
-        data = request_data(showId='bbang')
-        validate_reservation(data, datetime.fromisoformat('2026-09-19T14:59:59+00:00'))
-        with self.assertRaises(ReservationError) as error:
-            validate_reservation(data, datetime.fromisoformat('2026-09-19T15:00:00+00:00'))
-        self.assertEqual(error.exception.status, 409)
+    def test_three_day_deadline_at_seoul_midnight(self):
+        # Include month, year and leap-year boundaries; D-3 is inclusive.
+        for show_day, last_day in [('2026-09-19', '2026-09-16'), ('2027-01-02', '2026-12-30'),
+                                   ('2027-03-01', '2027-02-26'), ('2028-03-01', '2028-02-27')]:
+            with self.subTest(show=show_day):
+                catalog = json.loads(self.published_catalog)
+                catalog['shows'][0]['date'] = show_day
+                self.mocked_path.read_text.return_value = json.dumps(catalog)
+                data = request_data(showId='bbang')
+                validate_reservation(data, datetime.fromisoformat(f'{last_day}T14:59:59+00:00'))
+                for closed in [f'{last_day}T15:00:00+00:00', f'{show_day}T00:00:00+09:00']:
+                    with self.assertRaises(ReservationError) as error:
+                        validate_reservation(data, datetime.fromisoformat(closed))
+                    self.assertEqual(error.exception.status, 409)
+                    self.assertEqual(error.exception.code, 'validation.show')
 
     def test_published_pickup_availability(self):
         self.mocked_path.read_text.return_value = self.published_catalog
-        items = [{'productId': 'logo-t-shirt', 'size': '', 'quantity': 1}]
+        items = [{'productId': 'logo-t-shirt', 'size': 'M', 'quantity': 1}]
         for show_id in ['bbang-oct23', 'sound-crue']:
-            with self.subTest(show=show_id):
-                clean = validate_reservation(request_data(showId=show_id, items=items), NOW)
-                self.assertEqual(clean['show']['id'], show_id)
-                self.assertEqual(clean['total'], 25000)
+            for size in ['XS', 'S', 'M', 'L', 'XL']:
+                with self.subTest(show=show_id, size=size):
+                    sized_items = [{'productId': 'logo-t-shirt', 'size': size, 'quantity': 1}]
+                    clean = validate_reservation(request_data(showId=show_id, items=sized_items), NOW)
+                    self.assertEqual(clean['show']['id'], show_id)
+                    self.assertEqual(clean['total'], 25000)
+                    self.assertIn(f'사이즈 {size} × 1', reservation_body(clean))
         for show_id in ['bbang', 'missing-show', 'channel1969', 'ovantgarde']:
             with self.subTest(show=show_id), self.assertRaises(ReservationError) as error:
                 validate_reservation(request_data(showId=show_id, items=items), NOW)
@@ -77,7 +85,9 @@ class ReservationChecks(unittest.TestCase):
         for item in [
             {'productId': 'logo-t-shirt', 'size': '', 'quantity': 1},
             {'productId': 'logo-t-shirt', 'size': 'XXL', 'quantity': 1},
-            {'productId': 'test-no-options', 'size': 'M', 'quantity': 1},
+            {'productId': 'flower-keyring', 'size': 'M', 'quantity': 1},
+            {'productId': 'slogan-towel', 'size': 'M', 'quantity': 1},
+            {'productId': 'sticker-sheet', 'size': 'M', 'quantity': 1},
             {'productId': 'missing-product', 'size': '', 'quantity': 1},
             {'productId': 'orbit-tee', 'size': 'M', 'quantity': 1},
             {'productId': 'signal-keyring', 'size': '', 'quantity': 1},
@@ -97,8 +107,26 @@ class ReservationChecks(unittest.TestCase):
         self.assertEqual(len(clean['items']), 1)
 
     def test_non_apparel_and_contact_validation(self):
-        clean = validate_reservation(request_data(items=[{'productId': 'test-no-options', 'size': '', 'quantity': 1}]), NOW)
-        self.assertEqual(clean['total'], 14000)
+        for product_id, name, price in [
+            ('flower-keyring', 'sakarin cosmos flower keyring', 8000),
+            ('slogan-towel', 'sakarin cosmos slogan towel', 15000),
+            ('sticker-sheet', 'sakarin cosmos sticker sheet', 3500),
+        ]:
+            with self.subTest(product=product_id):
+                clean = validate_reservation(request_data(items=[{'productId': product_id, 'size': '', 'quantity': 1, 'price': 1}]), NOW)
+                self.assertEqual(clean['total'], price)
+                self.assertIn(f'{name} × 1 · ₩{price:,}', reservation_body(clean))
+        mixed = validate_reservation(request_data(items=[
+            {'productId': 'logo-t-shirt', 'size': 'XS', 'quantity': 1},
+            {'productId': 'flower-keyring', 'size': '', 'quantity': 2, 'price': 1},
+            {'productId': 'slogan-towel', 'size': '', 'quantity': 1, 'price': 1},
+            {'productId': 'sticker-sheet', 'size': '', 'quantity': 2, 'price': 1},
+        ]), NOW)
+        self.assertEqual(mixed['total'], 63000)
+        self.assertEqual(mixed['quantity'], 6)
+        self.assertIn('sakarin cosmos flower keyring × 2 · ₩16,000', reservation_body(mixed))
+        self.assertIn('sakarin cosmos slogan towel × 1 · ₩15,000', reservation_body(mixed))
+        self.assertIn('sakarin cosmos sticker sheet × 2 · ₩7,000', reservation_body(mixed))
         for changes in [{'privacy': ''}, {'email': 'invalid'}, {'items': []}, {'name': 'hello\nInjected'}, {'items': [{}]}]:
             with self.subTest(changes=changes), self.assertRaises(ReservationError):
                 validate_reservation(request_data(**changes), NOW)

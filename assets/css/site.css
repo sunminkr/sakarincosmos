@@ -115,6 +115,16 @@ button:disabled { cursor: not-allowed; opacity: .45; }
 html[lang="ko"] :is(p, label, h1, h2, h3, span, dd) { word-break: keep-all; overflow-wrap: anywhere; }
 main h1 > span { display: inline-block; }
 html[lang="ja"] body { font-family: 'Noto Sans JP', sans-serif; }
+/* Match the Archive/Transmissions description without changing the title. */
+.page-heading-description {
+  font-family: 'Noto Sans', 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: #8F9098;
+  letter-spacing: normal;
+}
+html[lang="ja"] .page-heading-description { font-family: 'Noto Sans JP', sans-serif; }
 .band-tagline { font: 400 clamp(28px, 5vw, 52px)/1.4 'EB Garamond', 'Noto Sans KR', 'Noto Sans JP', serif; }
 .band-bio { line-height: 2; max-width: 70ch; }
 #about, .band-info-anchor { scroll-margin-top: 4rem; }

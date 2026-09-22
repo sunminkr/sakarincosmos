@@ -1,7 +1,7 @@
 """Canonical pickup validation shared by single and batch requests."""
 import json
 import re
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -21,9 +21,9 @@ def validate_reservation(data, now=None):
     if not isinstance(data, dict):
         raise ReservationError('요청 형식이 올바르지 않습니다.', code='request.invalid')
     catalog = json.loads(CATALOG_PATH.read_text(encoding='utf-8'))
-    current_day = (now or datetime.now(SEOUL)).astimezone(SEOUL).date().isoformat()
+    current_day = (now or datetime.now(SEOUL)).astimezone(SEOUL).date()
     show = next((show for show in catalog['shows'] if show['id'] == data.get('showId')), None)
-    if not show or not show['pickup'] or show['date'] < current_day:
+    if not show or not show['pickup'] or current_day > date.fromisoformat(show['date']) - timedelta(days=3):
         raise ReservationError('선택한 공연은 픽업 신청이 마감되었거나 신청할 수 없습니다. 다른 공연을 선택해 주세요.', 409, code='validation.show')
 
     clean = {}

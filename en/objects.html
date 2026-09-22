@@ -5,29 +5,31 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="web_standard" name="shell-type"/>
 <title>Objects — Sakarin Cosmos</title>
-<meta name="description" content="Browse the Sakarin Cosmos logo T-shirt and request pickup at a live show." data-i18n-content="meta.objects.description">
+<meta name="description" content="Browse the Sakarin Cosmos logo T-shirt, flower keyring, slogan towel and sticker sheet, and request pickup at a live show." data-i18n-content="meta.objects.description">
 <meta name="theme-color" content="#0d0e10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans:wght@300;400;500&amp;family=Noto+Sans+KR:wght@300;400;500&amp;family=Noto+Sans+JP:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/site.css?v=412fde677c7a">
+<link rel="stylesheet" href="../assets/css/product-gallery.css">
 <noscript><link rel="stylesheet" href="../assets/css/no-script.css"></noscript>
 <link rel="stylesheet" href="../assets/css/pages/objects.css">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
 </script>
 <script src="../assets/js/theme.js">
 </script>
-<script src="../locales/ko.js" defer>
+<script src="../locales/ko.js?v=f1becdcf27b5" defer>
 </script>
-<script src="../locales/en.js" defer>
+<script src="../locales/en.js?v=05734da459d5" defer>
 </script>
-<script src="../locales/ja.js" defer>
+<script src="../locales/ja.js?v=ea7856cec8ef" defer>
 </script>
 <script src="../assets/js/i18n.js" defer>
 </script>
 <script src="../assets/js/site.js" defer>
 </script>
+<script src="../assets/js/product-gallery.js" defer></script>
 <script src="../assets/js/catalog.js" defer></script>
 <script src="../assets/js/dialog.js" defer></script>
 <script src="../assets/js/cart-store.js" defer>
@@ -70,8 +72,9 @@
 </div>
 <div class="flex items-baseline gap-space-md">
 <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight" data-i18n="nav.objects">OBJECTS</h1>
-<span class="font-headline-sm text-headline-sm text-outline font-normal" data-i18n="objects.subtitle">Merchandise</span>
+<span class="page-heading-description" data-i18n="objects.subtitle">Merchandise</span>
 </div>
+<p class="font-serif italic text-xl text-muted mt-3" data-i18n="objects.tagline">small things that carry a little of the night.</p>
 </div>
 <div class="flex flex-col md:items-end">
 <span id="pickup-status" class="font-label-code text-label-code text-primary" role="status" data-i18n="status.checking">STATUS: CHECKING PICKUP</span>
@@ -116,8 +119,11 @@
 <section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-sm bg-surface">
 <div class="flex items-center justify-between gap-space-md overflow-x-auto pb-space-xs border-b border-outline-variant/20 no-scrollbar">
 <div class="flex items-center gap-space-xs min-w-max font-label-catalog text-label-catalog" data-filter-bar>
-<button class="filter-btn px-3 py-1.5 bg-on-surface text-surface uppercase tracking-wider transition-colors" data-category="all" type="button" data-i18n="objects.all">ALL [1]</button>
+<button class="filter-btn px-3 py-1.5 bg-on-surface text-surface uppercase tracking-wider transition-colors" data-category="all" type="button" data-i18n="objects.all">ALL [4]</button>
 <button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="tshirt" type="button" data-i18n="objects.tshirts">T-SHIRT [1]</button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="keyring" type="button" data-i18n="objects.keyrings">KEYRING [1]</button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="towel" type="button" data-i18n="objects.towels">TOWEL [1]</button>
+<button class="filter-btn px-3 py-1.5 bg-surface-container-low text-outline hover:text-on-surface uppercase tracking-wider transition-colors" data-category="sticker" type="button" data-i18n="objects.stickers">STICKER [1]</button>
 </div>
 <div class="hidden md:flex items-center gap-space-sm font-label-micro text-label-micro text-outline">
 <span>INVENTORY PROTOCOL: KOREA INDEPENDENT LEDGER</span>
@@ -128,10 +134,25 @@
 <section class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-md bg-surface">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md" id="catalog-grid">
 <article id="logo-t-shirt" class="catalog-item bg-surface-container-low flex flex-col" data-item-category="tshirt">
-<a class="product-photo product-photo-main" href="../assets/images/products/sakarin-cosmos-logo-t-shirt/front.png" target="_blank" rel="noopener noreferrer">
-<img src="../assets/images/products/sakarin-cosmos-logo-t-shirt/front.png" width="1222" height="1287" alt="Sakarin Cosmos logo T-shirt, front view" data-i18n-alt="objects.photos.front" loading="lazy" decoding="async">
+<div class="product-gallery" data-product-gallery role="group" aria-label="T-shirt photos" data-i18n-label="objects.photos.gallery">
+<div class="product-gallery-track" tabindex="0" role="group" aria-label="T-shirt photos" data-i18n-label="objects.photos.gallery">
+<a class="product-gallery-slide" href="../assets/images/products/sakarin-cosmos-logo-t-shirt/front.png" target="_blank" rel="noopener noreferrer">
+<img src="../assets/images/products/sakarin-cosmos-logo-t-shirt/front.png" width="1222" height="1287" alt="Sakarin Cosmos logo T-shirt, front view" data-i18n-alt="objects.photos.front" loading="lazy" decoding="async" draggable="false">
 </a>
-<div class="p-space-md flex flex-col flex-grow justify-between gap-space-md">
+<a class="product-gallery-slide" href="../assets/images/products/sakarin-cosmos-logo-t-shirt/logo-detail.png" target="_blank" rel="noopener noreferrer">
+<img src="../assets/images/products/sakarin-cosmos-logo-t-shirt/logo-detail.png" width="1087" height="1447" alt="Logo print detail" data-i18n-alt="objects.photos.logo" loading="lazy" decoding="async" draggable="false">
+</a>
+<a class="product-gallery-slide" href="../assets/images/products/sakarin-cosmos-logo-t-shirt/worn.png" target="_blank" rel="noopener noreferrer">
+<img src="../assets/images/products/sakarin-cosmos-logo-t-shirt/worn.png" width="1024" height="1536" alt="T-shirt worn" data-i18n-alt="objects.photos.worn" loading="lazy" decoding="async" draggable="false">
+</a>
+</div>
+<div class="product-gallery-controls" hidden>
+<button type="button" data-gallery-previous aria-label="Previous photo" data-i18n-label="objects.photos.previous"><span aria-hidden="true">←</span></button>
+<p class="product-gallery-status" aria-live="polite" aria-atomic="true"><span data-gallery-count>1 / 3</span><span data-gallery-caption></span></p>
+<button type="button" data-gallery-next aria-label="Next photo" data-i18n-label="objects.photos.next"><span aria-hidden="true">→</span></button>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
 <div class="flex flex-wrap items-baseline justify-between gap-space-xs">
 <h2 class="font-headline-sm text-headline-sm text-on-surface break-words">sakarin cosmos logo t-shirt</h2>
 <span class="font-label-code text-label-code text-primary shrink-0">₩25,000</span>
@@ -147,24 +168,99 @@
 </button>
 </div>
 </div>
-<details class="product-details">
-<summary data-i18n="objects.photos.details">Detail photos</summary>
-<p class="product-photo-hint" data-i18n="objects.photos.hint">Select a photo to view the full-size original.</p>
-<div class="product-detail-images">
-<figure>
-<a class="product-photo" href="../assets/images/products/sakarin-cosmos-logo-t-shirt/logo-detail.png" target="_blank" rel="noopener noreferrer">
-<img src="../assets/images/products/sakarin-cosmos-logo-t-shirt/logo-detail.png" width="1087" height="1447" alt="Logo print detail" data-i18n-alt="objects.photos.logo" loading="lazy" decoding="async">
-</a>
-<figcaption data-i18n="objects.photos.logo">Logo print detail</figcaption>
-</figure>
-<figure>
-<a class="product-photo" href="../assets/images/products/sakarin-cosmos-logo-t-shirt/worn.png" target="_blank" rel="noopener noreferrer">
-<img src="../assets/images/products/sakarin-cosmos-logo-t-shirt/worn.png" width="1024" height="1536" alt="T-shirt worn" data-i18n-alt="objects.photos.worn" loading="lazy" decoding="async">
-</a>
-<figcaption data-i18n="objects.photos.worn">T-shirt worn</figcaption>
-</figure>
-</div>
+<details class="product-size-guide">
+<summary data-i18n="objects.sizeGuide.title">Size guide</summary>
+<table>
+<caption data-i18n="objects.sizeGuide.unit">Measurements in cm</caption>
+<thead><tr><th scope="col" data-i18n="size.label">Size</th><th scope="col">XS</th><th scope="col">S</th><th scope="col">M</th><th scope="col">L</th><th scope="col">XL</th></tr></thead>
+<tbody>
+<tr><th scope="row" data-i18n="objects.sizeGuide.length">Length</th><td>64</td><td>67</td><td>71</td><td>74</td><td>76</td></tr>
+<tr><th scope="row" data-i18n="objects.sizeGuide.shoulder">Shoulder width</th><td>50</td><td>52</td><td>54</td><td>57</td><td>58</td></tr>
+<tr><th scope="row" data-i18n="objects.sizeGuide.chest">Chest width</th><td>52</td><td>55</td><td>58</td><td>61</td><td>64</td></tr>
+<tr><th scope="row" data-i18n="objects.sizeGuide.armhole">Armhole</th><td>23</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+<tr><th scope="row" data-i18n="objects.sizeGuide.sleeve">Sleeve length</th><td>20</td><td>21</td><td>21</td><td>22</td><td>23</td></tr>
+</tbody>
+</table>
 </details>
+</article>
+<article id="flower-keyring" class="catalog-item bg-surface-container-low flex flex-col" data-item-category="keyring">
+<a class="product-still-photo" href="../assets/images/products/sakarin-cosmos-flower-keyring/front.png" target="_blank" rel="noopener noreferrer">
+<img src="../assets/images/products/sakarin-cosmos-flower-keyring/front.png" width="1274" height="1234" alt="Sakarin Cosmos flower keyring" data-i18n-alt="objects.keyring.photo" loading="lazy" decoding="async">
+</a>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-baseline justify-between gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface break-words">sakarin cosmos flower keyring</h2>
+<span class="font-label-code text-label-code text-primary shrink-0">₩8,000</span>
+</div>
+<dl class="product-dimensions">
+<div><dt data-i18n="objects.keyring.body">Body size</dt><dd>44 × 44 mm</dd></div>
+<div><dt data-i18n="objects.keyring.height">Height including clasp</dt><dd>76 mm</dd></div>
+</dl>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span data-i18n="objects.pickupLabel">PICKUP: AVAILABLE SHOWS</span>
+<span class="text-primary font-medium" data-reserve-status data-i18n="status.checkingBadge">CHECKING PICKUP</span>
+</div>
+<button disabled class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-product-id="flower-keyring" type="button">
+<span>✦</span>
+<span data-i18n="objects.reserve">RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<article id="slogan-towel" class="catalog-item bg-surface-container-low flex flex-col" data-item-category="towel">
+<a class="product-still-photo" href="../assets/images/products/sakarin-cosmos-slogan-towel/front-back.png" target="_blank" rel="noopener noreferrer">
+<img src="../assets/images/products/sakarin-cosmos-slogan-towel/front-back.png" width="1983" height="793" alt="Sakarin Cosmos slogan towel, front and back" data-i18n-alt="objects.sloganTowel.photo" loading="lazy" decoding="async">
+</a>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-baseline justify-between gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface break-words">sakarin cosmos slogan towel</h2>
+<span class="font-label-code text-label-code text-primary shrink-0">₩15,000</span>
+</div>
+<dl class="product-dimensions">
+<div><dt data-i18n="objects.dimensions.widthHeight">Size (W × H)</dt><dd>100 × 20 cm</dd></div>
+</dl>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span data-i18n="objects.pickupLabel">PICKUP: AVAILABLE SHOWS</span>
+<span class="text-primary font-medium" data-reserve-status data-i18n="status.checkingBadge">CHECKING PICKUP</span>
+</div>
+<button disabled class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-product-id="slogan-towel" type="button">
+<span>✦</span>
+<span data-i18n="objects.reserve">RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
+</article>
+<article id="sticker-sheet" class="catalog-item bg-surface-container-low flex flex-col" data-item-category="sticker">
+<a class="product-still-photo" href="../assets/images/products/sakarin-cosmos-sticker-sheet/front.jpeg" target="_blank" rel="noopener noreferrer">
+<img src="../assets/images/products/sakarin-cosmos-sticker-sheet/front.jpeg" width="1055" height="1491" alt="Sakarin Cosmos A5 sticker sheet" data-i18n-alt="objects.stickerSheet.photo" loading="lazy" decoding="async">
+</a>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-baseline justify-between gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface break-words">sakarin cosmos sticker sheet</h2>
+<span class="font-label-code text-label-code text-primary shrink-0">₩3,500</span>
+</div>
+<dl class="product-dimensions">
+<div><dt data-i18n="objects.dimensions.format">Format</dt><dd>A5 (148 × 210 mm)</dd></div>
+</dl>
+</div>
+<div class="pt-space-xs flex flex-col gap-space-xs border-t border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-label-micro text-label-micro">
+<span data-i18n="objects.pickupLabel">PICKUP: AVAILABLE SHOWS</span>
+<span class="text-primary font-medium" data-reserve-status data-i18n="status.checkingBadge">CHECKING PICKUP</span>
+</div>
+<button disabled class="reserve-btn w-full py-2.5 bg-on-surface hover:bg-primary text-surface font-label-code text-label-code tracking-widest uppercase transition-colors flex items-center justify-center gap-2" data-product-id="sticker-sheet" type="button">
+<span>✦</span>
+<span data-i18n="objects.reserve">RESERVE FOR PICKUP</span>
+</button>
+</div>
+</div>
 </article>
 </div>
 </section>
@@ -177,7 +273,7 @@
 <span class="font-label-micro text-label-micro text-primary uppercase tracking-widest block">
             STAGE 2 / CONCERT DESTINATION REGISTRY
           </span>
-<h3 class="font-headline-md text-headline-md text-on-surface" data-i18n="objects.pickupHeading">Upcoming Pickup Shows</h3>
+<h3 class="font-headline-md text-headline-md text-on-surface" data-i18n="objects.pickupHeading">Upcoming Concerts for Pickup</h3>
 </div>
 <span class="font-label-code text-label-code text-outline" data-i18n="objects.hold">Collect confirmed reservations at the merchandise booth of your chosen show</span>
 </div>
@@ -187,8 +283,8 @@
 </div>
 <p id="pickup-availability" class="text-sm text-outline" role="status"></p>
 <!-- Protocol Notice Box -->
-<div class="p-space-md bg-surface-container-lowest flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
-<div class="flex items-start gap-space-sm">
+<div class="pickup-help p-space-md bg-surface-container-lowest">
+<div class="pickup-help-copy flex items-start gap-space-sm">
 <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">verified</span>
 <div class="flex flex-col">
 <p class="font-body-md text-body-md text-on-surface" data-i18n="objects.pickupHelp">After receiving your confirmation email, give your name and the last four digits of your mobile number at the merchandise booth on the day of the show.</p>

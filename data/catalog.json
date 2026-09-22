@@ -64,6 +64,24 @@
       "id": "logo-t-shirt",
       "name": "sakarin cosmos logo t-shirt",
       "price": 25000,
+      "sizes": ["XS", "S", "M", "L", "XL"]
+    },
+    {
+      "id": "flower-keyring",
+      "name": "sakarin cosmos flower keyring",
+      "price": 8000,
+      "sizes": []
+    },
+    {
+      "id": "slogan-towel",
+      "name": "sakarin cosmos slogan towel",
+      "price": 15000,
+      "sizes": []
+    },
+    {
+      "id": "sticker-sheet",
+      "name": "sakarin cosmos sticker sheet",
+      "price": 3500,
       "sizes": []
     }
   ]

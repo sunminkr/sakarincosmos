@@ -75,6 +75,7 @@
       other.classList.toggle('text-surface', active);
       other.classList.toggle('bg-surface-container-low', !active);
       other.classList.toggle('text-outline', !active);
+      other.classList.toggle('hover:text-on-surface', !active);
       other.setAttribute('aria-pressed', String(active));
     });
     document.querySelectorAll('.catalog-item').forEach(item => {

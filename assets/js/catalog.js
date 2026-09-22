@@ -7,10 +7,15 @@
     const part = name => parts.find(item => item.type === name).value;
     return `${part('year')}-${part('month')}-${part('day')}`;
   };
+  const pickupDeadline = show => {
+    const date = new Date(`${show.date}T00:00:00Z`);
+    date.setUTCDate(date.getUTCDate() - 3);
+    return date.toISOString().slice(0, 10);
+  };
   const catalog = window.SiteCatalog = {
-    shows: [], products: [], error: '', today,
+    shows: [], products: [], error: '', today, pickupDeadline,
     isPast: (show, now) => show.date < today(now),
-    canPickup: (show, now) => Boolean(show?.pickup && !catalog.isPast(show, now)),
+    canPickup: (show, now) => Boolean(show?.pickup && today(now) <= pickupDeadline(show)),
     availableShows: now => catalog.shows.filter(show => catalog.canPickup(show, now)),
     product: id => catalog.products.find(product => product.id === id),
     show: id => catalog.shows.find(show => show.id === id),

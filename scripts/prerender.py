@@ -3,7 +3,7 @@
 The generated cards contain text and source links; JavaScript adds the players.
 No network calls, external HTML, or runtime API are needed to read these records.
 """
-from datetime import datetime
+from datetime import datetime, timedelta
 from html import escape
 import re
 from urllib.parse import parse_qs, quote, urlsplit
@@ -96,8 +96,10 @@ def show_card(show, messages, today, timeline=False):
                 f'<div class="timeline-date"><time datetime="{date}">{date.replace("-", ".")}</time><span>{escape(status)}</span></div>'
                 f'<div><p class="font-mono text-[9px] text-muted">{city} · {escape(messages["shows.start"])} {starts}</p>'
                 f'<h3 class="font-serif text-2xl mt-1">{venue}</h3><p class="text-sm text-muted mt-1">{title}</p></div></article>')
+    deadline = (datetime.fromisoformat(show['date']).date() - timedelta(days=3)).isoformat()
+    closed_label = messages['pickup.closed'] if show.get('pickup') else messages['pickup.unknown']
     action = (f'<a href="objects.html?show={quote(show["id"], safe="")}#concert-selector-list">{escape(messages["pickup.link"])}</a>'
-              if show.get('pickup') else f'<span>{escape(messages["pickup.unknown"])}</span>')
+              if show.get('pickup') and today <= deadline else f'<span>{escape(closed_label)}</span>')
     start_label = escape(messages['shows.start']) + ' ' if show.get('startsAt') else ''
     return (f'<article class="home-show"><time datetime="{date}">{date.replace("-", ".")}</time>'
             f'<div><h3>{venue}</h3><p>{title} · {start_label}{starts}</p><p>{city}</p></div>{action}</article>')

@@ -1,0 +1,20 @@
+.product-gallery { min-width: 0; max-width: 100%; }
+.product-still-photo { display: block; background: #fff; }
+.product-still-photo img { display: block; width: 100%; height: auto; aspect-ratio: var(--product-photo-ratio, 1222 / 1287); object-fit: contain; }
+.product-dimensions { margin: 0; color: #c6c6ce; font-size: .75rem; line-height: 1.8; }
+.product-dimensions > div { display: flex; justify-content: space-between; flex-wrap: wrap; column-gap: .75rem; }
+.product-dimensions dd { margin: 0; color: #e3e2e4; white-space: nowrap; }
+.product-gallery-track { display: flex; width: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: thin; background: #fff; }
+.product-gallery[data-ready] .product-gallery-track { scrollbar-width: none; }
+.product-gallery[data-ready] .product-gallery-track::-webkit-scrollbar { display: none; }
+.product-gallery-slide { display: block; flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.product-gallery-slide img { display: block; width: 100%; height: auto; aspect-ratio: var(--product-photo-ratio, 1222 / 1287); object-fit: contain; }
+.product-gallery-controls { display: flex; align-items: center; gap: .5rem; padding: .5rem; background: #1b1c1e; border-bottom: 1px solid #45464d80; }
+.product-gallery-controls[hidden] { display: none; }
+.product-gallery-controls button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #45464d; background: #121315; color: #bbc6e6; font-size: 20px; cursor: pointer; }
+.product-gallery-controls button:hover:not(:disabled) { background: #292a2c; }
+.product-gallery-controls button:disabled { opacity: .3; cursor: default; }
+.product-gallery-status { flex: 1; min-width: 0; margin: 0; text-align: center; }
+[data-gallery-count] { display: block; color: #bbc6e6; font: 11px/1.5 'JetBrains Mono', monospace; }
+[data-gallery-caption] { display: block; margin-top: .15rem; color: #c6c6ce; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+.product-gallery :is(a, button, [tabindex]):focus-visible { outline: 2px solid #bbc6e6; outline-offset: -3px; }
